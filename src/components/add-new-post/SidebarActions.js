@@ -1,8 +1,22 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React from "react";
+import classNames from "classnames";
+
 import PropTypes from "prop-types";
+import  { Component } from 'react';
 import RangeDatePicker from "../common/RangeDatePicker";
+import   "../../assets/range-date-picker.css";
+
+
+import {
+  InputGroup,
+  DatePicker,
+  InputGroupAddon,
+  InputGroupText
+
+} from "shards-react";
+
 import CustomFileUpload from "../components-overview/CustomFileUpload";
 import {
   Card,
@@ -14,17 +28,70 @@ import {
   FormInput
 } from "shards-react";
 
-const SidebarActions = ({ title }) => (
-  <Card small className="mb-3">
+
+class SidebarActions extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      endDate:undefined
+    };
+
+    this.handleChandleEndDateChangehange = this.handleEndDateChange.bind(this);
+  }
+  handleEndDateChange(){
+    var a = 1
+  }
+
+  render(){
+    const classes = classNames( "d-flex", "my-auto", "date-range");
+    return( 
+    <Card small className="mb-3">
     {/* <CardHeader className="border-bottom">
       <h6 className="m-0">{title}</h6>
     </CardHeader> */}
 
     <CardBody className="p-0">
       <ListGroup flush>
+
+        
+
+
+
         <ListGroupItem className="p-3">
-          <label>召集时间</label>
-          <RangeDatePicker />
+          <label>召集时间????</label>
+
+
+          <InputGroup className={classes}>
+
+          <DatePicker
+          size="lg"
+          selected={this.state.endDate}
+          onChange={this.handleEndDateChange}
+          placeholderText="End Date"
+          dropdownMode="select"
+          className="text-center"
+        />
+        <InputGroupAddon type="append">
+          <InputGroupText>
+            <i className="material-icons">&#xE916;</i>
+          </InputGroupText>
+        </InputGroupAddon>
+      </InputGroup>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </ListGroupItem>
         <ListGroupItem className="p-3">
             <label>召集人数</label>
@@ -49,7 +116,9 @@ const SidebarActions = ({ title }) => (
       </ListGroup>
     </CardBody>
   </Card>
-);
+    )
+  }
+}
 
 SidebarActions.propTypes = {
   /**
