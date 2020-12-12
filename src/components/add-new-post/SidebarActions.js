@@ -29,17 +29,43 @@ import {
 } from "shards-react";
 
 
+var formatDate = function (date) {  
+  var y = date.getFullYear();  
+  var m = date.getMonth() + 1;  
+  m = m < 10 ? ('0' + m) : m;  
+  var d = date.getDate();  
+  d = d < 10 ? ('0' + d) : d;  
+  var h = date.getHours();  
+  var minute = date.getMinutes();  
+  minute = minute < 10 ? ('0' + minute) : minute; 
+  var second= date.getSeconds();  
+  second = minute < 10 ? ('0' + second) : second;  
+  return y + '-' + m + '-' + d+' '+h+':'+minute+':'+ second;  
+};  
+
 class SidebarActions extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      endDate:undefined
+      endDate:undefined,
+      formatedDate:undefined,
+      something:"aaaaa",
+      manNum:12
     };
+    this.handleNumChange = this.handleNumChange.bind(this);
 
-    this.handleChandleEndDateChangehange = this.handleEndDateChange.bind(this);
+    this.handleEndDateChange = this.handleEndDateChange.bind(this);
   }
-  handleEndDateChange(){
-    var a = 1
+
+  handleEndDateChange(value){
+    this.setState({ endDate: new Date(value),formatedDate: formatDate(value)})
+   
+  }
+
+  
+  handleNumChange(e){
+    this.setState({ manNum:e.target.value})
+   
   }
 
   render(){
@@ -52,10 +78,6 @@ class SidebarActions extends Component{
 
     <CardBody className="p-0">
       <ListGroup flush>
-
-        
-
-
 
         <ListGroupItem className="p-3">
           <label>召集时间????</label>
@@ -80,25 +102,13 @@ class SidebarActions extends Component{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         </ListGroupItem>
         <ListGroupItem className="p-3">
             <label>召集人数</label>
             <FormInput
                     id="feID"
-                    value="12"
-                    onChange={() => {}}
+                    value={this.state.manNum}
+                    onChange={this.handleNumChange}
             />
         </ListGroupItem>
         <ListGroupItem className="p-3">
@@ -109,7 +119,7 @@ class SidebarActions extends Component{
           <Button outline theme="accent" size="sm">
             <i className="material-icons">save</i> Save Draft
           </Button>
-          <Button theme="accent" size="sm" className="ml-auto">
+          <Button theme="accent" size="sm" className="ml-auto" onClick={this.props.onSubmit}>
             <i className="material-icons">file_copy</i> Publish
           </Button>
         </ListGroupItem>

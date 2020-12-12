@@ -17,8 +17,42 @@ import PageTitle from "../components/common/PageTitle";
 import PostList from "../components/my-post/PostList";
 
 class MyPosts extends React.Component {
+  state={
+    post:["xxx"]
+  }
   constructor(props) {
     super(props);
+    // this.setState({post:["xxx"]})
+    this.fetch_posts = this.fetch_posts.bind(this)
+  }
+
+  fetch_posts = ()=>{
+    fetch('http://127.0.0.1:5000/token'+"?user_id="+window.sessionStorage.getItem("user_id"), {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
+        'Content-Type': 'application/json',
+      },
+      })
+      .then(
+        res=>{
+          if(res.status==200){
+            return res.json()
+          }else{
+            alert("fail to get posts")
+          }
+        }
+      )
+      .then((res)=>{this.setState({post:res.data})
+      console.log(res.data)}
+      )
+
+
+  }
+  componentDidMount(){
+    this.fetch_posts()
   }
 
   render(){
@@ -30,7 +64,7 @@ class MyPosts extends React.Component {
         </Row>
         <Row>
           <Col lg="10" sm="12" className="">
-            <PostList />
+            <PostList posts={this.state.post}/>
           </Col>
           
         </Row>

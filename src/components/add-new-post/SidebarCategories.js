@@ -33,6 +33,7 @@ class SidebarCategories extends Component{
 
 
 
+    // "技术交流","学业探讨","社会实践","公益志愿","缘来如此"
 
   render(){
     return(  
@@ -62,12 +63,12 @@ class SidebarCategories extends Component{
               <FormCheckbox className="mb-1" value="writing"
               checked={this.props.type.gyzy}
               onChange={e => this.handleChange(e, "gyzy")}   >
-                公益志愿者
+                公益志愿
               </FormCheckbox>
               <FormCheckbox className="mb-1" value="books"
               checked={this.props.type.yw}
               onChange={e => this.handleChange(e, "yw")}   >
-                游玩
+                缘来如此
               </FormCheckbox>
             </ListGroupItem>
 

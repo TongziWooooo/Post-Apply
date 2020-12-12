@@ -13,6 +13,7 @@ import {
 class AddNewPost extends Component{
   constructor(props) {
     super(props);
+    alert(props.location.query.post_id)
     this.state = {
       value: '请撰写一篇关于你喜欢的 DOM 元素的文章.',
       title: "",

@@ -5,7 +5,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "shards-react";
-
+import Link  from "react-router-dom/Link";
 export default class PostListDropdown extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +26,11 @@ export default class PostListDropdown extends React.Component {
           <i className="material-icons" style={{"margin": "1px"}}>edit</i>
         </DropdownToggle>
         <DropdownMenu small right>
-          <DropdownItem>修改</DropdownItem>
+        <Link to={{
+        pathname: "/change-post",
+        query: {post_id: this.props.post_id}
+        }}>  <DropdownItem>修改</DropdownItem></Link>
+
           <DropdownItem>删除</DropdownItem>
           {/* <DropdownItem>Something else here</DropdownItem> */}
         </DropdownMenu>
