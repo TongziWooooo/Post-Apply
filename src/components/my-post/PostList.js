@@ -6,9 +6,7 @@ import {
   Row,
   Col,
   Badge,
-  Button,
-  ListGroupItemHeading,
-  ListGroupItemText
+  CardBody
  } from "shards-react";
 
  import PostListDropdown from "./PostListDropdown"

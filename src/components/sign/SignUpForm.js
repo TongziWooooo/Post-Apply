@@ -39,11 +39,20 @@ const SignUpForm = () => (
       <FormGroup>
         <FormInput placeholder="证件号码" required />
       </FormGroup>
-      <FormGroup>
-        <FormInput 
-          placeholder="城市，例：北京" 
-          required  />
-      </FormGroup>
+      <Row form>
+        <Col md="6" className="form-group">
+          <FormSelect>
+              <option>选择省份</option>
+              <option>...</option>
+          </FormSelect>
+        </Col>
+        <Col md="6" className="form-group">
+          <FormSelect>
+              <option>选择城市</option>
+              <option>...</option>
+          </FormSelect>
+        </Col>
+      </Row>
       <FormGroup>
         <FormInput 
           placeholder="手机号" 
@@ -54,7 +63,7 @@ const SignUpForm = () => (
       <FormGroup>
         <FormInput
           type="password"
-          placeholder="密码"
+          placeholder="密码，不少于6位，必须含有两个数字和大小写"
           onChange={() => {}}
           required 
           valid
