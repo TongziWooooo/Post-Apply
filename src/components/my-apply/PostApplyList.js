@@ -11,7 +11,46 @@ import {
  class PostApplyList extends React.Component {
   constructor(props) {
     super(props);
+    this.state={
+      applies : []
+    }
+    this.fetch_applies = this.fetch_applies.bind(this)
   }
+
+    fetch_applies = ()=>{
+    fetch('http://127.0.0.1:5000/token_reqs'+"?user_id="+window.sessionStorage.getItem("user_id"), {
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
+        'Content-Type': 'application/json',
+      },
+      })
+      .then(
+        res=>{
+          if(res.status==200){
+            return res.json()
+          }else{
+            alert("fail to get posts")
+          }
+        }
+      )
+      .then((res)=>{this.setState({applies:res.data})
+      console.log(res.data)}
+      )
+
+
+  }
+  componentDidMount(){
+    this.fetch_applies()
+  }
+
+
+ 
+
+
+
   render() {
     const posts = [
       {
@@ -42,19 +81,19 @@ import {
     return (
       <Card>
         <ListGroup>
-          {posts.map((post, idx) => (
+          {this.state.applies.map((apply, idx) => (
             <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
               <Row>
                 <Col className="">
-                  <div># {post.postID}</div>
+                  <div># {apply.req_id}</div>
                 </Col>
                 <Col className="col-6">
-                  <div>{post.title}</div>
+                  <div>{apply.token_name}</div>
                 </Col>
                 <Col className="col-1">
-                  {post.status === 0 ? <Badge ><span><i className="material-icons">message</i></span>{" "}申请中</Badge> :
-                    post.status === 1 ? <Badge theme="success"><span><i className="material-icons">check</i></span>{" "}成功</Badge> :
-                    post.status === 2 ? <Badge theme="danger"><span><i className="material-icons">clear</i></span>{" "}失败</Badge> :
+                  {apply.status === 0 ? <Badge ><span><i className="material-icons">message</i></span>{" "}申请中</Badge> :
+                    apply.status === 1 ? <Badge theme="success"><span><i className="material-icons">check</i></span>{" "}成功</Badge> :
+                    apply.status === 2 ? <Badge theme="danger"><span><i className="material-icons">clear</i></span>{" "}失败</Badge> :
                     <Badge theme="light"><span><i className="material-icons">unpublished</i></span>{" "}取消</Badge>
                     }
                   
