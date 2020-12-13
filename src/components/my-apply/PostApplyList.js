@@ -3,6 +3,7 @@ import {
   ListGroup, 
   ListGroupItem,
   Card,
+  CardBody,
   Row,
   Col,
   Badge,
@@ -41,29 +42,31 @@ import {
     ]
     return (
       <Card>
-        <ListGroup>
-          {posts.map((post, idx) => (
-            <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
-              <Row>
-                <Col className="col-3">
-                  <div># {post.postID}</div>
-                </Col>
-                <Col className="col-7">
-                  <div>{post.title}</div>
-                </Col>
-                <Col className="col-2">
-                  {post.status === 0 ? <Badge ><span><i className="material-icons">message</i></span>{" "}申请中</Badge> :
-                    post.status === 1 ? <Badge theme="success"><span><i className="material-icons">check</i></span>{" "}成功</Badge> :
-                    post.status === 2 ? <Badge theme="danger"><span><i className="material-icons">clear</i></span>{" "}失败</Badge> :
-                    <Badge theme="light"><span><i className="material-icons">unpublished</i></span>{" "}取消</Badge>
-                    }
-                  
-                </Col>
-              </Row>
-            </ListGroupItem>
-          ))
-          }
-        </ListGroup>
+        <CardBody className="p-0">
+          <ListGroup>
+            {posts.map((post, idx) => (
+              <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
+                <Row>
+                  <Col className="col-3">
+                    <div># {post.postID}</div>
+                  </Col>
+                  <Col className="col-7">
+                    <div>{post.title}</div>
+                  </Col>
+                  <Col className="col-2">
+                    {post.status === 0 ? <Badge ><span><i className="material-icons">message</i></span>{" "}申请中</Badge> :
+                      post.status === 1 ? <Badge theme="success"><span><i className="material-icons">check</i></span>{" "}成功</Badge> :
+                      post.status === 2 ? <Badge theme="danger"><span><i className="material-icons">clear</i></span>{" "}失败</Badge> :
+                      <Badge theme="light"><span><i className="material-icons">unpublished</i></span>{" "}取消</Badge>
+                      }
+                    
+                  </Col>
+                </Row>
+              </ListGroupItem>
+            ))
+            }
+          </ListGroup>
+        </CardBody>
       </Card>
     )
   }

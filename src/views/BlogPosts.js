@@ -7,9 +7,13 @@ import {
   Col,
   Card,
   CardBody,
-  CardFooter,
   Badge,
-  Button
+  Button,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  FormInput,
+  FormSelect
 } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
@@ -144,12 +148,46 @@ class BlogPosts extends React.Component {
 
     return (
       <Container fluid className="main-content-container px-4">
-        {/* Page Header */}
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="召集令" subtitle="You are wanted" className="text-sm-left" />
         </Row>
 
-        {/* First Row of Posts */}
+        <Row className="mb-4">
+          <Col>
+            <Card>
+              <CardBody className="p2-1">
+                <Row>
+                  <Col className="col-2">
+                    <FormSelect>
+                      <option selected>所有类别</option>
+                      <option value="1">技术交流</option>
+                      <option value="2">学业探讨</option>
+                      <option value="3">社会实践</option>
+                      <option value="4">公益志愿者</option>
+                      <option value="5">游玩</option>
+                    </FormSelect>
+                  </Col>
+                  <Col className="col-8">
+                  <InputGroup seamless className="ml-3">
+                    <InputGroupAddon type="prepend">
+                      <InputGroupText>
+                        <i className="material-icons">search</i>
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <FormInput
+                      className="navbar-search"
+                      placeholder="Search for something..."
+                    />
+                  </InputGroup>
+                  </Col>
+                  <Col className="col-2">
+                    <Button outline theme='secondary'>搜索</Button>
+                  </Col>
+                </Row>
+              </CardBody>
+            </Card>
+      </Col>
+        </Row>
         <Row>
           {this.state.posts.map((post, idx) => (
             <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>

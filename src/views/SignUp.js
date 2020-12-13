@@ -6,13 +6,7 @@ import {
   Row,
   Col,
   Card,
-  CardBody,
-  Badge,
-  Button,
   CardHeader,
-  ListGroup,
-  ListGroupItem,
-  Form,
 } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";

@@ -6,9 +6,7 @@ import {
   Row,
   Col,
   Badge,
-  Button,
-  ListGroupItemHeading,
-  ListGroupItemText
+  CardBody
  } from "shards-react";
 
  import PostListDropdown from "./PostListDropdown"
@@ -41,28 +39,30 @@ import {
     // ]
     return (
       <Card>
-        <ListGroup>
-          {this.props.posts.map((post, idx) => (
-            <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
-              <Row>
-                <Col className="">
-                  <div># {post.postID}</div>
-                </Col>
-                <Col className="col-6">
-                  <div>{post.title}</div>
-                  {/* <div>{post.description}</div> */}
-                </Col>
-                <Col className="col-1">
-                  <PostListDropdown post_id={post.postID}/>
-                </Col>
-                <Col className="col-1">
-                  {post.messages === 0 ? <Badge pill style={{"visibility": "hidden"}}>{post.messages}</Badge> : <Badge pill>{post.messages}</Badge>}
-                </Col>              
-              </Row>
-            </ListGroupItem>
-          ))
-          }
-        </ListGroup>
+        <CardBody className="p-0">
+          <ListGroup>
+            {this.props.posts.map((post, idx) => (
+              <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
+                <Row>
+                  <Col className="">
+                    <div># {post.postID}</div>
+                  </Col>
+                  <Col className="col-6">
+                    <div>{post.title}</div>
+                    {/* <div>{post.description}</div> */}
+                  </Col>
+                  <Col className="col-1">
+                    <PostListDropdown post_id={post.postID}/>
+                  </Col>
+                  <Col className="col-1">
+                    {post.messages === 0 ? <Badge pill style={{"visibility": "hidden"}}>{post.messages}</Badge> : <Badge pill>{post.messages}</Badge>}
+                  </Col>              
+                </Row>
+              </ListGroupItem>
+            ))
+            }
+          </ListGroup>
+        </CardBody>
       </Card>
     )
   }
