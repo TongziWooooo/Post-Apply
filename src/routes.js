@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 
 // Layout Types
 import { DefaultLayout } from "./layouts";
+import { NoBarLayout } from "./layouts";
 
 // Route Views
 import BlogOverview from "./views/BlogOverview";
@@ -17,6 +18,8 @@ import ApplyView from "./views/ApplyView";
 import MyPosts from "./views/MyPosts";
 import MyApply from "./views/MyApply";
 import ManagePost from "./views/ManagePost";
+import SignUp from "./views/SignUp";
+import SignIn from "./views/SignIn";
 
 export default [
   {
@@ -86,6 +89,16 @@ export default [
     path: "/manage-post",
     layout: DefaultLayout,
     component: ManagePost
+  },
+  {
+    path: "/sign-up",
+    layout: NoBarLayout,
+    component: SignUp
+  },
+  {
+    path: "/sign-in",
+    layout: NoBarLayout,
+    component: SignIn
   }
   
 ];
