@@ -12,11 +12,16 @@ import {
   Button,
   Progress
 } from "shards-react";
+import {Link} from "react-router-dom";
 
 class PostDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.post
+  }
+
+  componentDidMount() {
+    this.setState({edit: this.props.edit})
   }
 
   render(){
@@ -58,6 +63,20 @@ class PostDetail extends React.Component {
           className="mb-3"
           value={(this.state.people_approved / this.state.people_total)*100}
         />
+          {this.state.edit === true ?
+            <Row>
+              <Col className="col-md-2 offset-md-10">
+                <Link to={{
+                  pathname: "/change-post",
+                  state: {postID: this.props.post.postID}
+                }}>
+                  <Button>Edit</Button>
+                </Link>
+              </Col>
+            </Row>
+            :
+            null
+          }
         </CardBody>
       </Card>
 

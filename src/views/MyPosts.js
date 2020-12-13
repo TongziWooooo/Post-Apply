@@ -64,9 +64,9 @@ class MyPosts extends React.Component {
         </Row>
         <Row>
           <Col lg="10" sm="12" className="">
-            <PostList posts={this.state.post}/>
+            <PostList posts={this.state.post} edit={true}/>
           </Col>
-          
+
         </Row>
       </Container>
     )

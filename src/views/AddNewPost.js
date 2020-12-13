@@ -46,7 +46,7 @@ class AddNewPost extends Component{
 
   handleTitleChange(event){
     this.setState({title:event.target.value}
-      )
+    )
   }
 
   handleSubmit(event) {
@@ -79,17 +79,20 @@ class AddNewPost extends Component{
         "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
         'Content-Type': 'application/json',
       },
-  body: JSON.stringify({
-    "token_type": temp,
-    "token_name": this.state.title,
-    "desc":this.state.value,
-    "user_id":window.sessionStorage.getItem("user_id"),
-    "max_num":this.state.max_num,
-    "end_time":this.state.formated_end_data
-  })
-})
+      body: JSON.stringify({
+        "token_type": temp,
+        "token_name": this.state.title,
+        "desc":this.state.value,
+        "user_id":window.sessionStorage.getItem("user_id"),
+        "max_num":this.state.max_num,
+        "end_time":this.state.formated_end_data
+      })
+    })
 
-    
+    this.props.history.push({
+      pathname: "/manage-post",
+      state: {postID: 123}
+    })
 
   }
   handleContents(content_value){
@@ -106,8 +109,8 @@ class AddNewPost extends Component{
     this.setState({
       end_time:new Date(time ),
       formated_end_data:fmt
-       })
-    }
+    })
+  }
   handleActionNumChange(num){
     console.log(num)
     this.setState({max_num:num})
@@ -135,25 +138,25 @@ class AddNewPost extends Component{
         // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
         'Content-Type': 'application/json',
       },
-  body: JSON.stringify({
-    "username": "xxx",
-    "password": "xx",
-  })
-}).then(res => { if(res.status===200) return res.json()})
-.then(res =>{         //ref
+      body: JSON.stringify({
+        "username": "xxx",
+        "password": "xx",
+      })
+    }).then(res => { if(res.status===200) return res.json()})
+      .then(res =>{         //ref
 
-  console.log(res["data"])
-  window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
-  window.sessionStorage.setItem("user_id",res["data"]["user_id"])
-  window.sessionStorage.setItem("user_name","xxx")
-  }
-)
+          console.log(res["data"])
+          window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
+          window.sessionStorage.setItem("user_id",res["data"]["user_id"])
+          window.sessionStorage.setItem("user_name","xxx")
+        }
+      )
   }
 // .then(
 //   (res)=>{
 //     if(res.status===200){
 //       console.log(res.text())
-  
+
 //       // window.sessionStorage.setItem("Authorization", Response.body.))
 //   }
 // }
@@ -162,9 +165,9 @@ class AddNewPost extends Component{
 
 
 
-  // 
+  //
 
-  
+
   printSession(){
     console.log(window.sessionStorage.getItem('Authorization'))
     fetch('http://127.0.0.1:5000/session', {
@@ -175,29 +178,29 @@ class AddNewPost extends Component{
         'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },
-  body: JSON.stringify({
-    "username": "xxx",
-    "password": "xx",
-  })
-})
+      body: JSON.stringify({
+        "username": "xxx",
+        "password": "xx",
+      })
+    })
 
   }
 
   render(){
     return(
-    <Container fluid className="main-content-container px-4 pb-4">
+      <Container fluid className="main-content-container px-4 pb-4">
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
-          <PageTitle sm="4" title="Add New Post" 
-          className="text-sm-left"  />
+          <PageTitle sm="4" title="Add New Post"
+                     className="text-sm-left"  />
         </Row>
 
         <Row>
           {/* Editor */}
           <Col lg="9" md="12">
-            <Editor value={this.state.value} title={this.state.title} 
-            handleContent={this.handleContents} 
-            handleTitle={this.handleTitleChange}
+            <Editor value={this.state.value} title={this.state.title}
+                    handleContent={this.handleContents}
+                    handleTitle={this.handleTitleChange}
             />
           </Col>
 
@@ -205,12 +208,12 @@ class AddNewPost extends Component{
           <Col lg="3" md="12">
             <SidebarCategories type={this.state.type} handleTypeChange={this.handleTypeChange} />
             <SidebarActions date={this.state.end_time} num={this.state.max_num}
-            handleActionNumChange={this.handleActionNumChange} 
-            handleActionDateChange={this.handleActionDateChange}
-            onSubmit={this.handleSubmit}/>
+                            handleActionNumChange={this.handleActionNumChange}
+                            handleActionDateChange={this.handleActionDateChange}
+                            onSubmit={this.handleSubmit}/>
 
-            <Button theme="accent" size="sm" className="ml-auto" onClick={this.login}>随便登录一下    </Button>   
-            <Button theme="accent" size="sm" className="ml-auto" onClick={this.printSession}>看一下session    </Button>   
+            <Button theme="accent" size="sm" className="ml-auto" onClick={this.login}>随便登录一下    </Button>
+            <Button theme="accent" size="sm" className="ml-auto" onClick={this.printSession}>看一下session    </Button>
 
           </Col>
         </Row>

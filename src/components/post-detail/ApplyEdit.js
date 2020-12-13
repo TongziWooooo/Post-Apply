@@ -12,24 +12,45 @@ import {
   ButtonGroup
 } from "shards-react";
 
-const ApplyEdit = ({ title }) => (
-  <Card small className="">
-    {/* Card Header */}
-    <CardHeader className="border-bottom">
-      <h6 className="m-0">查看接令</h6>
-    </CardHeader>
+class ApplyEdit extends React.Component {
+  constructor(props) {
+    super(props);
 
-    <CardBody className="d-flex flex-column">
-      <Form className="quick-post-form">
-        {/* Body */}
-        <FormGroup>
-          <FormTextarea disabled placeholder="Words can be like X-rays if you use them properly..." />
-        </FormGroup>
+    this.state = {
+      edit: false
+    }
 
-        {/* Create Draft */}
-        <FormGroup className="mb-0">
-        <ButtonGroup className="mb-3">
-        <Button theme="white">
+    this.toggleEdit = this.toggleEdit.bind(this);
+  }
+
+  toggleEdit() {
+    this.setState({edit: !this.state.edit})
+  }
+
+  render() {
+    return(
+      <Card small className="">
+        {/* Card Header */}
+        <CardHeader className="border-bottom">
+          <h6 className="m-0">查看接令</h6>
+        </CardHeader>
+
+        <CardBody className="d-flex flex-column">
+          <Form className="quick-post-form">
+            {/* Body */}
+            <FormGroup>
+              {
+                this.state.edit === false ?
+                  <FormTextarea disabled placeholder="Words can be like X-rays if you use them properly..." />
+                  :
+                  <FormTextarea placeholder="Words can be like X-rays if you use them properly..." />
+              }
+            </FormGroup>
+
+            {/* Create Draft */}
+            <FormGroup className="mb-0">
+              <ButtonGroup className="mb-3">
+                <Button theme="white" onClick={this.toggleEdit}>
                   <span className="text-info">
                     <i className="material-icons">edit</i>{" "}编辑
                   </span>
@@ -39,11 +60,13 @@ const ApplyEdit = ({ title }) => (
                     <i className="material-icons">clear</i>{" "}删除
                   </span>
                 </Button>
-        </ButtonGroup>
-        </FormGroup>
-      </Form>
-    </CardBody>
-  </Card>
-);
+              </ButtonGroup>
+            </FormGroup>
+          </Form>
+        </CardBody>
+      </Card>
+    )
+  }
+}
 
 export default ApplyEdit;

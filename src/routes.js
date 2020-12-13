@@ -28,7 +28,7 @@ export default [
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/blog-overview" />
+    component: () => <Redirect to="/blog-posts" />
   },
   {
     path: "/blog-overview",
@@ -112,5 +112,5 @@ export default [
     layout: DefaultLayout,
     component: UserSearch
   }
-  
+
 ];

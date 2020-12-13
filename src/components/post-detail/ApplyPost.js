@@ -10,41 +10,39 @@ import {
   FormTextarea,
   Button
 } from "shards-react";
+import {Link} from "react-router-dom";
 
-const ApplyPost = ({ title }) => (
-  <Card small className="">
-    {/* Card Header */}
-    <CardHeader className="border-bottom">
-      <h6 className="m-0">{title}</h6>
-    </CardHeader>
+class ApplyPost extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-    <CardBody className="d-flex flex-column">
-      <Form className="quick-post-form">
-        {/* Body */}
-        <FormGroup>
-          <FormTextarea placeholder="Words can be like X-rays if you use them properly..." />
-        </FormGroup>
+  render() {
+    return (
+      <Card small className="">
+        {/* Card Header */}
+        <CardHeader className="border-bottom">
+          <h6 className="m-0">请求接令</h6>
+        </CardHeader>
 
-        {/* Create Draft */}
-        <FormGroup className="mb-0">
-          <Button theme="accent" type="submit">
-            发送请求
-          </Button>
-        </FormGroup>
-      </Form>
-    </CardBody>
-  </Card>
-);
+        <CardBody className="d-flex flex-column">
+          <Form className="quick-post-form">
+            {/* Body */}
+            <FormGroup>
+              <FormTextarea placeholder="Words can be like X-rays if you use them properly..." />
+            </FormGroup>
 
-ApplyPost.propTypes = {
-  /**
-   * The component's title.
-   */
-  title: PropTypes.string
-};
-
-ApplyPost.defaultProps = {
-  title: "请求接令"
-};
+            {/* Create Draft */}
+            <FormGroup className="mb-0">
+              <Button theme="accent" onClick={()=>{this.props.onToggle()}}>
+                发送请求
+              </Button>
+            </FormGroup>
+          </Form>
+        </CardBody>
+      </Card>
+    )
+  }
+}
 
 export default ApplyPost;

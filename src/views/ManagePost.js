@@ -45,11 +45,11 @@ class ManagePost extends React.Component {
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
-          <PageTitle sm="4" title="召集令" subtitle="You are wanted" className="text-sm-left" />
+          <PageTitle sm="4" title={"召集令" + this.props.location.state.postID} subtitle="You are wanted" className="text-sm-left" />
         </Row>
         <Row>
           <Col lg="6" md="6" sm="12" className="">
-            <PostDetail post={this.state.post} />
+            <PostDetail post={this.state.post} edit={true}/>
           </Col>
           <Col lg="6" md="6" sm="12" className="">
             <ApplyList />
