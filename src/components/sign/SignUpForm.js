@@ -147,15 +147,20 @@ class SignUpForm extends React.Component {
             />
             <FormFeedback>您的证件号码已注册别的账号</FormFeedback>
           </FormGroup>
-          <FormGroup>
-            <FormInput
-              placeholder="城市，例：北京"
-              onChange={this.handleCity}
-              required
-              invalid={false}
-              valid={false}
-            />
-          </FormGroup>
+          <Row form>
+            <Col md="6" className="form-group">
+              <FormSelect>
+                <option>选择省份</option>
+                <option>...</option>
+              </FormSelect>
+            </Col>
+            <Col md="6" className="form-group">
+              <FormSelect>
+                <option>选择城市</option>
+                <option>...</option>
+              </FormSelect>
+            </Col>
+          </Row>
           <FormGroup>
             <FormInput
               placeholder="手机号"

@@ -20,6 +20,8 @@ import MyApply from "./views/MyApply";
 import ManagePost from "./views/ManagePost";
 import SignUp from "./views/SignUp";
 import SignIn from "./views/SignIn";
+import DataOverview from "./views/DataOverview";
+import UserSearch from "./views/UserSearch";
 
 export default [
   {
@@ -99,6 +101,16 @@ export default [
     path: "/sign-in",
     layout: NoBarLayout,
     component: SignIn
+  },
+  {
+    path: "/data-overview",
+    layout: DefaultLayout,
+    component: DataOverview
+  },
+  {
+    path: "/user-search",
+    layout: DefaultLayout,
+    component: UserSearch
   }
 
 ];
