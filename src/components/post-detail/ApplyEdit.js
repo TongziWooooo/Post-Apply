@@ -21,9 +21,15 @@ class ApplyEdit extends React.Component {
     }
 
     this.toggleEdit = this.toggleEdit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   toggleEdit() {
+    this.setState({edit: !this.state.edit})
+  }
+
+  handleSubmit() {
+    // TODO： submit
     this.setState({edit: !this.state.edit})
   }
 
@@ -41,20 +47,28 @@ class ApplyEdit extends React.Component {
             <FormGroup>
               {
                 this.state.edit === false ?
-                  <FormTextarea disabled placeholder="Words can be like X-rays if you use them properly..." />
+                  <FormTextarea disabled/>
                   :
-                  <FormTextarea placeholder="Words can be like X-rays if you use them properly..." />
+                  <FormTextarea placeholder="Please enter your description." />
               }
             </FormGroup>
 
             {/* Create Draft */}
             <FormGroup className="mb-0">
               <ButtonGroup className="mb-3">
-                <Button theme="white" onClick={this.toggleEdit}>
-                  <span className="text-info">
-                    <i className="material-icons">edit</i>{" "}编辑
-                  </span>
-                </Button>
+                {this.state.edit === true ?
+                  <Button theme="white" onClick={this.toggleEdit}>
+                    <span className="text-info">
+                      <i className="material-icons">edit</i>{" 提交"}
+                    </span>
+                  </Button>
+                  :
+                  <Button theme="white" onClick={this.handleSubmit}>
+                    <span className="text-info">
+                      <i className="material-icons">edit</i>{" 编辑"}
+                    </span>
+                  </Button>
+                }
                 <Button theme="white">
                   <span className="text-danger">
                     <i className="material-icons">clear</i>{" "}删除

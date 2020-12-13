@@ -29,7 +29,7 @@ class ApplyPost extends React.Component {
           <Form className="quick-post-form">
             {/* Body */}
             <FormGroup>
-              <FormTextarea placeholder="Words can be like X-rays if you use them properly..." />
+              <FormTextarea placeholder="Please enter your description." />
             </FormGroup>
 
             {/* Create Draft */}

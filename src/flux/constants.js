@@ -2,5 +2,7 @@ export default {
   CHANGE: "CHANGE",
   TOGGLE_SIDEBAR: "TOGGLE_SIDEBAR",
   APPLY_POST: 0,
-  APPLY_EDIT: 1
+  APPLY_EDIT: 1,
+  SUCCEED: 0,
+  FAIL: -1,
 };

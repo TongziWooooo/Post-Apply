@@ -10,7 +10,7 @@ import BlogOverview from "./views/BlogOverview";
 import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
 import ChangePost from "./views/ChangePost";
-import Errors from "./views/Errors";
+import Status from "./views/Status";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
@@ -51,9 +51,9 @@ export default [
 
 
   {
-    path: "/errors",
+    path: "/status",
     layout: DefaultLayout,
-    component: Errors
+    component: Status
   },
   {
     path: "/components-overview",

@@ -5,6 +5,7 @@ import PageTitle from "../components/common/PageTitle";
 import Editor from "../components/add-new-post/Editor";
 import SidebarActions from "../components/add-new-post/SidebarActions";
 import SidebarCategories from "../components/add-new-post/SidebarCategories";
+import Constants from "../flux/constants"
 import {
   Button,
   FormInput
@@ -90,8 +91,8 @@ class AddNewPost extends Component{
     })
 
     this.props.history.push({
-      pathname: "/manage-post",
-      state: {postID: 123}
+      pathname: "/status",
+      state: {postID: 123, type: Constants.SUCCEED}  // 出错就是Constants.FAIL
     })
 
   }

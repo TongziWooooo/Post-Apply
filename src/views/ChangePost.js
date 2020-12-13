@@ -9,6 +9,7 @@ import {
   Button,
   FormInput
 } from "shards-react";
+import Constants from "../flux/constants";
 
 class ChangePost extends Component{
   constructor(props) {
@@ -132,8 +133,8 @@ componentDidMount(){
 
 })
     this.props.history.push({
-      pathname: "/manage-post",
-      state: {postID: 123}
+      pathname: "/status",
+      state: {postID: 123, type: Constants.SUCCEED}
     })
 
 
