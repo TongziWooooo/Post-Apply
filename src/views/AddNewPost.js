@@ -13,8 +13,13 @@ import {
 class AddNewPost extends Component{
   constructor(props) {
     super(props);
+    // alert(props.location.query.post_id)
     this.state = {
       value: '请撰写一篇关于你喜欢的 DOM 元素的文章.',
+      end_time:undefined,
+      formated_end_data:"",
+
+      max_num:11,
       title: "",
       type:{
         jsjl:false,
@@ -32,7 +37,8 @@ class AddNewPost extends Component{
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.login = this.login.bind(this);
     this.printSession = this.printSession.bind(this);
-
+    this.handleActionDateChange = this.handleActionDateChange.bind(this)
+    this.handleActionNumChange = this.handleActionNumChange.bind(this)
 
   }
 
@@ -47,8 +53,6 @@ class AddNewPost extends Component{
     // alert('提交的文章: ' + this.state.value);
     event.preventDefault();
 
-    const currentFieldEditor1 = this.FieldEditor1.current;
-    console.log(currentFieldEditor1.state.manNum)
     console.log(this.state.title)
     console.log(this.state.value)
     // "技术交流","学业探讨","社会实践","公益志愿","缘来如此"
@@ -80,8 +84,8 @@ class AddNewPost extends Component{
     "token_name": this.state.title,
     "desc":this.state.value,
     "user_id":window.sessionStorage.getItem("user_id"),
-    "max_num":currentFieldEditor1.state.manNum,
-    "end_time":currentFieldEditor1.state.formatedDate,
+    "max_num":this.state.max_num,
+    "end_time":this.state.formated_end_data
   })
 })
 
@@ -96,6 +100,18 @@ class AddNewPost extends Component{
     this.setState({title: title})
   }
 
+  handleActionDateChange(time,fmt){
+    console.log(fmt)
+    // alert(time)
+    this.setState({
+      end_time:new Date(time ),
+      formated_end_data:fmt
+       })
+    }
+  handleActionNumChange(num){
+    console.log(num)
+    this.setState({max_num:num})
+  }
   handleTypeChange(typee){
     var a = 1
     var newStateType = {
@@ -124,7 +140,7 @@ class AddNewPost extends Component{
     "password": "xx",
   })
 }).then(res => { if(res.status===200) return res.json()})
-.then(res =>{
+.then(res =>{         //ref
 
   console.log(res["data"])
   window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
@@ -188,7 +204,10 @@ class AddNewPost extends Component{
           {/* Sidebar Widgets */}
           <Col lg="3" md="12">
             <SidebarCategories type={this.state.type} handleTypeChange={this.handleTypeChange} />
-            <SidebarActions ref={this.FieldEditor1} onSubmit={this.handleSubmit}/>
+            <SidebarActions date={this.state.end_time} num={this.state.max_num}
+            handleActionNumChange={this.handleActionNumChange} 
+            handleActionDateChange={this.handleActionDateChange}
+            onSubmit={this.handleSubmit}/>
 
             <Button theme="accent" size="sm" className="ml-auto" onClick={this.login}>随便登录一下    </Button>   
             <Button theme="accent" size="sm" className="ml-auto" onClick={this.printSession}>看一下session    </Button>   

@@ -10,12 +10,16 @@ import {
   FormInput
 } from "shards-react";
 
-class AddNewPost extends Component{
+class ChangePost extends Component{
   constructor(props) {
     super(props);
-    alert(props.location.query.post_id)
+    // alert(props.location.query.post_id)
     this.state = {
       value: '请撰写一篇关于你喜欢的 DOM 元素的文章.',
+      end_time:undefined,
+      token_id:0,
+      formated_end_data:"",
+      max_num:11,
       title: "",
       type:{
         jsjl:false,
@@ -33,11 +37,52 @@ class AddNewPost extends Component{
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.login = this.login.bind(this);
     this.printSession = this.printSession.bind(this);
-
-
+    this.fetchPostInfo = this.fetchPostInfo.bind(this);
+    this.handleActionDateChange = this.handleActionDateChange.bind(this)
+    this.handleActionNumChange = this.handleActionNumChange.bind(this)
+    this.parserDate = this.parserDate.bind(this)
   }
+parserDate(date) {  
+    var t = Date.parse(date);  
+    console.log(t)
+    if (!isNaN(t)) {  
+        return new Date(Date.parse(date.replace(/-/g, "/")));  
+    } else {  
+        return new Date();  
+    }  
+};  
+fetchPostInfo(){
+  fetch('http://127.0.0.1:5000/token?_id='+this.props.location.query.post_id, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json',
+      // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
+      'Content-Type': 'application/json',
+    }
+  })
+  .then((res)=>{
+    if(res.status===200){
+      return res.json()
+    }
+  })
+  .then(res=>{
+    console.log(res["data"]["token_info"]["end_time"])
+    console.log(this.parserDate(res["data"]["token_info"]["end_time"]))
+    this.setState({value:res["data"]["token_info"]["desc"]})
+    this.setState({title:res["data"]["token_info"]["token_name"]})
+    this.setState({max_num:res["data"]["token_info"]["max_num"]})
+    this.setState({token_id:res["data"]["token_info"]["token_id"]})
 
+    this.setState({end_time:this.parserDate(res["data"]["token_info"]["end_time"])})
+    // this.setState
+  })
+}
 
+componentDidMount(){
+  alert("aawra")
+  this.fetchPostInfo()
+}
 
   handleTitleChange(event){
     this.setState({title:event.target.value}
@@ -48,8 +93,6 @@ class AddNewPost extends Component{
     // alert('提交的文章: ' + this.state.value);
     event.preventDefault();
 
-    const currentFieldEditor1 = this.FieldEditor1.current;
-    console.log(currentFieldEditor1.state.manNum)
     console.log(this.state.title)
     console.log(this.state.value)
     // "技术交流","学业探讨","社会实践","公益志愿","缘来如此"
@@ -70,19 +113,20 @@ class AddNewPost extends Component{
 
 
     fetch('http://127.0.0.1:5000/token', {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Accept': 'application/json',
         "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
         'Content-Type': 'application/json',
       },
   body: JSON.stringify({
+    "token_id":this.state.token_id,
     "token_type": temp,
     "token_name": this.state.title,
     "desc":this.state.value,
-    "user_id":window.sessionStorage.getItem("user_id"),
-    "max_num":currentFieldEditor1.state.manNum,
-    "end_time":currentFieldEditor1.state.formatedDate,
+    //"user_id":window.sessionStorage.getItem("user_id"),
+    "max_num":this.state.max_num,
+    "end_time":this.state.formated_end_data,
   })
 })
 
@@ -97,6 +141,16 @@ class AddNewPost extends Component{
     this.setState({title: title})
   }
 
+  handleActionDateChange(time,fmt){
+    // alert(time)
+    this.setState({
+      end_time:new Date(time ),
+      formated_end_data:fmt
+       })
+    }
+  handleActionNumChange(num){
+    this.setState({max_num:num})
+  }
   handleTypeChange(typee){
     var a = 1
     var newStateType = {
@@ -125,7 +179,7 @@ class AddNewPost extends Component{
     "password": "xx",
   })
 }).then(res => { if(res.status===200) return res.json()})
-.then(res =>{
+.then(res =>{         //ref
 
   console.log(res["data"])
   window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
@@ -189,7 +243,10 @@ class AddNewPost extends Component{
           {/* Sidebar Widgets */}
           <Col lg="3" md="12">
             <SidebarCategories type={this.state.type} handleTypeChange={this.handleTypeChange} />
-            <SidebarActions ref={this.FieldEditor1} onSubmit={this.handleSubmit}/>
+            <SidebarActions date={this.state.end_time} num={this.state.max_num}
+            handleActionNumChange={this.handleActionNumChange} 
+            handleActionDateChange={this.handleActionDateChange}
+            onSubmit={this.handleSubmit}/>
 
             <Button theme="accent" size="sm" className="ml-auto" onClick={this.login}>随便登录一下    </Button>   
             <Button theme="accent" size="sm" className="ml-auto" onClick={this.printSession}>看一下session    </Button>   
@@ -202,4 +259,4 @@ class AddNewPost extends Component{
 }
 
 
-export default AddNewPost;
+export default ChangePost;

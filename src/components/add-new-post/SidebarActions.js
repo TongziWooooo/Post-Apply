@@ -58,13 +58,15 @@ class SidebarActions extends Component{
   }
 
   handleEndDateChange(value){
-    this.setState({ endDate: new Date(value),formatedDate: formatDate(value)})
+    this.props.handleActionDateChange(value,formatDate(value))
+  
    
   }
 
   
+  
   handleNumChange(e){
-    this.setState({ manNum:e.target.value})
+    this.props.handleActionNumChange(e.target.value)
    
   }
 
@@ -87,7 +89,7 @@ class SidebarActions extends Component{
 
           <DatePicker
           size="lg"
-          selected={this.state.endDate}
+          selected={this.props.date}
           onChange={this.handleEndDateChange}
           placeholderText="End Date"
           dropdownMode="select"
@@ -107,7 +109,7 @@ class SidebarActions extends Component{
             <label>召集人数</label>
             <FormInput
                     id="feID"
-                    value={this.state.manNum}
+                    value={this.props.num}
                     onChange={this.handleNumChange}
             />
         </ListGroupItem>
