@@ -10,77 +10,90 @@ import {
   Row,
   Col
 } from "shards-react";
+import {Link} from "react-router-dom";
 
-const ApplyList = ({ title, discussions }) => (
-  <Card small className="blog-comments">
-    <CardHeader className="border-bottom">
-      <h6 className="m-0">请求者</h6>
-    </CardHeader>
+class ApplyList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-    <CardBody className="p-0">
-      {discussions.map((discussion, idx) => (
-        <div key={idx} className="blog-comments__item d-flex p-3">
-          {/* Avatar */}
-          <div className="blog-comments__avatar mr-3">
-            <img src={discussion.author.image} alt={discussion.author.name} />
-          </div>
+  render() {
+    return (
+      <Card small className="blog-comments">
+        <CardHeader className="border-bottom">
+          <h6 className="m-0">请求者</h6>
+        </CardHeader>
 
-          {/* Content */}
-          <div className="blog-comments__content">
-            {/* Content :: Title */}
-            <div className="blog-comments__meta text-mutes">
-              <a className="text-secondary" href={discussion.author.url}>
-                {discussion.author.name}
-              </a>{" "}
-              on{" "}
-              <a className="text-secondary" href={discussion.post.url}>
-                {discussion.post.title}
-              </a>
-              <span className="text-mutes">- {discussion.date}</span>
-            </div>
+        <CardBody className="p-0">
+          {this.props.discussions.map((discussion, idx) => (
+            <div key={idx} className="blog-comments__item d-flex p-3">
+              {/* Avatar */}
+              <div className="blog-comments__avatar mr-3">
+                <img src={discussion.author.image} alt={discussion.author.name} />
+              </div>
 
-            {/* Content :: Body */}
-            <p className="m-0 my-1 mb-2 text-muted">{discussion.body}</p>
+              {/* Content */}
+              <div className="blog-comments__content">
+                {/* Content :: Title */}
+                <div className="blog-comments__meta text-mutes">
+                  <Link to={{
+                    pathname: "/user-profile-lite", state: {userID: discussion.author.id}
+                  }} className={"text-secondary"}>
+                    {discussion.author.name}
+                  </Link>
+                  {/*<a className="text-secondary" href={discussion.author.url}>*/}
+                  {/*  {discussion.author.name}*/}
+                  {/*</a>{" "}*/}
+                  {/*<a className="text-secondary" href={discussion.post.url}>*/}
+                  {/*  {discussion.post.title}*/}
+                  {/*</a>*/}
+                  <span className="text-mutes"> - {discussion.date}</span>
+                </div>
 
-            {/* Content :: Actions */}
-            <div className="blog-comments__actions">
-              <ButtonGroup size="sm">
-                <Button theme="white">
+                {/* Content :: Body */}
+                <p className="m-0 my-1 mb-2 text-muted">{discussion.body}</p>
+
+                {/* Content :: Actions */}
+                <div className="blog-comments__actions">
+                  <ButtonGroup size="sm">
+                    <Button theme="white">
                   <span className="text-success">
                     <i className="material-icons">check</i>
                   </span>{" "}
-                  同意
-                </Button>
-                <Button theme="white">
+                      同意
+                    </Button>
+                    <Button theme="white">
                   <span className="text-danger">
                     <i className="material-icons">clear</i>
                   </span>{" "}
-                  拒绝
-                </Button>
-                {/* <Button theme="white">
+                      拒绝
+                    </Button>
+                    {/* <Button theme="white">
                   <span className="text-light">
                     <i className="material-icons">more_vert</i>
                   </span>{" "}
                   Edit
                 </Button> */}
-              </ButtonGroup>
+                  </ButtonGroup>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
-    </CardBody>
+          ))}
+        </CardBody>
 
-    <CardFooter className="border-top">
-      <Row>
-        <Col className="text-center view-report">
-          <Button theme="white" type="submit">
-            View All Comments
-          </Button>
-        </Col>
-      </Row>
-    </CardFooter>
-  </Card>
-);
+        <CardFooter className="border-top">
+          <Row>
+            <Col className="text-center view-report">
+              <Button theme="white" type="submit">
+                View All Comments
+              </Button>
+            </Col>
+          </Row>
+        </CardFooter>
+      </Card>
+    )
+  }
+}
 
 ApplyList.propTypes = {
   /**
@@ -100,6 +113,7 @@ ApplyList.defaultProps = {
       id: 1,
       date: "3 days ago",
       author: {
+        id: 111,
         image: require("../../images/avatars/1.jpg"),
         name: "John Doe",
         url: "#"
@@ -114,6 +128,7 @@ ApplyList.defaultProps = {
       id: 2,
       date: "4 days ago",
       author: {
+        id: 222,
         image: require("../../images/avatars/2.jpg"),
         name: "John Doe",
         url: "#"
@@ -128,6 +143,22 @@ ApplyList.defaultProps = {
       id: 3,
       date: "5 days ago",
       author: {
+        id: 333,
+        image: require("../../images/avatars/3.jpg"),
+        name: "John Doe",
+        url: "#"
+      },
+      post: {
+        title: "Hello World!",
+        url: "#"
+      },
+      body: "My money's in that office, right? If she start giving me..."
+    },
+    {
+      id: 4,
+      date: "5 days ago",
+      author: {
+        id: 333,
         image: require("../../images/avatars/3.jpg"),
         name: "John Doe",
         url: "#"

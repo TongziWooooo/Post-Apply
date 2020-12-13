@@ -1,12 +1,14 @@
 import React from "react";
-import { 
-  ListGroup, 
+import {
+  ListGroup,
   ListGroupItem,
   Card,
   Row,
   Col,
-  Badge,
- } from "shards-react";
+  Badge, Button,
+} from "shards-react";
+import {Link} from "react-router-dom";
+import Constants from "../../flux/constants";
 
  class PostApplyList extends React.Component {
   constructor(props) {
@@ -45,19 +47,39 @@ import {
           {posts.map((post, idx) => (
             <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
               <Row>
-                <Col className="col-3">
-                  <div># {post.postID}</div>
+                <Col className="col-4">
+                  <Link to={{
+                    pathname: "/apply-view",
+                    state: {postID: post.postID, type: Constants.APPLY_EDIT}
+                  }} style={{color: "#000"}}>
+                    <div># {post.postID}</div>
+                  </Link>
                 </Col>
-                <Col className="col-7">
-                  <div>{post.title}</div>
+                <Col className="col-6">
+                  <Link to={{
+                    pathname: "/apply-view",
+                    state: {postID: post.postID, type: Constants.APPLY_EDIT}
+                  }} style={{color: "#000"}}>
+                    <div>{post.title}</div>
+                  </Link>
                 </Col>
-                <Col className="col-2">
-                  {post.status === 0 ? <Badge ><span><i className="material-icons">message</i></span>{" "}申请中</Badge> :
-                    post.status === 1 ? <Badge theme="success"><span><i className="material-icons">check</i></span>{" "}成功</Badge> :
-                    post.status === 2 ? <Badge theme="danger"><span><i className="material-icons">clear</i></span>{" "}失败</Badge> :
-                    <Badge theme="light"><span><i className="material-icons">unpublished</i></span>{" "}取消</Badge>
-                    }
-                  
+                <Col className="col-1">
+                  {
+                    post.status === 0 ? <Badge ><span><i className="material-icons">message</i></span>{" "}申请中</Badge> :
+                      post.status === 1 ? <Badge theme="success"><span><i className="material-icons">check</i></span>{" "}成功</Badge> :
+                        post.status === 2 ? <Badge theme="danger"><span><i className="material-icons">clear</i></span>{" "}失败</Badge> :
+                          <Badge theme="light"><span><i className="material-icons">unpublished</i></span>{" "}取消</Badge>
+                  }
+                </Col>
+                <Col className="col-1">
+                  {
+                    post.status === 0 ?
+                      <a href="#" style={{'color': 'red'}}>
+                        <span className="material-icons" onClick={true}>remove_circle_outline</span>
+                      </a>
+                      :
+                      null
+                  }
                 </Col>
               </Row>
             </ListGroupItem>

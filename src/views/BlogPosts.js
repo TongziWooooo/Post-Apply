@@ -12,8 +12,10 @@ import {
   Button
 } from "shards-react";
 
+import Constants from "../flux/constants";
 import PageTitle from "../components/common/PageTitle";
 import PostDetail from "../components/post-detail/PostDetail.js"
+import {Link} from "react-router-dom";
 
 class BlogPosts extends React.Component {
   constructor(props) {
@@ -22,60 +24,76 @@ class BlogPosts extends React.Component {
     this.state = {
       posts:[],
       // First list of posts.
-      // PostsListOne: 
+      // PostsListOne:
       PostsListOne: [
         {
+          postID: 1,
           backgroundImage: require("../images/content-management/1.jpeg"),
           category: "Business",
           categoryTheme: "dark",
           author: "Anna Kunis",
           authorAvatar: require("../images/avatars/1.jpg"),
           title: "Conduct at an replied removal an amongst",
-          body:
-            "However venture pursuit he am mr cordial. Forming musical am hearing studied be luckily. But in for determine what would see...",
+          // body:
+          //   "However venture pursuit he am mr cordial. Forming musical am hearing studied be luckily. But in for determine what would see...",
           date: "2021.01.01"
         },
         {
+          postID: 2,
           backgroundImage: require("../images/content-management/2.jpeg"),
           category: "Travel",
           categoryTheme: "info",
           author: "James Jamerson",
           authorAvatar: require("../images/avatars/2.jpg"),
           title: "Off tears are day blind smile alone had ready",
-          body:
-            "Is at purse tried jokes china ready decay an. Small its shy way had woody downs power. To denoting admitted speaking learning my...",
+          // body:
+          //   "Is at purse tried jokes china ready decay an. Small its shy way had woody downs power. To denoting admitted speaking learning my...",
           date: "2021.01.01"
         },
         {
+          postID: 3,
           backgroundImage: require("../images/content-management/3.jpeg"),
           category: "Technology",
           categoryTheme: "royal-blue",
           author: "Jimmy Jackson",
           authorAvatar: require("../images/avatars/2.jpg"),
           title: "Difficult in delivered extensive at direction",
-          body:
-            "Is at purse tried jokes china ready decay an. Small its shy way had woody downs power. To denoting admitted speaking learning my...",
+          // body:
+          //   "Is at purse tried jokes china ready decay an. Small its shy way had woody downs power. To denoting admitted speaking learning my...",
           date: "2021.01.01"
         },
         {
+          postID: 4,
           backgroundImage: require("../images/content-management/4.jpeg"),
           category: "Business",
           categoryTheme: "warning",
           author: "John James",
           authorAvatar: require("../images/avatars/3.jpg"),
           title: "It so numerous if he may outlived disposal",
-          body:
-            "How but sons mrs lady when. Her especially are unpleasant out alteration continuing unreserved ready road market resolution...",
+          // body:
+          //   "How but sons mrs lady when. Her especially are unpleasant out alteration continuing unreserved ready road market resolution...",
           date: "2021.01.01"
-        }
+        },
+        {
+          postID: 5,
+          backgroundImage: require("../images/content-management/3.jpeg"),
+          category: "Technology",
+          categoryTheme: "royal-blue",
+          author: "Jimmy Jackson",
+          authorAvatar: require("../images/avatars/2.jpg"),
+          title: "Difficult in delivered extensive at direction",
+          // body:
+          //   "Is at purse tried jokes china ready decay an. Small its shy way had woody downs power. To denoting admitted speaking learning my...",
+          date: "2021.01.01"
+        },
       ],
 
 
       // Third list of posts.
- 
+
 
       // Fourth list of posts.
-    
+
     };
   }
 
@@ -114,15 +132,15 @@ class BlogPosts extends React.Component {
             categoryUrl: "#",
             title: res.data.token_list[i].token_name,
             // body:  res.data.token_list[i].desc,
-            date: res.data.token_list[i].end_time 
+            date: res.data.token_list[i].end_time
           }
           arr.push(dic)
         }
-      
+
 
         this.setState({posts:arr}
           ,()=>{
- 
+
       })
       // console.log(post)
         }
@@ -151,7 +169,7 @@ class BlogPosts extends React.Component {
 
         {/* First Row of Posts */}
         <Row>
-          {this.state.posts.map((post, idx) => (
+          {this.state.PostsListOne.map((post, idx) => (
             <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
               <Card small className="card-post card-post--1">
                 <div
@@ -176,9 +194,13 @@ class BlogPosts extends React.Component {
                 <CardBody>
                 <span>{post.author}</span>
                   <h5 className="card-title">
-                    <a href="/apply-view" className="text-fiord-blue">
+                    <Link to={{
+                      pathname: "/apply-view",
+                      state: {postID: post.postID, type: Constants.APPLY_POST}
+                    }} className="text-fiord-blue">
                       {post.title}
-                    </a>
+                    </Link>
+
                   </h5>
                   <p className="card-text d-inline-block mb-3">{post.body}</p>
                   <span className="text-muted">结束日期： {post.date}</span>
