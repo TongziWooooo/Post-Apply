@@ -29,6 +29,8 @@ class PostDetail extends React.Component {
     console.log("!!")
     this.setState({edit: this.props.edit})
   }
+
+  //删去富文本标签
   fiterLabelHandle = (schemeIntroduce) =>{
     schemeIntroduce = schemeIntroduce.replace(/(\n)/g, ""); // 去掉换行
     schemeIntroduce = schemeIntroduce.replace(/(\t)/g, ""); // 去掉换行

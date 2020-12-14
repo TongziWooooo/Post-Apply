@@ -20,7 +20,7 @@ import ApplyList from "../components/my-post/ApplyList";
 class ManagePost extends React.Component {
   constructor(props) {
     super(props);
-    alert(this.props.location.state.postID)
+    // alert(this.props.location.state.postID)
     this.state = {
       postID:this.props.location.state.postID,
 
@@ -105,7 +105,6 @@ class ManagePost extends React.Component {
     this.fetchPostInfo()
   }
   
-
 
 
 

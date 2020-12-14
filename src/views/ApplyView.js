@@ -19,13 +19,37 @@ import PostDetail from "../components/post-detail/PostDetail";
 import ApplyPost from "../components/post-detail/ApplyPost";
 import ApplyEdit from "../components/post-detail/ApplyEdit"
 
+var sleep = function(time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+var formatDate = function(date){
+  var y = date.getFullYear();
+  var m = date.getMonth() + 1;
+  m = m < 10 ? ('0' + m) : m;
+  var d = date.getDate();
+  d = d < 10 ? ('0' + d) : d;
+  var h = date.getHours();
+  var minute = date.getMinutes();
+  minute = minute < 10 ? ('0' + minute) : minute;
+  var second= date.getSeconds();
+  second = minute < 10 ? ('0' + second) : second;
+  return y + '-' + m + '-' + d+' '+h+':'+minute+':'+ second;
+};
+
+
 class ApplyView extends React.Component {
   constructor(props) {
     super(props);
       //state: {postID: post.token_id
     this.state = {
       postID:this.props.location.state.postID,
-      desc:"", //算了 不写了  现在是  用户申请该编辑 输入栏会清空，想改掉要把decs提出来 好麻烦
+      req_info:{
+        desc:"",
+        create_time:"",
+        update_time:"",
+        state:"0"
+
+      }, //算了 不写了  现在是  用户申请该编辑 输入栏会清空，想改掉要把decs提出来 好麻烦
       
 
       post: {
@@ -45,7 +69,7 @@ class ApplyView extends React.Component {
       apply: null
 
     }
-    alert(this.state.postID)
+    // alert(this.state.postID)
     this.onToggle = this.onToggle.bind(this);
 
     this.parserDate = this.parserDate.bind(this)
@@ -109,23 +133,69 @@ class ApplyView extends React.Component {
     })
   }
   
-  componentDidMount(){
+
+  fetch_req_info(){
+    console.log("will fetch")
+    fetch('http://127.0.0.1:5000/token_req?token_id='+this.state.postID+'&user_id='+window.sessionStorage.getItem("user_id"), {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        
+        // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
+        'Content-Type': 'application/json',
+      }
+    })
+    .then((res)=>{
+      if(res.status===200){
+        return res.json()
+      }
+    }).then((res)=>{
+
+      var req_info={
+        desc:res.data.desc,
+        create_time:res.data.create_time,
+        update_time:res.data.update_time,
+        state:res.data.state
+  
+      }
+      this.setState({req_info:req_info},()=>{console.log(this.state.req_info) })
+    }
+
+    )
+
+
+  }
+
+
+  componentWillMount(){
     if (this.props.location.state.type === Constants.APPLY_POST) {
       this.setState({apply: <ApplyPost onToggle={this.onToggle} onChange={this.handleDescChange} postID={this.state.post.postID}/>})
     } else {
-      this.setState({apply: <ApplyEdit value={this.state.desc} postID={this.state.post.postID}/>})
-    }
+      this.fetch_req_info()
 
+
+      this.setState({apply: <ApplyEdit req_info={this.state.req_info}  postID={this.state.post.postID}/>})
+    }
+    sleep(5000)
+    console.log("~~~~~~")
     // alert("aawra")
-    this.fetchPostInfo()
   }
 
   onToggle() {
-    this.setState({apply: <ApplyEdit value={this.state.desc} postID={this.state.post.postID}/>});
+    this.setState({apply: <ApplyEdit req_info={this.state.req_info} handleDescChange={this.handleDescChange} postID={this.state.post.postID}/>});
   }
 
   handleDescChange(value){
-    this.setState({desc:value})
+   // var fmt = formatDate(Date.now())
+    var req_info={
+      desc:value,
+      create_time:this.state.req_info.create_time,
+      update_time:this.state.req_info.update_time,
+      state:this.state.req_info.state
+
+    }
+    this.setState({req_info:req_info},()=>{console.log(this.state.req_info)})
   }
 
 

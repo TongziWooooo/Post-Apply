@@ -18,10 +18,13 @@ import Constants from "../../flux/constants";
 class ApplyEdit extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      desc: this.props.value,
-      edit: false
+      desc: this.props.req_info.desc,
+      edit: false,
+      create_time:this.props.req_info.create_time,
+      update_time:this.props.update_time,
+      state:this.props.state
+
     }
 
     this.toggleEdit = this.toggleEdit.bind(this);
@@ -58,7 +61,7 @@ class ApplyEdit extends React.Component {
     })
 
     // TODO： submit
-    alert("???")
+    // alert("???")
     this.setState({edit: !this.state.edit})
   }
   handleDelete(){
@@ -69,12 +72,26 @@ class ApplyEdit extends React.Component {
   }
 
   handleDescChange(e){
-    console.log("xxx")
-    console.log(this.state.desc)
-    this.setState({desc:e.target.value})
+    this.props.handleDescChange(e.target.value)
+    // console.log("xxx")
+    // console.log(this.state.desc)
+    //this.setState({desc:e.target.value})
   }
+  componentDidMount(){
+    console.log("0909009090")
+    console.log(this.props.req_info)
 
+  }
+  componentWillUpdate(nextProps, nextState) {
+    console.log('Component WILL UPDATE!');
+}
+
+
+  //  shouldComponentUpdate(nextProps, nextState) {
+  //   return nextProps.id !== this.props.id;
+  // }
   render() {
+    console.log("iahfouehgouewhgoeshgoewhghewgouhewou")
     return(
       <Card small className="">
         {/* Card Header */}
@@ -88,9 +105,9 @@ class ApplyEdit extends React.Component {
             <FormGroup>
               {
                 this.state.edit === false ?
-                  <FormTextarea disabled value={this.state.desc}/>
+                  <FormTextarea disabled value={this.props.req_info.desc}/>
                   :
-                  <FormTextarea value={this.state.desc} placeholder="Please enter your description." onChange={this.handleDescChange} />
+                  <FormTextarea value={this.props.req_info.desc} placeholder="Please enter your description." onChange={this.handleDescChange} />
               }
             </FormGroup>
 

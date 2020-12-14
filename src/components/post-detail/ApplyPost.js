@@ -17,7 +17,10 @@ class ApplyPost extends React.Component {
     super(props);
 
     this.state = {
-      desc: ""
+      desc: "",
+      //create_time:this.state.req_info.create_time,
+      //update_time:fmt,
+      //state:"0"
     }
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -42,7 +45,7 @@ class ApplyPost extends React.Component {
     })
 
     // TODO： submit
-    alert("???")
+    // alert("???")
     this.setState({edit: !this.state.edit})
   }
 
@@ -53,9 +56,11 @@ class ApplyPost extends React.Component {
 
     // this.setState({desc:e.target.value})
   }
-
+  
 
   render() {
+    console.log("iahfouehgouewhgoeshgoewhghewgouhewou")
+
     return (
       <Card small className="">
         {/* Card Header */}
