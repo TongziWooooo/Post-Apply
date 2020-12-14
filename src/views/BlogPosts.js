@@ -115,7 +115,7 @@ class BlogPosts extends React.Component {
       })
       .then(
         res=>{
-          if(res.status==200){
+          if(res.status===200){
             return res.json()
           }else{
             alert("fail to get posts")
@@ -132,12 +132,14 @@ class BlogPosts extends React.Component {
             backgroundImage: require("../images/content-management/10.jpeg"),
             author: res.data.token_list[i].send_user,
             authorUrl: "#",
+            postID: res.data.token_list[i].token_id,
             category: res.data.token_list[i].token_type,
             categoryUrl: "#",
             title: res.data.token_list[i].token_name,
             // body:  res.data.token_list[i].desc,
             date: res.data.token_list[i].end_time
           }
+          console.log(dic.postID)
           arr.push(dic)
         }
 
@@ -157,12 +159,6 @@ class BlogPosts extends React.Component {
   }
 
   render() {
-    const {
-      PostsListOne,
-      PostsListTwo,
-      PostsListThree,
-      PostsListFour
-    } = this.state;
 
     return (
       <Container fluid className="main-content-container px-4">
@@ -207,7 +203,7 @@ class BlogPosts extends React.Component {
       </Col>
         </Row>
         <Row>
-          {this.state.PostsListOne.map((post, idx) => (
+          {this.state.posts.map((post, idx) => (
             <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
               <Card small className="card-post card-post--1">
                 <div

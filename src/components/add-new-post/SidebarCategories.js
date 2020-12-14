@@ -25,7 +25,12 @@ class SidebarCategories extends Component{
       kiwi: false
     };
   }
+  componentDidMount(){
+    console.log(this.props.type)
+    console.log("???????????????")
 
+
+  }
   handleChange(e, type) {
 
     this.props.handleTypeChange(type)

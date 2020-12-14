@@ -84,23 +84,23 @@ import Constants from "../../flux/constants";
     return (
       <Card>
         <ListGroup>
-          {posts.map((post, idx) => (
+          {this.state.applies.map((post, idx) => (
             <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
               <Row>
                 <Col className="col-4">
                   <Link to={{
                     pathname: "/apply-view",
-                    state: {postID: post.postID, type: Constants.APPLY_EDIT}
+                    state: {postID: post.token_id, type: Constants.APPLY_EDIT}
                   }} style={{color: "#000"}}>
-                    <div># {post.postID}</div>
+                    <div># {post.token_id}</div>
                   </Link>
                 </Col>
                 <Col className="col-6">
                   <Link to={{
                     pathname: "/apply-view",
-                    state: {postID: post.postID, type: Constants.APPLY_EDIT}
+                    state: {postID: post.token_id, type: Constants.APPLY_EDIT}
                   }} style={{color: "#000"}}>
-                    <div>{post.title}</div>
+                    <div>{post.token_name}</div>
                   </Link>
                 </Col>
                 <Col className="col-1">

@@ -11,6 +11,22 @@ import {
 } from "shards-react";
 import Constants from "../flux/constants";
 
+
+var formatDate = function(date){
+  var y = date.getFullYear();
+  var m = date.getMonth() + 1;
+  m = m < 10 ? ('0' + m) : m;
+  var d = date.getDate();
+  d = d < 10 ? ('0' + d) : d;
+  var h = date.getHours();
+  var minute = date.getMinutes();
+  minute = minute < 10 ? ('0' + minute) : minute;
+  var second= date.getSeconds();
+  second = minute < 10 ? ('0' + second) : second;
+  return y + '-' + m + '-' + d+' '+h+':'+minute+':'+ second;
+};
+
+
 class ChangePost extends Component{
   constructor(props) {
     super(props);
@@ -52,6 +68,7 @@ parserDate(date) {
         return new Date();
     }
 };
+
 fetchPostInfo(){
   fetch('http://127.0.0.1:5000/token?_id='+this.props.location.state.postID, {
     method: 'GET',
@@ -75,7 +92,37 @@ fetchPostInfo(){
     this.setState({max_num:res["data"]["token_info"]["max_num"]})
     this.setState({token_id:res["data"]["token_info"]["token_id"]})
 
-    this.setState({end_time:this.parserDate(res["data"]["token_info"]["end_time"])})
+    this.setState({end_time:this.parserDate(res["data"]["token_info"]["end_time"])},
+      ()=>{this.setState({formated_end_data:formatDate(this.state.end_time)})})
+      
+    
+    var type = res['data']['token_info']['token_type']
+    var type_dict = {
+      jsjl:false,
+      xstt:false,
+      shsj:false,
+      gyzy:false,
+      yw:false
+    }
+    console.log(type)
+    // console.log()
+    console.log("``````````````````````````")
+    if(type==="技术交流"){
+      type_dict.xstt = true
+    } else if(type==="学业讨论'"){
+      type_dict.xstt = true
+    
+    } else if(type==="社会实践"){
+      type_dict.shsj = true  
+    
+    } else if(type==="公益志愿"){
+      type_dict.gyzy = true
+    } else if(type==="缘来如此"){
+      type_dict.yw = true
+    }
+    console.log(type_dict)
+    this.setState({type:type_dict})
+
     // this.setState
   })
 }
@@ -150,6 +197,8 @@ componentDidMount(){
 
   handleActionDateChange(time,fmt){
     // alert(time)
+    console.log(fmt)
+    console.log(time)
     this.setState({
       end_time:new Date(time ),
       formated_end_data:fmt

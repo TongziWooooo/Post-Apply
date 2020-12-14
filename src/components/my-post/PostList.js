@@ -41,7 +41,7 @@ import {Link} from "react-router-dom";
     return (
       <Card>
         <ListGroup>
-          {posts.map((post, idx) => (
+          {this.props.posts.map((post, idx) => (
             <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
               <Row>
                 <Col className="col-4">
