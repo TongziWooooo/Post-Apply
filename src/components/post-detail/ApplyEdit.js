@@ -71,7 +71,7 @@ class ApplyEdit extends React.Component {
                 }
                 <Button theme="white">
                   <span className="text-danger">
-                    <i className="material-icons">clear</i>{" "}删除
+                    <i className="material-icons">clear</i>{" 删除"}
                   </span>
                 </Button>
               </ButtonGroup>
