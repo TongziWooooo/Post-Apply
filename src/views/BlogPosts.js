@@ -104,7 +104,7 @@ class BlogPosts extends React.Component {
 
 
   fetch_posts = ()=>{
-    fetch('http://127.0.0.1:5000/token_list', {
+    fetch('http://127.0.0.1:5000/token_list?_id='+window.sessionStorage.getItem("user_id"), {
       method: 'get',
       credentials: 'include',
       headers: {
@@ -137,7 +137,8 @@ class BlogPosts extends React.Component {
             categoryUrl: "#",
             title: res.data.token_list[i].token_name,
             // body:  res.data.token_list[i].desc,
-            date: res.data.token_list[i].end_time
+            date: res.data.token_list[i].end_time,
+            has_req: res.data.token_list[i].has_req
           }
           console.log(dic.postID)
           arr.push(dic)
@@ -230,7 +231,7 @@ class BlogPosts extends React.Component {
                   <h5 className="card-title">
                     <Link to={{
                       pathname: "/apply-view",
-                      state: {postID: post.postID, type: Constants.APPLY_POST}
+                      state: {postID: post.postID, type: post.has_req}//Constants.APPLY_POST}
                     }} className="text-fiord-blue">
                       {post.title}
                     </Link>

@@ -25,10 +25,11 @@ class ApplyView extends React.Component {
       //state: {postID: post.token_id
     this.state = {
       postID:this.props.location.state.postID,
+      desc:"", //算了 不写了  现在是  用户申请该编辑 输入栏会清空，想改掉要把decs提出来 好麻烦
       
 
       post: {
-        postID: '10101',
+        postID: this.props.location.state.postID,
         backgroundImage: require("../images/content-management/1.jpeg"),
         category: "技术交流",
         author: "猪笨笨",
@@ -49,6 +50,7 @@ class ApplyView extends React.Component {
 
     this.parserDate = this.parserDate.bind(this)
     this.fetchPostInfo = this.fetchPostInfo.bind(this);
+    this.handleDescChange = this.handleDescChange.bind(this)
 
 
   }
@@ -109,9 +111,9 @@ class ApplyView extends React.Component {
   
   componentDidMount(){
     if (this.props.location.state.type === Constants.APPLY_POST) {
-      this.setState({apply: <ApplyPost onToggle={this.onToggle}/>})
+      this.setState({apply: <ApplyPost onToggle={this.onToggle} onChange={this.handleDescChange} postID={this.state.post.postID}/>})
     } else {
-      this.setState({apply: <ApplyEdit/>})
+      this.setState({apply: <ApplyEdit value={this.state.desc} postID={this.state.post.postID}/>})
     }
 
     // alert("aawra")
@@ -119,7 +121,11 @@ class ApplyView extends React.Component {
   }
 
   onToggle() {
-    this.setState({apply: <ApplyEdit/>});
+    this.setState({apply: <ApplyEdit value={this.state.desc} postID={this.state.post.postID}/>});
+  }
+
+  handleDescChange(value){
+    this.setState({desc:value})
   }
 
 
