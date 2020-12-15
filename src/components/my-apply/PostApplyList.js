@@ -105,9 +105,9 @@ import Constants from "../../flux/constants";
                 </Col>
                 <Col className="col-1">
                   {
-                    post.status === 0 ? <Badge ><span><i className="material-icons">message</i></span>{" "}申请中</Badge> :
-                      post.status === 1 ? <Badge theme="success"><span><i className="material-icons">check</i></span>{" "}成功</Badge> :
-                        post.status === 2 ? <Badge theme="danger"><span><i className="material-icons">clear</i></span>{" "}失败</Badge> :
+                    post.state === "0" ? <Badge ><span><i className="material-icons">message</i></span>{" "}待处理</Badge> :
+                      post.state === "1" ? <Badge theme="danger"><span><i className="material-icons">check</i></span>{" "}拒绝</Badge> :
+                        post.state === "2" ? <Badge theme="success"><span><i className="material-icons">clear</i></span>{" "}同意</Badge> :
                           <Badge theme="light"><span><i className="material-icons">unpublished</i></span>{" "}取消</Badge>
                   }
                 </Col>

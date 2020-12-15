@@ -63,7 +63,6 @@ class SignInForm extends React.Component {
           "password": this.state.password,
         })
       }).then(res => { 
-        alert("???")
         if(res.status===200) 
           {
             flag = 1

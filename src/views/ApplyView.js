@@ -41,6 +41,7 @@ class ApplyView extends React.Component {
   constructor(props) {
     super(props);
       //state: {postID: post.token_id
+      this.value = ""
     this.state = {
       postID:this.props.location.state.postID,
       req_info:{
@@ -75,7 +76,7 @@ class ApplyView extends React.Component {
     this.parserDate = this.parserDate.bind(this)
     this.fetchPostInfo = this.fetchPostInfo.bind(this);
     this.handleDescChange = this.handleDescChange.bind(this)
-
+    this.handleApplyDescChange = this.handleApplyDescChange.bind(this)
 
   }
   parserDate(date) {
@@ -110,7 +111,7 @@ class ApplyView extends React.Component {
         backgroundImage: require("../images/content-management/1.jpeg"),
         category: "技术交流",
         categoryTheme: "dark",
-        author: "猪笨笨",
+        author: res["data"]["token_info"]["user_name"],
         authorAvatar: require("../images/avatars/1.jpg"),
         title:res["data"]["token_info"]["token_name"],
         body:res["data"]["token_info"]["desc"],
@@ -134,13 +135,14 @@ class ApplyView extends React.Component {
   }
   
 
-  fetch_req_info(){
+  async fetch_req_info(){
     console.log("will fetch")
     fetch('http://127.0.0.1:5000/token_req?token_id='+this.state.postID+'&user_id='+window.sessionStorage.getItem("user_id"), {
       method: 'GET',
       credentials: 'include',
       headers: {
         'Accept': 'application/json',
+        
         
         // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
         'Content-Type': 'application/json',
@@ -159,25 +161,30 @@ class ApplyView extends React.Component {
         state:res.data.state
   
       }
-      this.setState({req_info:req_info},()=>{console.log(this.state.req_info) })
-    }
+      this.setState({req_info:req_info},()=>{
+        console.log(this.state.req_info) 
+        this.setState({apply: <ApplyEdit req_info={this.state.req_info}  postID={this.state.post.postID} handleDescChange={this.handleDescChange}/>})
 
+      })
+      //this.value=req_info
+
+    }
     )
 
 
   }
 
 
-  componentWillMount(){
+  async componentDidMount(){
+    this.fetchPostInfo()
     if (this.props.location.state.type === Constants.APPLY_POST) {
-      this.setState({apply: <ApplyPost onToggle={this.onToggle} onChange={this.handleDescChange} postID={this.state.post.postID}/>})
+      this.setState({apply: <ApplyPost req_info={this.state.req_info} onToggle={this.onToggle} onChange={this.handleApplyDescChange} postID={this.state.post.postID}/>})
     } else {
       this.fetch_req_info()
 
 
-      this.setState({apply: <ApplyEdit req_info={this.state.req_info}  postID={this.state.post.postID}/>})
     }
-    sleep(5000)
+    // sleep(5000)
     console.log("~~~~~~")
     // alert("aawra")
   }
@@ -185,7 +192,22 @@ class ApplyView extends React.Component {
   onToggle() {
     this.setState({apply: <ApplyEdit req_info={this.state.req_info} handleDescChange={this.handleDescChange} postID={this.state.post.postID}/>});
   }
+  handleApplyDescChange(value){
+    // var fmt = formatDate(Date.now())
+     var req_info={
+       desc:value,
+       create_time:this.state.req_info.create_time,
+       update_time:this.state.req_info.update_time,
+       state:this.state.req_info.state
+ 
+     }
+     // this.value=req_inf?o
+     this.setState({req_info:req_info},()=>{
+      this.setState({apply: <ApplyPost req_info={this.state.req_info} onToggle={this.onToggle} onChange={this.handleApplyDescChange} postID={this.state.post.postID}/>})
 
+     })
+   }
+ 
   handleDescChange(value){
    // var fmt = formatDate(Date.now())
     var req_info={
@@ -195,7 +217,12 @@ class ApplyView extends React.Component {
       state:this.state.req_info.state
 
     }
-    this.setState({req_info:req_info},()=>{console.log(this.state.req_info)})
+    // this.value=req_inf?o
+    this.setState({req_info:req_info},()=>{
+      this.setState({apply: <ApplyEdit req_info={this.state.req_info}  postID={this.state.post.postID} handleDescChange={this.handleDescChange}/>})
+      console.log("oooooooo")
+      console.log(this.state.req_info.desc)
+    })
   }
 
 

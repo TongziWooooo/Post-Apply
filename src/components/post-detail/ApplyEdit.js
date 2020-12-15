@@ -18,6 +18,7 @@ import Constants from "../../flux/constants";
 class ApplyEdit extends React.Component {
   constructor(props) {
     super(props);
+    // this.apply=""
     this.state = {
       desc: this.props.req_info.desc,
       edit: false,
@@ -41,9 +42,9 @@ class ApplyEdit extends React.Component {
 
   handleSubmit() {
     console.log("ppppppppp")
-    console.log(this.state.desc)
-    fetch("http://127.0.0.1:5000/token_req",{
-      method:'POST',
+    // console.log(this.state.desc
+    fetch("http://127.0.0.1:5000/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
+      method:'PUT',
       headers: {
         'Accept': 'application/json',
         // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
@@ -52,7 +53,7 @@ class ApplyEdit extends React.Component {
       body:JSON.stringify({
         "token_id":this.props.postID,
         "user_id":window.sessionStorage.getItem("user_id"),
-        "disc":this.state.desc,
+        "disc":this.props.req_info.desc,
         "state":"0"
       })
 
@@ -72,6 +73,7 @@ class ApplyEdit extends React.Component {
   }
 
   handleDescChange(e){
+    console.log(e.target.value)
     this.props.handleDescChange(e.target.value)
     // console.log("xxx")
     // console.log(this.state.desc)
@@ -105,7 +107,7 @@ class ApplyEdit extends React.Component {
             <FormGroup>
               {
                 this.state.edit === false ?
-                  <FormTextarea disabled value={this.props.req_info.desc}/>
+                  <FormTextarea disabled value={this.props.req_info.desc} onChange={this.handleDescChange}/>
                   :
                   <FormTextarea value={this.props.req_info.desc} placeholder="Please enter your description." onChange={this.handleDescChange} />
               }
@@ -113,6 +115,8 @@ class ApplyEdit extends React.Component {
 
             {/* Create Draft */}
             <FormGroup className="mb-0">
+            {this.props.req_info.state !="3" &&
+
               <ButtonGroup className="mb-3">
                 {this.state.edit === true ?
                   <Button theme="white" onClick={this.handleSubmit}>
@@ -127,12 +131,19 @@ class ApplyEdit extends React.Component {
                     </span>
                   </Button>
                 }
+                
                 <Button theme="white" onClick={this.handleDelete}>
                   <span className="text-danger">
                     <i className="material-icons" >clear</i>{" 删除"}
                   </span>
                 </Button>
+            
               </ButtonGroup>
+            }
+              <p>create_time={this.props.req_info.create_time}</p>
+              
+              <p>update_time={this.props.req_info.update_time}</p>
+
             </FormGroup>
           </Form>
         </CardBody>

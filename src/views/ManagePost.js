@@ -23,6 +23,7 @@ class ManagePost extends React.Component {
     // alert(this.props.location.state.postID)
     this.state = {
       postID:this.props.location.state.postID,
+      overflow:false,
 
       post: {
         postID: '10101',
@@ -37,12 +38,12 @@ class ManagePost extends React.Component {
         end_date: "2021.01.01",
         people_total: 12,
         people_approved: 2,
-        status: 1
+        status: 0
       }
     }
     this.parserDate = this.parserDate.bind(this)
     this.fetchPostInfo = this.fetchPostInfo.bind(this);
-
+    this.forceRerender = this.forceRerender.bind(this);
   }
 
   parserDate(date) {
@@ -84,7 +85,10 @@ class ManagePost extends React.Component {
         end_date: (res["data"]["token_info"]["end_time"]),
         people_total: res["data"]["token_info"]["max_num"],
         people_approved: res["data"]["token_info"]["cur_num"],
-        status: 1
+        status: res["data"]["token_info"]["state"]
+      }
+      if(temp_post.people_total<=temp_post.people_approved){
+        this.setState({overflow:true})
       }
       this.setState({post:temp_post},()=>{console.log(this.state.post)})
       
@@ -100,12 +104,31 @@ class ManagePost extends React.Component {
     })
   }
   
-  componentDidMount(){
+  componentWillMount(){
     // alert("aawra")
     this.fetchPostInfo()
   }
   
+  forceRerender(){
+    var temp_post =  {
+      postID: this.state.post.postID,
+      backgroundImage:this.state.post.backgroundImage,
+      category: this.state.post.category,
+      categoryTheme: this.state.post.categoryTheme,
+      author: this.state.post.author,
+      authorAvatar: this.state.post.authorAvatar,
+      title:this.state.post.title,
+      body:this.state.post.body,
+      end_date: this.state.post.end_date,
+      people_total: this.state.post.people_total,
+      people_approved: this.state.post.people_approved+1,
+      status: this.state.post.status
+    }
+    this.setState({post:temp_post},()=>{console.log(this.state.post)})
+    this.setState({postID:this.state.postID})
 
+    // this.setState({post.people_approved:post.people_approved+1});
+  }
 
 
 
@@ -119,9 +142,10 @@ class ManagePost extends React.Component {
         <Row>
           <Col lg="6" md="6" sm="12" className="">
             <PostDetail post={this.state.post} edit={true}/>
+            <p>状态是  {this.state.post.status}</p>
           </Col>
           <Col lg="6" md="6" sm="12" className="">
-            <ApplyList />
+            <ApplyList onAgree={this.forceRerender} overflow={this.state.overflow} postID={this.state.postID}/>
           </Col>
         </Row>
       </Container>

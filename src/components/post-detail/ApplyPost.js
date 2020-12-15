@@ -39,7 +39,7 @@ class ApplyPost extends React.Component {
       body:JSON.stringify({
         "token_id":this.props.postID,
         "user_id":window.sessionStorage.getItem("user_id"),
-        "disc":this.state.desc,
+        "disc":this.props.req_info.desc,
         "state":"0"
       })
     })
@@ -72,7 +72,7 @@ class ApplyPost extends React.Component {
           <Form className="quick-post-form">
             {/* Body */}
             <FormGroup>
-              <FormTextarea value={this.props.value} onChange={this.handleDescChange} placeholder="Please enter your description." />
+              <FormTextarea value={this.props.req_info.desc} onChange={this.handleDescChange} placeholder="Please enter your description." />
             </FormGroup>
 
             {/* Create Draft */}
@@ -82,6 +82,8 @@ class ApplyPost extends React.Component {
                       this.props.onToggle()}}>
                 发送请求
               </Button>
+              <p>create_time={this.props.req_info.create_time}</p>
+
             </FormGroup>
           </Form>
         </CardBody>

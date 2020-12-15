@@ -15,7 +15,25 @@ import {Link} from "react-router-dom";
  class PostList extends React.Component {
   constructor(props) {
     super(props);
+    this.value = "-1"
+    this.deletePost = this.deletePost.bind(this)
   }
+
+  deletePost(){
+    // alert(this.value)
+    fetch('http://127.0.0.1:5000/token'+"?token_id="+this.value, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        // 'Authorization':window.sessionStorage.getItem('Authorization'),
+        'Content-Type': 'application/json',
+      },
+      })
+      this.props.forceRender();
+
+  }
+
   render() {
     // posts = this.props.posts
     const posts = [
@@ -49,7 +67,7 @@ import {Link} from "react-router-dom";
                     <div># {post.postID}</div>
                   </Link>
                 </Col>
-                <Col className="col-6">
+                <Col className="col-7">
                   <Link to={{pathname: "/manage-post", state: {postID: post.postID}}} style={{color: "#000"}}>
                     <div>{post.title}</div>
                   </Link>
@@ -60,21 +78,28 @@ import {Link} from "react-router-dom";
                 {/*</Col>*/}
                 <Col className="col-1">
                   {
-                    post.messages !== 0 &&
+                    post.messages !== 0 ?
                     <Link to={{pathname: "/manage-post", state: {postID: post.postID}}} style={{color: "#000"}}>
                       <Badge pill>{post.messages}</Badge>
                     </Link>
-                  }
-                </Col>
-                <Col className="col-1">
-                  {
-                    post.messages === 0 ?
-                      <a href="#" style={{'color': 'red'}}>
-                        <span className="material-icons"
-                              onClick={true}>remove_circle_outline</span>
-                      </a>
-                      :
-                      null
+                    :                    post.cur_num === 0 && post.messages=== 0?
+                    <a style={{'color': 'red'}}>
+                      <span className="material-icons"
+                            onClick={()=>{this.value = post.postID 
+                                this.deletePost()
+                            }} value={post.postID}>remove_circle_outline</span>
+                    </a>
+                    :post.state === "已完成"?
+                
+                    <a href="#" style={{'color': 'green'}}>
+                      <span className="material-icons"
+                            onClick={true}>check_circle_outline</span>
+                    </a>
+                    :
+                    null
+
+
+
                   }
                 </Col>
               </Row>

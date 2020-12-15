@@ -15,9 +15,112 @@ import {Link} from "react-router-dom";
 class ApplyList extends React.Component {
   constructor(props) {
     super(props);
+    this.handleAgree = this.handleAgree.bind(this)
+    this.state = {
+        post:[{
+        id: 1,
+        date: "1",
+        token_id:"0",
+        req_id:"0",
+        send_user_id:"0",
+        state:"0",
+        author: {
+          id: "1",
+          image: require("../../images/avatars/1.jpg"),
+          name: "1",
+          url: "#"
+        },
+      }  ]
+    }
+    this.fetchPostInfo = this.fetchPostInfo.bind(this)
   }
 
+  fetchPostInfo(){
+    alert(this.props.postID)
+
+    fetch('http://127.0.0.1:5000/token_reqs?token_id='+this.props.postID, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+    .then((res)=>{
+      if(res.status===200){
+        return res.json()
+      }
+    })
+    .then(res=>{
+
+      var arr = []
+      for(var i in res.data){
+        var d =  {
+          id: i,
+          req_id:res.data[i].req_id,
+          date: res.data[i].create_time,
+          token_id:res.data[i].token_id,
+          send_user_id:res.data[i].send_user_id,
+          state:res.data[i].state,
+          author: {
+            id: res.data[i].user_id,
+            image: require("../../images/avatars/1.jpg"),
+            name: res.data[i].user_name,
+            url: "#"  
+          },
+        }     
+        // alert(this.props.overflow)
+        // alert(d.state)
+        if(d.state==="0" && !this.props.overflow){
+          arr.push(d) 
+        }else if(d.state==="2" && this.props.overflow){
+          arr.push(d)
+          
+        }
+      }
+      this.setState({post:arr},()=>{console.log(this.state.post)})
+      
+    })
+  }
+
+  componentDidMount(){
+    this.fetchPostInfo()
+
+  }
+
+  handleAgree(e){
+    console.log(e.target.value)
+    console.log(this.state.post)
+    console.log(this.state.post[e.target.value])
+
+    var item = this.state.post[e.target.value]
+    fetch('http://127.0.0.1:5000/suc_detail', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "req_id":item.req_id,
+        "send_user_id":item.send_user_id,
+        "token_id":item.token_id,
+        "recv_user_id":item.author.id
+      })
+
+    }).then(this.props.onAgree())
+    console.log(e.target.value)
+    console.log(this.state.post[e.target.value])
+    this.fetchPostInfo()
+    
+    // console.log(e.target.v)
+
+    // console.log(e.target.value[1])
+    
+
+  }
   render() {
+    
     return (
       <Card small className="blog-comments">
         <CardHeader className="border-bottom">
@@ -25,7 +128,7 @@ class ApplyList extends React.Component {
         </CardHeader>
 
         <CardBody className="p-0">
-          {this.props.discussions.map((discussion, idx) => (
+          {this.state.post.map((discussion, idx) => (
             <div key={idx} className="blog-comments__item d-flex p-3">
               {/* Avatar */}
               <div className="blog-comments__avatar mr-3">
@@ -55,8 +158,9 @@ class ApplyList extends React.Component {
 
                 {/* Content :: Actions */}
                 <div className="blog-comments__actions">
+                  {this.props.overflow ? <br />:
                   <ButtonGroup size="sm">
-                    <Button theme="white">
+                    <Button theme="white" onClick={this.handleAgree} value={discussion.id} >
                   <span className="text-success">
                     <i className="material-icons">check</i>
                   </span>{" "}
@@ -75,6 +179,7 @@ class ApplyList extends React.Component {
                   Edit
                 </Button> */}
                   </ButtonGroup>
+                  }
                 </div>
               </div>
             </div>

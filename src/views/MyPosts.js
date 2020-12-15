@@ -24,6 +24,7 @@ class MyPosts extends React.Component {
     super(props);
     // this.setState({post:["xxx"]})
     this.fetch_posts = this.fetch_posts.bind(this)
+    this.forceRender = this.forceRender.bind(this)
   }
 
   fetch_posts = ()=>{
@@ -55,6 +56,10 @@ class MyPosts extends React.Component {
     this.fetch_posts()
   }
 
+  forceRender(){
+    this.fetch_posts()
+  }
+
   render(){
     return (
       <Container fluid className="main-content-container px-4 pb-4">
@@ -64,7 +69,7 @@ class MyPosts extends React.Component {
         </Row>
         <Row>
           <Col lg="10" sm="12" className="">
-            <PostList posts={this.state.post} edit={true}/>
+            <PostList forceRender={this.forceRender} posts={this.state.post} edit={true}/>
           </Col>
 
         </Row>
