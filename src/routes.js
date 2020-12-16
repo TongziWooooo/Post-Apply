@@ -22,6 +22,8 @@ import SignUp from "./views/SignUp";
 import SignIn from "./views/SignIn";
 import DataOverview from "./views/DataOverview";
 import UserSearch from "./views/UserSearch";
+import UserProfileRoot from "./views/UserProfileRoot";
+import UserProfileView from "./views/UserProfileView";
 
 export default [
   {
@@ -111,6 +113,16 @@ export default [
     path: "/user-search",
     layout: DefaultLayout,
     component: UserSearch
+  },
+  {
+    path: "/user-profile-root",
+    layout: DefaultLayout,
+    component: UserProfileRoot
+  },
+  {
+    path: "/user-profile-view",
+    layout: DefaultLayout,
+    component: UserProfileView
   }
 
 ];

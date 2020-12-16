@@ -28,9 +28,9 @@ const UserAccountDetails = ({ title }) => (
             <Row form>
                 {/* 用户id */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feFirstName">用户ID</label>
+                  <label htmlFor="feUserID">用户ID</label>
                   <FormInput
-                    id="feID"
+                    id="feUserID"
                     value="123456"
                     disabled="disabled"
                     onChange={() => {}}
@@ -38,9 +38,9 @@ const UserAccountDetails = ({ title }) => (
                 </Col>
                 {/* 用户名 */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feLastName">用户名</label>
+                  <label htmlFor="feUserName">用户名</label>
                   <FormInput
-                    id="feName"
+                    id="feUserName"
                     value="SecretName"
                     disabled="disabled"
                     onChange={() => {}}
@@ -72,23 +72,40 @@ const UserAccountDetails = ({ title }) => (
                 </Col>
               </Row>
               <Row form>
-                {/* Email */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feEmail">证件号码</label>
+                  <label htmlFor="feEmail">证件号码（身份证）</label> {/* 这里把这个type改成可变？ */}
                   <FormInput
                     id="feIdentity"
-                    placeholder="证件号码"
                     value="44040219294102478"
                     disabled="disabled"
                     onChange={() => {}}
                   />
                 </Col>
-                {/* City */}
                 <Col md="6" className="form-group">
                   <label htmlFor="feCity">注册城市</label>
                   <FormInput
                     id="feCity"
-                    value="北京"
+                    value="北京市 北京市"
+                    disabled="disabled"
+                    onChange={() => {}}
+                  />
+                </Col>
+              </Row>
+              <Row form>
+                <Col md="6" className="form-group">
+                  <label htmlFor="feRegisterTime">注册时间</label>
+                  <FormInput
+                    id="feRegisterTime"
+                    value="2020-02-02 19:29"
+                    disabled="disabled"
+                    onChange={() => {}}
+                  />
+                </Col>
+                <Col md="6" className="form-group">
+                <label htmlFor="feEditTime">修改时间</label>
+                  <FormInput
+                    id="feEditTime"
+                    value="2020-02-02 19:29"
                     disabled="disabled"
                     onChange={() => {}}
                   />
@@ -97,7 +114,7 @@ const UserAccountDetails = ({ title }) => (
               <Row form>
                 {/* 手机号码 */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="fePassword">手机号码</label>
+                  <label htmlFor="fePhone">手机号码</label>
                   <FormInput
                     id="fePhone"
                     placeholder="手机号码"
