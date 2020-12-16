@@ -70,7 +70,7 @@ parserDate(date) {
 };
 
 fetchPostInfo(){
-  fetch('http://127.0.0.1:5000/token?_id='+this.props.location.state.postID, {
+  fetch('http://192.168.43.60:5000/token?_id='+this.props.location.state.postID, {
     method: 'GET',
     credentials: 'include',
     headers: {
@@ -94,8 +94,8 @@ fetchPostInfo(){
 
     this.setState({end_time:this.parserDate(res["data"]["token_info"]["end_time"])},
       ()=>{this.setState({formated_end_data:formatDate(this.state.end_time)})})
-      
-    
+
+
     var type = res['data']['token_info']['token_type']
     var type_dict = {
       jsjl:false,
@@ -111,10 +111,10 @@ fetchPostInfo(){
       type_dict.xstt = true
     } else if(type==="学业讨论'"){
       type_dict.xstt = true
-    
+
     } else if(type==="社会实践"){
-      type_dict.shsj = true  
-    
+      type_dict.shsj = true
+
     } else if(type==="公益志愿"){
       type_dict.gyzy = true
     } else if(type==="缘来如此"){
@@ -160,7 +160,7 @@ componentDidMount(){
     console.log(temp)
 
 
-    fetch('http://127.0.0.1:5000/token', {
+    fetch('http://192.168.43.60:5000/token', {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -222,7 +222,7 @@ componentDidMount(){
 
   login(){
 
-    fetch('http://127.0.0.1:5000/session', {
+    fetch('http://192.168.43.60:5000/session', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -262,7 +262,7 @@ componentDidMount(){
 
   printSession(){
     console.log(window.sessionStorage.getItem('Authorization'))
-    fetch('http://127.0.0.1:5000/session', {
+    fetch('http://192.168.43.60:5000/session', {
       method: 'DELETE',
       credentials: 'include',
       headers: {

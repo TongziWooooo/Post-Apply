@@ -18,7 +18,7 @@ class Status extends React.Component {
             <h2>200</h2>
             <h3>Succeed!</h3>
             <p>You have succeeded in your submit.</p>
-            <Link to={{pathname: "/"}}>
+            <Link to={{pathname: "/blog-posts"}}>
               <Button pill>&larr; Go Back</Button>
             </Link>
           </div>
@@ -29,7 +29,7 @@ class Status extends React.Component {
             <h2>500</h2>
             <h3>Something went wrong!</h3>
             <p>There was a problem on our end. Please try again later.</p>
-            <Link to={{pathname: "/"}}>
+            <Link to={{pathname: "/blog-posts"}}>
               <Button pill>&larr; Go Back</Button>
             </Link>
           </div>

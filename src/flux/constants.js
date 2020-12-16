@@ -5,4 +5,6 @@ export default {
   APPLY_EDIT: 1,
   SUCCEED: 0,
   FAIL: -1,
+  USER: 1,
+  MANAGER: 2
 };
