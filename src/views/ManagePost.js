@@ -109,7 +109,11 @@ class ManagePost extends React.Component {
     this.fetchPostInfo()
   }
   
-  forceRerender(){
+  forceRerender(flag){
+    var num = 1
+    if(flag){
+      num=0
+    }
     var temp_post =  {
       postID: this.state.post.postID,
       backgroundImage:this.state.post.backgroundImage,
@@ -121,7 +125,8 @@ class ManagePost extends React.Component {
       body:this.state.post.body,
       end_date: this.state.post.end_date,
       people_total: this.state.post.people_total,
-      people_approved: this.state.post.people_approved+1,
+
+      people_approved: this.state.post.people_approved+num,
       status: this.state.post.status
     }
     this.setState({post:temp_post},()=>{console.log(this.state.post)})

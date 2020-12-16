@@ -13,6 +13,19 @@ import {
 } from "shards-react";
 import {withRouter} from "react-router-dom";
 import Constants from "../../flux/constants";
+var formatDate = function(date){
+  var y = date.getFullYear();
+  var m = date.getMonth() + 1;
+  m = m < 10 ? ('0' + m) : m;
+  var d = date.getDate();
+  d = d < 10 ? ('0' + d) : d;
+  var h = date.getHours();
+  var minute = date.getMinutes();
+  minute = minute < 10 ? ('0' + minute) : minute;
+  var second= date.getSeconds();
+  second = minute < 10 ? ('0' + second) : second;
+  return y + '-' + m + '-' + d+' '+h+':'+minute+':'+ second;
+};
 
 
 class ApplyEdit extends React.Component {
@@ -27,6 +40,10 @@ class ApplyEdit extends React.Component {
       state:this.props.state
 
     }
+    var create_time = this.props.req_info.create_time
+    var update_time = this.props.req_info.update_time
+    // console.log(create_time)
+
 
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -66,6 +83,17 @@ class ApplyEdit extends React.Component {
     this.setState({edit: !this.state.edit})
   }
   handleDelete(){
+    fetch("http://127.0.0.1:5000/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
+      method:'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
+        'Content-Type': 'application/json',
+      }
+    })
+
+
+
     this.props.history.push({
       pathname: "/status",
       state: {type: Constants.SUCCEED}
@@ -82,6 +110,15 @@ class ApplyEdit extends React.Component {
   componentDidMount(){
     console.log("0909009090")
     console.log(this.props.req_info)
+    console.log(this.create_time)
+
+    // if(!this.create_time){
+    //   this.create_time = formatDate(Date.now())
+    // }
+    // if(!this.update_time){
+    //   this.update_time = formatDate(Date.now())
+    // }
+    //
 
   }
   componentWillUpdate(nextProps, nextState) {
@@ -115,7 +152,7 @@ class ApplyEdit extends React.Component {
 
             {/* Create Draft */}
             <FormGroup className="mb-0">
-            {this.props.req_info.state !="3" &&
+            {this.props.req_info.state !="3" && this.props.req_info.state !="2" && this.props.req_info.state !="1" &&
 
               <ButtonGroup className="mb-3">
                 {this.state.edit === true ?
@@ -140,10 +177,15 @@ class ApplyEdit extends React.Component {
             
               </ButtonGroup>
             }
-              <p>create_time={this.props.req_info.create_time}</p>
-              
-              <p>update_time={this.props.req_info.update_time}</p>
-
+              {
+                this.props.req_info.create_time?
+                  <p>create_time={this.props.req_info.create_time}</p>:
+                  null
+              }
+              {
+                this.props.req_info.update_time?
+                <p>update_time={this.props.req_info.update_time}</p>:null
+              }
             </FormGroup>
           </Form>
         </CardBody>

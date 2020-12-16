@@ -32,7 +32,7 @@ import Constants from "../../flux/constants";
       })
       .then(
         res=>{
-          if(res.status==200){
+          if(res.status===200){
             return res.json()
           }else{
             alert("fail to get posts")
