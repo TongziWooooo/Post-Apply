@@ -51,7 +51,7 @@ class ApplyView extends React.Component {
         state:"0"
 
       }, //算了 不写了  现在是  用户申请该编辑 输入栏会清空，想改掉要把decs提出来 好麻烦
-      
+
 
       post: {
         postID: this.props.location.state.postID,
@@ -89,12 +89,12 @@ class ApplyView extends React.Component {
     }
 };
   fetchPostInfo(){
-    fetch('http://127.0.0.1:5000/token?_id='+this.state.postID, {
+    fetch('http://10.128.222.68:5000/token?_id='+this.state.postID, {
       method: 'GET',
       credentials: 'include',
       headers: {
         'Accept': 'application/json',
-        
+
         // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
         'Content-Type': 'application/json',
       }
@@ -121,29 +121,29 @@ class ApplyView extends React.Component {
         status: 1
       }
       this.setState({post:temp_post},()=>{console.log(this.state.post)})
-      
+
       // console.log(res["data"]["token_info"]["end_time"])
       // console.log(this.parserDate(res["data"]["token_info"]["end_time"]))
       // this.setState({value:res["data"]["token_info"]["desc"]})
       // this.setState({title:res["data"]["token_info"]["token_name"]})
       // this.setState({max_num:res["data"]["token_info"]["max_num"]})
       // this.setState({token_id:res["data"]["token_info"]["token_id"]})
-  
+
       // this.setState({end_time:this.parserDate(res["data"]["token_info"]["end_time"])})
       // this.setState
     })
   }
-  
+
 
   async fetch_req_info(){
     console.log("will fetch")
-    fetch('http://127.0.0.1:5000/token_req?token_id='+this.state.postID+'&user_id='+window.sessionStorage.getItem("user_id"), {
+    fetch('http://10.128.222.68:5000/token_req?token_id='+this.state.postID+'&user_id='+window.sessionStorage.getItem("user_id"), {
       method: 'GET',
       credentials: 'include',
       headers: {
         'Accept': 'application/json',
-        
-        
+
+
         // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
         'Content-Type': 'application/json',
       }
@@ -159,10 +159,10 @@ class ApplyView extends React.Component {
         create_time:res.data.create_time,
         update_time:res.data.update_time,
         state:res.data.state
-  
+
       }
       this.setState({req_info:req_info},()=>{
-        console.log(this.state.req_info) 
+        console.log(this.state.req_info)
         this.setState({apply: <ApplyEdit req_info={this.state.req_info}  postID={this.state.post.postID} handleDescChange={this.handleDescChange}/>})
 
       })
@@ -199,7 +199,7 @@ class ApplyView extends React.Component {
        create_time:this.state.req_info.create_time,
        update_time:this.state.req_info.update_time,
        state:this.state.req_info.state
- 
+
      }
      // this.value=req_inf?o
      this.setState({req_info:req_info},()=>{
@@ -207,7 +207,7 @@ class ApplyView extends React.Component {
 
      })
    }
- 
+
   handleDescChange(value){
    // var fmt = formatDate(Date.now())
     var req_info={

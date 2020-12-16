@@ -56,12 +56,12 @@ class ManagePost extends React.Component {
     }
 };
   fetchPostInfo(){
-    fetch('http://127.0.0.1:5000/token?_id='+this.state.postID, {
+    fetch('http://10.128.222.68:5000/token?_id='+this.state.postID, {
       method: 'GET',
       credentials: 'include',
       headers: {
         'Accept': 'application/json',
-        
+
         // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
         'Content-Type': 'application/json',
       }
@@ -91,24 +91,24 @@ class ManagePost extends React.Component {
         this.setState({overflow:true})
       }
       this.setState({post:temp_post},()=>{console.log(this.state.post)})
-      
+
       // console.log(res["data"]["token_info"]["end_time"])
       // console.log(this.parserDate(res["data"]["token_info"]["end_time"]))
       // this.setState({value:res["data"]["token_info"]["desc"]})
       // this.setState({title:res["data"]["token_info"]["token_name"]})
       // this.setState({max_num:res["data"]["token_info"]["max_num"]})
       // this.setState({token_id:res["data"]["token_info"]["token_id"]})
-  
+
       // this.setState({end_time:this.parserDate(res["data"]["token_info"]["end_time"])})
       // this.setState
     })
   }
-  
+
   componentWillMount(){
     // alert("aawra")
     this.fetchPostInfo()
   }
-  
+
   forceRerender(){
     var temp_post =  {
       postID: this.state.post.postID,

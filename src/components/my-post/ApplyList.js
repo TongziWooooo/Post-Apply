@@ -38,7 +38,7 @@ class ApplyList extends React.Component {
   fetchPostInfo(){
     alert(this.props.postID)
 
-    fetch('http://127.0.0.1:5000/token_reqs?token_id='+this.props.postID, {
+    fetch('http://10.128.222.68:5000/token_reqs?token_id='+this.props.postID, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -66,20 +66,20 @@ class ApplyList extends React.Component {
             id: res.data[i].user_id,
             image: require("../../images/avatars/1.jpg"),
             name: res.data[i].user_name,
-            url: "#"  
+            url: "#"
           },
-        }     
+        }
         // alert(this.props.overflow)
         // alert(d.state)
         if(d.state==="0" && !this.props.overflow){
-          arr.push(d) 
+          arr.push(d)
         }else if(d.state==="2" && this.props.overflow){
           arr.push(d)
-          
+
         }
       }
       this.setState({post:arr},()=>{console.log(this.state.post)})
-      
+
     })
   }
 
@@ -94,7 +94,7 @@ class ApplyList extends React.Component {
     console.log(this.state.post[e.target.value])
 
     var item = this.state.post[e.target.value]
-    fetch('http://127.0.0.1:5000/suc_detail', {
+    fetch('http://10.128.222.68:5000/suc_detail', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -112,15 +112,15 @@ class ApplyList extends React.Component {
     console.log(e.target.value)
     console.log(this.state.post[e.target.value])
     this.fetchPostInfo()
-    
+
     // console.log(e.target.v)
 
     // console.log(e.target.value[1])
-    
+
 
   }
   render() {
-    
+
     return (
       <Card small className="blog-comments">
         <CardHeader className="border-bottom">
@@ -140,7 +140,7 @@ class ApplyList extends React.Component {
                 {/* Content :: Title */}
                 <div className="blog-comments__meta text-mutes">
                   <Link to={{
-                    pathname: "/user-profile-lite", state: {userID: discussion.author.id}
+                    pathname: "/user-profile-view", state: {userID: discussion.author.id}
                   }} className={"text-secondary"}>
                     {discussion.author.name}
                   </Link>

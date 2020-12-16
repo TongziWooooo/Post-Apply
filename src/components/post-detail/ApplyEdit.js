@@ -38,12 +38,12 @@ class ApplyEdit extends React.Component {
     this.setState({edit: !this.state.edit})
   }
 
-  
+
 
   handleSubmit() {
     console.log("ppppppppp")
     // console.log(this.state.desc
-    fetch("http://127.0.0.1:5000/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
+    fetch("http://10.128.222.68:5000/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
       method:'PUT',
       headers: {
         'Accept': 'application/json',
@@ -131,17 +131,17 @@ class ApplyEdit extends React.Component {
                     </span>
                   </Button>
                 }
-                
+
                 <Button theme="white" onClick={this.handleDelete}>
                   <span className="text-danger">
                     <i className="material-icons" >clear</i>{" 删除"}
                   </span>
                 </Button>
-            
+
               </ButtonGroup>
             }
               <p>create_time={this.props.req_info.create_time}</p>
-              
+
               <p>update_time={this.props.req_info.update_time}</p>
 
             </FormGroup>

@@ -26,7 +26,7 @@ class BlogPosts extends React.Component {
     super(props);
 
     this.state = {
-      posts:[],
+      displayPosts: [],
       // First list of posts.
       // PostsListOne:
       PostsListOne: [
@@ -99,12 +99,14 @@ class BlogPosts extends React.Component {
       // Fourth list of posts.
 
     };
+
+    this.handleTypeSelect = this.handleTypeSelect.bind(this);
   }
 
 
 
   fetch_posts = ()=>{
-    fetch('http://127.0.0.1:5000/token_list?_id='+window.sessionStorage.getItem("user_id"), {
+    fetch('http://10.128.222.68:5000/token_list?_id='+window.sessionStorage.getItem("user_id"), {
       method: 'get',
       credentials: 'include',
       headers: {
@@ -112,7 +114,7 @@ class BlogPosts extends React.Component {
         'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },
-      })
+    })
       .then(
         res=>{
           if(res.status===200){
@@ -123,38 +125,52 @@ class BlogPosts extends React.Component {
         }
       )
       .then((res)=>{
-        // 这里不显示post描述了 因为是富文本，在展示页面会显示标签，很麻烦
-        console.log(res.data.token_list)
-        var arr = []
-        for(var i in res.data.token_list){
-          console.log(res.data.token_list[i])
-          var dic = {
-            backgroundImage: require("../images/content-management/10.jpeg"),
-            author: res.data.token_list[i].send_user,
-            authorUrl: "#",
-            postID: res.data.token_list[i].token_id,
-            category: res.data.token_list[i].token_type,
-            categoryUrl: "#",
-            title: res.data.token_list[i].token_name,
-            // body:  res.data.token_list[i].desc,
-            date: res.data.token_list[i].end_time,
-            has_req: res.data.token_list[i].has_req
+          // 这里不显示post描述了 因为是富文本，在展示页面会显示标签，很麻烦
+          console.log(res.data.token_list)
+          var arr = []
+          for(var i in res.data.token_list){
+            console.log(res.data.token_list[i])
+            var dic = {
+              backgroundImage: require("../images/content-management/10.jpeg"),
+              author: res.data.token_list[i].send_user,
+              authorUrl: "#",
+              postID: res.data.token_list[i].token_id,
+              category: res.data.token_list[i].token_type,
+              categoryUrl: "#",
+              title: res.data.token_list[i].token_name,
+              // body:  res.data.token_list[i].desc,
+              date: res.data.token_list[i].end_time,
+              has_req: res.data.token_list[i].has_req
+            }
+            console.log(dic.postID)
+            arr.push(dic)
           }
-          console.log(dic.postID)
-          arr.push(dic)
-        }
 
 
-        this.setState({posts:arr}
-          ,()=>{
+          this.posts = arr;
+          this.setState({displayPosts: arr});
+          //   this.setState({posts:arr}
+          //     ,()=>{
+          //
+          // })
+          // console.log(post)
 
-      })
-      // console.log(post)
+
         }
       )
 
 
   }
+
+  handleTypeSelect = (e) => {
+    // alert(e.target.value);
+    let temp_posts = this.posts.filter(post => {
+      return post.category === e.target.value;
+    })
+    // console.log(temp_posts)
+    this.setState({displayPosts: temp_posts});
+  }
+
   componentDidMount(){
     this.fetch_posts()
   }
@@ -173,13 +189,13 @@ class BlogPosts extends React.Component {
               <CardBody className="p2-1">
                 <Row>
                   <Col className="col-2">
-                    <FormSelect>
+                    <FormSelect onChange={this.handleTypeSelect}>
                       <option selected>所有类别</option>
-                      <option value="1">技术交流</option>
-                      <option value="2">学业探讨</option>
-                      <option value="3">社会实践</option>
-                      <option value="4">公益志愿者</option>
-                      <option value="5">游玩</option>
+                      <option value="技术交流">技术交流</option>
+                      <option value="学业探讨">学业探讨</option>
+                      <option value="社会实践">社会实践</option>
+                      <option value="公益志愿者">公益志愿者</option>
+                      <option value="游玩">游玩</option>
                     </FormSelect>
                   </Col>
                   <Col className="col-8">
@@ -204,7 +220,7 @@ class BlogPosts extends React.Component {
       </Col>
         </Row>
         <Row>
-          {this.state.posts.map((post, idx) => (
+          {this.state.displayPosts.map((post, idx) => (
             <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
               <Card small className="card-post card-post--1">
                 <div

@@ -41,7 +41,7 @@ class SignInForm extends React.Component {
 
   handleLogin() {
     this.props.history.push({
-      pathname: "/"
+      pathname: "/blog-posts"
     })
     // console.log(this.props.history)
 
@@ -49,41 +49,53 @@ class SignInForm extends React.Component {
 
 
   login(){
-    var flag = 0
-    fetch('http://127.0.0.1:5000/session', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
-        'Content-Type': 'application/json',
+    if (this.state.username === "admin") {
+      if (this.state.password === "admin") {
+        this.props.history.push({
+          pathname: "/data-overview"
+        })
+      } else {
+        alert("密码错误")
+      }
+
+    } else {
+      var flag = 0
+      fetch('http://10.128.222.68:5000/session', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           "username": this.state.username,
           "password": this.state.password,
         })
-      }).then(res => { 
-        if(res.status===200) 
-          {
-            flag = 1
-            console.log("为什么")
-            return res.json()
-          } else{
+      }).then(res => {
+        if(res.status===200)
+        {
+          flag = 1
+          console.log("为什么")
+          return res.json()
+        } else{
           alert("密码错误")
         }
       })
-      .then(res =>{         //ref
-        if(flag === 1 ){
-          console.log(res["data"])
-          window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
-          window.sessionStorage.setItem("user_id",res["data"]["user_id"])
-          window.sessionStorage.setItem("user_name","xxx")
-          this.props.history.push({
-            pathname: "/"
-          })
-        }
-      }
-    )
+        .then(res =>{         //ref
+            if(flag === 1 ){
+              console.log(res["data"])
+              window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
+              window.sessionStorage.setItem("user_id",res["data"]["user_id"])
+              window.sessionStorage.setItem("user_name","xxx")
+              this.props.history.push({
+                pathname: "/blog-posts"
+              })
+            }
+          }
+        )
+    }
+
   }
 
 

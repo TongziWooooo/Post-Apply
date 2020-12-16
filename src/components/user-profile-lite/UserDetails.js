@@ -10,21 +10,22 @@ import {
   Badge
 } from "shards-react";
 
-const UserDetails = ({ userDetails }) => (
+
+const UserDetails = (props) => (
   <Card small className="mb-4 pt-3">
     <CardHeader className="border-bottom text-center">
       <div className="mb-3 mx-auto">
         <img
           className="rounded-circle"
-          src={userDetails.avatar}
-          alt={userDetails.name}
+          src={require("./../../images/avatars/0.jpg")}
+          alt={props.userInfo.user_name}
           width="110"
         />
       </div>
-      <h4 className="mb-1">{userDetails.name}</h4>
+      <h4 className="mb-1">{props.userInfo.user_name}</h4>
       <div>
-        { userDetails.grade === '0' ? <Badge><i class="fas fa-gem"> 钻石用户</i></Badge>
-        : userDetails.grade === '1' ? <Badge theme="info"><i class="far fa-star"> 重要用户</i></Badge>
+        { props.userInfo.level === '0' ? <Badge><i class="fas fa-gem"> 钻石用户</i></Badge>
+        : props.userInfo.level === '1' ? <Badge theme="info"><i class="far fa-star"> 重要用户</i></Badge>
         : <Badge theme="secondary"><i class="far fa-thumbs-up"> 普通用户</i></Badge>}
       </div>
     </CardHeader>
@@ -33,19 +34,22 @@ const UserDetails = ({ userDetails }) => (
         <strong className="text-muted d-block mb-2">
           注册城市
         </strong>
-        <span>{userDetails.city}</span>
+        <span>{props.userInfo.city}</span>
       </ListGroupItem>
       <ListGroupItem className="p-4">
         <strong className="text-muted d-block mb-2">
           注册时间
         </strong>
-        <span>{userDetails.register_time}</span>
+        <span>{props.userInfo.reg_time}</span>
       </ListGroupItem>
       <ListGroupItem className="p-4">
         <strong className="text-muted d-block mb-2">
-          {userDetails.metaTitle}
+          用户简介
+          {/*{userDetails.metaTitle}*/}
         </strong>
-        <span>{userDetails.metaValue}</span>
+        <span>
+          {props.userInfo.info}
+        </span>
       </ListGroupItem>
     </ListGroup>
   </Card>
