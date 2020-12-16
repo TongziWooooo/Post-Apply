@@ -22,7 +22,7 @@ class UserProfileRoot extends React.Component {
   }
 
   fetch_user_info () {
-    fetch('http://10.128.222.68:5000/user/' + window.sessionStorage.getItem("user_id"), {
+    fetch('http://192.168.43.60:5000/user/' + window.sessionStorage.getItem("user_id"), {
       method: 'get',
       credentials: 'include',
       headers: {
@@ -41,11 +41,8 @@ class UserProfileRoot extends React.Component {
         }
       )
       .then((res)=>{
-        let temp = res.data;
-        temp.first_name = res.data.name.split("@")[0];
-        temp.last_name = res.data.name.split("@")[1];
-        console.log(temp);
-        this.setState({userInfo: temp});
+        console.log(res.data);
+        this.setState({userInfo: res.data});
         }
       )
 
@@ -73,7 +70,7 @@ class UserProfileRoot extends React.Component {
   handleSubmit() {
     console.log(this.state.userInfo)
 
-    fetch('http://10.128.222.68:5000/user/' + window.sessionStorage.getItem("user_id"), {
+    fetch('http://192.168.43.60:5000/user/' + window.sessionStorage.getItem("user_id"), {
       method: 'PUT',
       credentials: 'include',
       headers: {

@@ -21,7 +21,7 @@ import Constants from "../../flux/constants";
   }
 
     fetch_applies = ()=>{
-    fetch('http://10.128.222.68:5000/token_reqs'+"?user_id="+window.sessionStorage.getItem("user_id"), {
+    fetch('http://192.168.43.60:5000/token_reqs'+"?user_id="+window.sessionStorage.getItem("user_id"), {
       method: 'get',
       credentials: 'include',
       headers: {

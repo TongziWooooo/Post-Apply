@@ -106,7 +106,7 @@ class BlogPosts extends React.Component {
 
 
   fetch_posts = ()=>{
-    fetch('http://10.128.222.68:5000/token_list?_id='+window.sessionStorage.getItem("user_id"), {
+    fetch('http://192.168.43.60:5000/token_list?_id='+window.sessionStorage.getItem("user_id"), {
       method: 'get',
       credentials: 'include',
       headers: {
