@@ -73,7 +73,7 @@ class AddNewPost extends Component{
     console.log(temp)
 
 
-    fetch('http://127.0.0.1:5000/token', {
+    fetch('http://10.128.222.68:5000/token', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -131,7 +131,7 @@ class AddNewPost extends Component{
 
   login(){
 
-    fetch('http://127.0.0.1:5000/session', {
+    fetch('http://10.128.222.68:5000/session', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -171,7 +171,7 @@ class AddNewPost extends Component{
 
   printSession(){
     console.log(window.sessionStorage.getItem('Authorization'))
-    fetch('http://127.0.0.1:5000/session', {
+    fetch('http://10.128.222.68:5000/session', {
       method: 'DELETE',
       credentials: 'include',
       headers: {

@@ -29,7 +29,7 @@ class ApplyPost extends React.Component {
 
 
   handleSubmit(e) {
-    fetch("http://127.0.0.1:5000/token_req",{
+    fetch("http://10.128.222.68:5000/token_req",{
       method:'POST',
       headers: {
         'Accept': 'application/json',
@@ -82,7 +82,6 @@ class ApplyPost extends React.Component {
                       this.props.onToggle()}}>
                 发送请求
               </Button>
-              <p>create_time={this.props.req_info.create_time}</p>
 
             </FormGroup>
           </Form>

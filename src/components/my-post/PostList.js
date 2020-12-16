@@ -21,7 +21,7 @@ import {Link} from "react-router-dom";
 
   deletePost(){
     // alert(this.value)
-    fetch('http://127.0.0.1:5000/token'+"?token_id="+this.value, {
+    fetch('http://10.128.222.68:5000/token'+"?token_id="+this.value, {
       method: 'DELETE',
       credentials: 'include',
       headers: {
