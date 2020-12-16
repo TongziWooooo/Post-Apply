@@ -82,7 +82,6 @@ class ApplyPost extends React.Component {
                       this.props.onToggle()}}>
                 发送请求
               </Button>
-              <p>create_time={this.props.req_info.create_time}</p>
 
             </FormGroup>
           </Form>

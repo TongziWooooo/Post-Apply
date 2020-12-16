@@ -9,7 +9,9 @@ import {
   FormInput,
   FormTextarea,
   Button,
-  ButtonGroup
+  ButtonGroup,
+  Row,
+  Col
 } from "shards-react";
 import {withRouter} from "react-router-dom";
 import Constants from "../../flux/constants";
@@ -117,35 +119,35 @@ class ApplyEdit extends React.Component {
             <FormGroup className="mb-0">
             {this.props.req_info.state !="3" &&
 
-              <ButtonGroup className="mb-3">
+              <ButtonGroup className="my-3">
                 {this.state.edit === true ?
-                  <Button theme="white" onClick={this.handleSubmit}>
-                    <span className="text-info">
+                  <Button theme="primary" onClick={this.handleSubmit}>
+                    <span>
                       <i className="material-icons">edit</i>{" 提交"}
                     </span>
                   </Button>
                   :
-                  <Button theme="white" onClick={this.toggleEdit} >
-                    <span className="text-info">
+                  <Button outline theme="primary" onClick={this.toggleEdit} >
+                    <span>
                       <i className="material-icons">edit</i>{" 编辑"}
                     </span>
                   </Button>
                 }
 
-                <Button theme="white" onClick={this.handleDelete}>
-                  <span className="text-danger">
+                <Button outline theme="danger" onClick={this.handleDelete}>
+                  <span>
                     <i className="material-icons" >clear</i>{" 删除"}
                   </span>
                 </Button>
 
               </ButtonGroup>
             }
-              <p>create_time={this.props.req_info.create_time}</p>
-
-              <p>update_time={this.props.req_info.update_time}</p>
-
             </FormGroup>
           </Form>
+          <Row className="p-2">
+              <Col className="text-muted">创建于 {this.props.req_info.create_time}</Col>
+              <Col className="text-muted text-right">更新于 {this.props.req_info.update_time}</Col>
+          </Row>
         </CardBody>
       </Card>
     )

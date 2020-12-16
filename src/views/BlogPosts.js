@@ -243,7 +243,7 @@ class BlogPosts extends React.Component {
                   </div>
                 </div>
                 <CardBody>
-                <span>{post.author}</span>
+                <span>@{post.author}</span>
                   <h5 className="card-title">
                     <Link to={{
                       pathname: "/apply-view",
@@ -253,8 +253,9 @@ class BlogPosts extends React.Component {
                     </Link>
 
                   </h5>
-                  <p className="card-text d-inline-block mb-3">{post.body}</p>
-                  <span className="text-muted">结束日期： {post.date}</span>
+                  {/* <p className="card-text d-inline-block mb-3">{post.body}</p> */}
+                  <span className="text-muted">结束日期：{post.date}</span>
+                  <Badge theme="success" className="mt-2">召集中</Badge>
                 </CardBody>
               </Card>
             </Col>
