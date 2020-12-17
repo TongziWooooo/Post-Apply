@@ -38,7 +38,7 @@ class ApplyList extends React.Component {
   fetchPostInfo(){
     alert(this.props.postID)
 
-    fetch('http://192.168.43.60:5000/token_reqs?token_id='+this.props.postID, {
+    fetch('http://127.0.0.1:5000/token_reqs?token_id='+this.props.postID, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -94,7 +94,7 @@ class ApplyList extends React.Component {
     console.log(this.state.post[e.target.value])
 
     var item = this.state.post[e.target.value]
-    fetch('http://192.168.43.60:5000/suc_detail', {
+    fetch('http://127.0.0.1:5000/suc_detail', {
       method: 'POST',
       credentials: 'include',
       headers: {

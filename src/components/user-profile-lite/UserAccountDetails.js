@@ -143,9 +143,9 @@ class UserAccountDetails extends React.Component {
                       <FormInput
                         type="password"
                         id="fePassword"
-                        placeholder="Password"
+                        placeholder="Enter when you want to change."
                         disabled={this.props.userType === Constants.MANAGER}
-                        value="EX@MPL#P@$$w0RD"
+                        value={this.props.userInfo.password}
                         onChange={this.props.handlePasswordChange}
                         autoComplete="current-password"
                       />

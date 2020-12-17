@@ -24,6 +24,7 @@ import DataOverview from "./views/DataOverview";
 import UserSearch from "./views/UserSearch";
 import UserProfileRoot from "./views/UserProfileRoot";
 import UserProfileView from "./views/UserProfileView";
+import ManagerBar from "./layouts/ManagerBar";
 
 export default [
   {
@@ -106,12 +107,12 @@ export default [
   },
   {
     path: "/data-overview",
-    layout: DefaultLayout,
+    layout: ManagerBar,
     component: DataOverview
   },
   {
     path: "/user-search",
-    layout: DefaultLayout,
+    layout: ManagerBar,
     component: UserSearch
   },
   {

@@ -45,7 +45,7 @@ class ApplyEdit extends React.Component {
   handleSubmit() {
     console.log("ppppppppp")
     // console.log(this.state.desc
-    fetch("http://192.168.43.60:5000/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
+    fetch("http://127.0.0.1:5000/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
       method:'PUT',
       headers: {
         'Accept': 'application/json',

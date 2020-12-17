@@ -60,7 +60,7 @@ class SignInForm extends React.Component {
 
     } else {
       var flag = 0
-      fetch('http://192.168.43.60:5000/session', {
+      fetch('http://127.0.0.1:5000/session', {
         method: 'POST',
         credentials: 'include',
         headers: {
