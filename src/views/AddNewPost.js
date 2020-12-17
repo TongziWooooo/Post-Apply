@@ -192,7 +192,7 @@ class AddNewPost extends Component{
       <Container fluid className="main-content-container px-4 pb-4">
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
-          <PageTitle sm="4" title="Add New Post"
+          <PageTitle sm="4" title="发布召集令"  subtitle="New Post" 
                      className="text-sm-left"  />
         </Row>
 

@@ -26,7 +26,8 @@ class BlogPosts extends React.Component {
     super(props);
 
     this.state = {
-      posts:[],
+      displayPosts: [],
+      query: "",
       // First list of posts.
       // PostsListOne:
       PostsListOne: [
@@ -99,6 +100,10 @@ class BlogPosts extends React.Component {
       // Fourth list of posts.
 
     };
+
+    this.handleTypeSelect = this.handleTypeSelect.bind(this);
+    this.handleQuery = this.handleQuery.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
 
@@ -112,7 +117,7 @@ class BlogPosts extends React.Component {
         'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },
-      })
+    })
       .then(
         res=>{
           if(res.status===200){
@@ -123,38 +128,75 @@ class BlogPosts extends React.Component {
         }
       )
       .then((res)=>{
-        // 这里不显示post描述了 因为是富文本，在展示页面会显示标签，很麻烦
-        console.log(res.data.token_list)
-        var arr = []
-        for(var i in res.data.token_list){
-          console.log(res.data.token_list[i])
-          var dic = {
-            backgroundImage: require("../images/content-management/10.jpeg"),
-            author: res.data.token_list[i].send_user,
-            authorUrl: "#",
-            postID: res.data.token_list[i].token_id,
-            category: res.data.token_list[i].token_type,
-            categoryUrl: "#",
-            title: res.data.token_list[i].token_name,
-            // body:  res.data.token_list[i].desc,
-            date: res.data.token_list[i].end_time,
-            has_req: res.data.token_list[i].has_req
+          // 这里不显示post描述了 因为是富文本，在展示页面会显示标签，很麻烦
+          console.log(res.data.token_list)
+          var arr = []
+          for(var i in res.data.token_list){
+            console.log(res.data.token_list[i])
+            var dic = {
+              backgroundImage: require("../images/content-management/10.jpeg"),
+              author: res.data.token_list[i].send_user,
+              authorUrl: "#",
+              postID: res.data.token_list[i].token_id,
+              category: res.data.token_list[i].token_type,
+              categoryUrl: "#",
+              title: res.data.token_list[i].token_name,
+              // body:  res.data.token_list[i].desc,
+              date: res.data.token_list[i].end_time,
+              has_req: res.data.token_list[i].has_req
+            }
+            console.log(dic.postID)
+            arr.push(dic)
           }
-          console.log(dic.postID)
-          arr.push(dic)
-        }
 
 
-        this.setState({posts:arr}
-          ,()=>{
+          this.posts = arr;
+          this.setState({displayPosts: arr});
+          //   this.setState({posts:arr}
+          //     ,()=>{
+          //
+          // })
+          // console.log(post)
 
-      })
-      // console.log(post)
+
         }
       )
 
 
   }
+
+  handleTypeSelect = (e) => {
+    // alert(e.target.value);
+    let temp_posts = this.posts.filter(post => {
+      return post.category === e.target.value;
+    })
+    // console.log(temp_posts)
+    this.setState({displayPosts: temp_posts});
+  }
+
+  handleQuery(e) {
+    alert(e.target.value);
+    this.setState({query: e.target.value});
+  }
+
+  isQualifiedPosts(query, title) {
+    let flag = true;
+    query.split(" ").forEach(str => {
+      if (title.indexOf(str) === -1)
+        flag = false;
+    })
+    return flag;
+  }
+
+  handleSearch(e) {
+    let temp_posts = this.posts.filter(post => {
+      return this.isQualifiedPosts(this.state.query, post.title);
+    })
+    this.setState({displayPosts: temp_posts});
+
+    // this.isQualifiedPosts("a d", "abc");
+  }
+
   componentDidMount(){
     this.fetch_posts()
   }
@@ -173,13 +215,13 @@ class BlogPosts extends React.Component {
               <CardBody className="p2-1">
                 <Row>
                   <Col className="col-2">
-                    <FormSelect>
+                    <FormSelect onChange={this.handleTypeSelect}>
                       <option selected>所有类别</option>
-                      <option value="1">技术交流</option>
-                      <option value="2">学业探讨</option>
-                      <option value="3">社会实践</option>
-                      <option value="4">公益志愿者</option>
-                      <option value="5">游玩</option>
+                      <option value="技术交流">技术交流</option>
+                      <option value="学业探讨">学业探讨</option>
+                      <option value="社会实践">社会实践</option>
+                      <option value="公益志愿者">公益志愿者</option>
+                      <option value="游玩">游玩</option>
                     </FormSelect>
                   </Col>
                   <Col className="col-8">
@@ -192,11 +234,12 @@ class BlogPosts extends React.Component {
                     <FormInput
                       className="navbar-search"
                       placeholder="Search for something..."
+                      onChange={this.handleQuery}
                     />
                   </InputGroup>
                   </Col>
                   <Col className="col-2">
-                    <Button outline theme='secondary'>搜索</Button>
+                    <Button outline theme='secondary' onClick={this.handleSearch}>搜索</Button>
                   </Col>
                 </Row>
               </CardBody>
@@ -204,7 +247,7 @@ class BlogPosts extends React.Component {
       </Col>
         </Row>
         <Row>
-          {this.state.posts.map((post, idx) => (
+          {this.state.displayPosts.map((post, idx) => (
             <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
               <Card small className="card-post card-post--1">
                 <div
@@ -227,7 +270,7 @@ class BlogPosts extends React.Component {
                   </div>
                 </div>
                 <CardBody>
-                <span>{post.author}</span>
+                <span>@{post.author}</span>
                   <h5 className="card-title">
                     <Link to={{
                       pathname: "/apply-view",
@@ -237,8 +280,11 @@ class BlogPosts extends React.Component {
                     </Link>
 
                   </h5>
-                  <p className="card-text d-inline-block mb-3">{post.body}</p>
-                  <span className="text-muted">结束日期： {post.date}</span>
+                  {/* <p className="card-text d-inline-block mb-3">{post.body}</p> */}
+                  <span className="text-muted">结束日期：{post.date}</span>
+                  <Row className="ml-0">
+                    <Badge theme="success" className="mt-2">召集中</Badge>
+                  </Row>
                 </CardBody>
               </Card>
             </Col>

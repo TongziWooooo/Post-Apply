@@ -42,7 +42,7 @@ export default class UserActions extends React.Component {
         <Collapse tag={DropdownMenu} right small open={this.state.visible}>
           <DropdownItem tag={Link} to={{
             pathname: "/user-profile-root",
-            state: {userType: Constants.USER}
+            state: {userType: Constants.USER, userID: window.sessionStorage.getItem("user_id")}
           }}>
             <i className="material-icons">&#xE7FD;</i> User Profile
           </DropdownItem>

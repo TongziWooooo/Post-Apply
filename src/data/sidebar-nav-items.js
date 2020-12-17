@@ -7,13 +7,13 @@ export default function() {
     //   htmlAfter: ""
     // },
     {
-      title: "Blog Posts",
+      title: "召集令广场",
       htmlBefore: '<i class="material-icons">vertical_split</i>',
       to: "/blog-posts",
     },
     {
-      title: "Add New Post",
-      htmlBefore: '<i class="material-icons">note_add</i>',
+      title: "发布召集令",
+      htmlBefore: '<i class="fas fa-edit"></i>',
       to: "/add-new-post",
     },
     // {
@@ -37,13 +37,13 @@ export default function() {
     //   to: "/errors",
     // },
     {
-      title: "My Posts",
-      htmlBefore: '<i class="material-icons">table_chart</i>',
+      title: "我的召集令",
+      htmlBefore: '<i class="fas fa-flag"></i>',
       to: "/my-posts",
     },
     {
-      title: "My Apply",
-      htmlBefore: '<i class="material-icons">table_chart</i>',
+      title: "我的接令",
+      htmlBefore: '<i class="fas fa-quote-left"></i>',
       to: "/my-apply",
     },
     // {

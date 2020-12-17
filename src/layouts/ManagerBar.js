@@ -7,10 +7,10 @@ import MainSidebar from "../components/layout/MainSidebar/MainSidebar";
 import MainFooter from "../components/layout/MainFooter";
 import {Constants} from "../flux";
 
-const DefaultLayout = ({ children, noNavbar, noFooter }) => (
+const ManagerBar = ({ children, noNavbar, noFooter }) => (
   <Container fluid>
     <Row>
-      <MainSidebar type={Constants.USER} />
+      <MainSidebar type={Constants.MANAGER}/>
       <Col
         className="main-content p-0"
         lg={{ size: 10, offset: 2 }}
@@ -26,7 +26,7 @@ const DefaultLayout = ({ children, noNavbar, noFooter }) => (
   </Container>
 );
 
-DefaultLayout.propTypes = {
+ManagerBar.propTypes = {
   /**
    * Whether to display the navbar, or not.
    */
@@ -37,9 +37,9 @@ DefaultLayout.propTypes = {
   noFooter: PropTypes.bool
 };
 
-DefaultLayout.defaultProps = {
+ManagerBar.defaultProps = {
   noNavbar: false,
   noFooter: false
 };
 
-export default DefaultLayout;
+export default ManagerBar;
