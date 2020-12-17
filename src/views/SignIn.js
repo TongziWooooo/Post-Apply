@@ -1,6 +1,11 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React from "react";
+// import "node_modules/video-react/dist/video-react.css"; // import css
+// <link rel="stylesheet" href="/css/video-react.css" />
+
+
+
 import {
   Container,
   Row,
@@ -9,8 +14,12 @@ import {
   CardHeader,
 } from "shards-react";
 
+
+
+
 import PageTitle from "../components/common/PageTitle";
 import SignInForm from "../components/sign/SignInForm";
+import SimpleBackdrop from "../components/sign/backdrop";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -29,9 +38,13 @@ class SignIn extends React.Component {
                 <h6 className="m-0">登录</h6>
               </CardHeader>
               <SignInForm />
+              <SimpleBackdrop />
             </Card>
           </Col>
+
         </Row>
+
+
       </Container>
     )
   }

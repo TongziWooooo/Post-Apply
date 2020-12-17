@@ -86,6 +86,7 @@ class ApplyList extends React.Component {
         }
         // alert(count)
       }
+      console.log(arr)
       this.setState({post:arr},()=>{console.log(this.state.post)})
       
     })
@@ -114,9 +115,10 @@ class ApplyList extends React.Component {
         "state":"1"
       })
 
-    }).then(
+    }).then((res)=>
       this.props.onAgree(1)
-    ).then(setTimeout(() => {  this.fetchPostInfo() }, 2000))
+    ).then(setTimeout(() => {console.log("0000")
+      this.fetchPostInfo() }, 200))
     //this.fetchPostInfo()
 
 
@@ -141,7 +143,7 @@ class ApplyList extends React.Component {
         "recv_user_id":item.author.id
       })
 
-    }).then((res)=>this.props.onAgree()).then(setTimeout(() => {  this.fetchPostInfo() }, 2000)
+    }).then((res)=>this.props.onAgree()).then(setTimeout(() => {  this.fetchPostInfo() }, 200)
     )
     console.log(e.target.value)
     console.log(this.state.post[e.target.value])
