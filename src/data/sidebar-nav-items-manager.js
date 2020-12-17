@@ -18,13 +18,23 @@ export default function() {
     // },
     {
       title: "Data Overview",
-      htmlBefore: '<i class="material-icons">view_module</i>',
+      htmlBefore: '<i class="fas fa-chart-pie"></i>',
       to: "/data-overview",
     },
     {
       title: "All Users",
-      htmlBefore: '<i class="material-icons">view_module</i>',
-      to: "/user-search",
+      htmlBefore: '<i class="material-icons">person</i>',
+      to: "/search-user",
+    },
+    {
+      title: "All Posts",
+      htmlBefore: '<i class="fas fa-flag"></i>',
+      to: "/search-post",
+    },
+    {
+      title: "All Application",
+      htmlBefore: '<i class="fas fa-quote-left"></i>',
+      to: "/search-apply",
     },
     // {
     //   title: "Tables",

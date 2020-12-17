@@ -21,10 +21,12 @@ import ManagePost from "./views/ManagePost";
 import SignUp from "./views/SignUp";
 import SignIn from "./views/SignIn";
 import DataOverview from "./views/DataOverview";
-import UserSearch from "./views/UserSearch";
+import SearchUser from "./views/SearchUser";
 import UserProfileRoot from "./views/UserProfileRoot";
 import UserProfileView from "./views/UserProfileView";
 import ManagerBar from "./layouts/ManagerBar";
+import SearchApply from "./views/SearchApply";
+import SearchPost from "./views/SearchPost";
 
 export default [
   {
@@ -111,9 +113,19 @@ export default [
     component: DataOverview
   },
   {
-    path: "/user-search",
+    path: "/search-user",
     layout: ManagerBar,
-    component: UserSearch
+    component: SearchUser
+  },
+  {
+    path: "/search-post",
+    layout: ManagerBar,
+    component: SearchPost
+  },
+  {
+    path: "/search-apply",
+    layout: ManagerBar,
+    component: SearchApply
   },
   {
     path: "/user-profile-root",

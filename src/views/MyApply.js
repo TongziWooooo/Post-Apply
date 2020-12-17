@@ -26,7 +26,7 @@ class MyApply extends React.Component {
       <Container fluid className="main-content-container px-4 pb-4">
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
-          <PageTitle sm="4" title="我的申请" subtitle="My apply" className="text-sm-left" />
+          <PageTitle sm="4" title="我的接令" subtitle="My apply" className="text-sm-left" />
         </Row>
         <Row>
           <Col lg="10" sm="12" className="">

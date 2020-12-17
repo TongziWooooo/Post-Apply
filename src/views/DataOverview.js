@@ -23,20 +23,20 @@ const DataOverview = ({ smallStats }) => (
                 <RangeDatePicker />
               </Col>
               <Col>
-                <select class="custom-select">
+                <FormSelect>
                   <option selected>所有省</option>
                   <option value="1">北京市</option>
                   <option value="2">福建省</option>
                   <option value="3">广东省</option>
-                </select>
+                </FormSelect>
               </Col>
               <Col>
-                <select class="custom-select">
+                <FormSelect>
                   <option selected>所有市</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>
-                </select>
+                </FormSelect>
               </Col>
               <Col>
                 <FormSelect>
