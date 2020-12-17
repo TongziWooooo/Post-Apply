@@ -37,7 +37,7 @@ class PostDetail extends React.Component {
     schemeIntroduce = schemeIntroduce.replace(/(\r)/g, "");
     schemeIntroduce = schemeIntroduce.replace(/<\/?[^>]*>/g, ""); // 去掉标签
     schemeIntroduce = schemeIntroduce.replace(/\s*/g, "");
-    schemeIntroduce = schemeIntroduce.replace(/ /ig, " "); // 去掉 
+    schemeIntroduce = schemeIntroduce.replace(/ /ig, " "); // 去掉
     return schemeIntroduce
 }
 

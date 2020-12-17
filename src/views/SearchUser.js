@@ -16,6 +16,8 @@ import {
   ListGroup,
   ListGroupItem,
 } from "shards-react";
+import {Link} from "react-router-dom";
+import {Constants} from "../flux";
 
 class SearchUser extends React.Component{
   constructor(props) {
@@ -61,7 +63,7 @@ class SearchUser extends React.Component{
                     <Button outline theme='secondary'>搜索</Button>
                   </Col>
                 </Row>
-              </CardBody>          
+              </CardBody>
             </Card>
           </Col>
         </Row>
@@ -72,14 +74,19 @@ class SearchUser extends React.Component{
                 <ListGroup>
                   {users.map((user, idx) => (
                     <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
-                      <Row>
-                        <Col className="col-2">
-                          <div># {user.userID}</div>
-                        </Col>
-                        <Col className="col-10">
-                          <div>{user.username}</div>
-                        </Col>    
-                      </Row>
+                      <Link to={{
+                        pathname: "/manager-profile-root",
+                        state: {userType: Constants.MANAGER, userID: user.userID}
+                      }} style={{color: "#000"}}>
+                        <Row>
+                          <Col className="col-2">
+                            <div># {user.userID}</div>
+                          </Col>
+                          <Col className="col-10">
+                            <div>{user.username}</div>
+                          </Col>
+                        </Row>
+                      </Link>
                     </ListGroupItem>
                   ))
                   }

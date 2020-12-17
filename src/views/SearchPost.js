@@ -17,6 +17,8 @@ import {
   ListGroupItem,
   Badge
 } from "shards-react";
+import {Link} from "react-router-dom";
+import {Constants} from "../flux";
 
 class SearchPost extends React.Component{
   constructor(props) {
@@ -24,7 +26,7 @@ class SearchPost extends React.Component{
   }
 
   render(){
-    const users = this.props.users;
+    const posts = this.props.posts;
     return (
       <Container fluid className="main-content-container px-4">
         <Row noGutters className="page-header py-4">
@@ -62,7 +64,7 @@ class SearchPost extends React.Component{
                     <Button outline theme='secondary'>搜索</Button>
                   </Col>
                 </Row>
-              </CardBody>          
+              </CardBody>
             </Card>
           </Col>
         </Row>
@@ -71,18 +73,36 @@ class SearchPost extends React.Component{
             <Card>
               <CardBody className="p-0">
                 <ListGroup>
-                  {users.map((user, idx) => (
+                  {posts.map((post, idx) => (
                     <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
                       <Row>
                         <Col className="col-2">
-                          <div># {user.userID}</div> {/*召集令编号*/}
+                          <Link to={{
+                            pathname: "/manager-post-view",
+                            state: {post: post}
+                          }} style={{color: "#000"}}>
+                            <div># {post.postID}</div> {/*召集令编号*/}
+                          </Link>
                         </Col>
-                        <Col className="col-8">
-                          <div>{user.username}</div> {/*召集令标题*/}
+                        <Col className="col-6">
+                          <Link to={{
+                            pathname: "/manager-post-view",
+                            state: {post: post}
+                          }} style={{color: "#000"}}>
+                            <div>{post.title}</div> {/*召集令标题*/}
+                          </Link>
+                        </Col>
+                        <Col className="col-2">
+                          <Link to={{
+                            pathname: "/manager-profile-root",
+                            state: {userType: Constants.MANAGER, userID: post.host.userID}
+                          }} style={{color: "#000"}}>
+                            <div>{post.host.name}</div> {/*召集令标题*/}
+                          </Link>
                         </Col>
                         <Col>
                           <Badge theme="success">召集中</Badge>
-                        </Col>   
+                        </Col>
                       </Row>
                     </ListGroupItem>
                   ))
@@ -98,42 +118,74 @@ class SearchPost extends React.Component{
 }
 
 SearchPost.propTypes = {
-  users: PropTypes.array
+  posts: PropTypes.array
 };
 
 SearchPost.defaultProps = {
-  users: [
+  posts: [
     {
-      username: "GitHub",
-      userID: "12345"
+      title: "GitHub",
+      postID: "12345",
+      host: {
+        name: "xxx",
+        userID: "777"
+      }
     },
     {
-      username: "Stack Overflow",
-      userID: "51234"
+      title: "Stack Overflow",
+      postID: "51234",
+      host: {
+        name: "xxx",
+        userID: "777"
+      }
     },
     {
-      username: "Hacker News",
-      userID: "13434"
+      title: "Hacker News",
+      postID: "13434",
+      host: {
+        name: "xxx",
+        userID: "777"
+      }
     },
     {
-      username: "Reddit",
-      userID: "67867"
+      title: "Reddit",
+      postID: "67867",
+      host: {
+        name: "xxx",
+        userID: "777"
+      }
     },
     {
-      username: "The Next Web",
-      userID: "456"
+      title: "The Next Web",
+      postID: "456",
+      host: {
+        name: "xxx",
+        userID: "777"
+      }
     },
     {
-      username: "Tech Crunch",
-      userID: "4563"
+      title: "Tech Crunch",
+      postID: "4563",
+      host: {
+        name: "xxx",
+        userID: "777"
+      }
     },
     {
-      username: "YouTube",
-      userID: "1218"
+      title: "YouTube",
+      postID: "1218",
+      host: {
+        name: "xxx",
+        userID: "777"
+      }
     },
     {
-      username: "Adobe",
-      userID: "1171"
+      title: "Adobe",
+      postID: "1171",
+      host: {
+        name: "xxx",
+        userID: "777"
+      }
     }
   ]
 };

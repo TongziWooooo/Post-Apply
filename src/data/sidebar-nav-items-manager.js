@@ -17,22 +17,22 @@ export default function() {
     //   to: "/add-new-post",
     // },
     {
-      title: "Data Overview",
+      title: "统计数据",
       htmlBefore: '<i class="fas fa-chart-pie"></i>',
       to: "/data-overview",
     },
     {
-      title: "All Users",
+      title: "所有用户",
       htmlBefore: '<i class="material-icons">person</i>',
       to: "/search-user",
     },
     {
-      title: "All Posts",
+      title: "所有召集令",
       htmlBefore: '<i class="fas fa-flag"></i>',
       to: "/search-post",
     },
     {
-      title: "All Application",
+      title: "所有请求",
       htmlBefore: '<i class="fas fa-quote-left"></i>',
       to: "/search-apply",
     },

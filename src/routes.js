@@ -27,6 +27,7 @@ import UserProfileView from "./views/UserProfileView";
 import ManagerBar from "./layouts/ManagerBar";
 import SearchApply from "./views/SearchApply";
 import SearchPost from "./views/SearchPost";
+import ManagerPostView from "./views/ManagerPostView";
 
 export default [
   {
@@ -133,9 +134,19 @@ export default [
     component: UserProfileRoot
   },
   {
+    path: "/manager-profile-root",
+    layout: ManagerBar,
+    component: UserProfileRoot
+  },
+  {
     path: "/user-profile-view",
     layout: DefaultLayout,
     component: UserProfileView
+  },
+  {
+    path: "/manager-post-view",
+    layout: ManagerBar,
+    component: ManagerPostView
   }
 
 ];

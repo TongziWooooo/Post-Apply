@@ -71,7 +71,7 @@ class UserProfileRoot extends React.Component {
   handleSubmit() {
     console.log(this.state.userInfo)
 
-    fetch('http://127.0.0.1:5000/user/' + window.sessionStorage.getItem("user_id"), {
+    fetch('http://127.0.0.1:5000/user/' + this.props.location.state.userID, {
       method: 'PUT',
       credentials: 'include',
       headers: {

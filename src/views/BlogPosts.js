@@ -27,6 +27,7 @@ class BlogPosts extends React.Component {
 
     this.state = {
       displayPosts: [],
+      query: "",
       // First list of posts.
       // PostsListOne:
       PostsListOne: [
@@ -101,12 +102,14 @@ class BlogPosts extends React.Component {
     };
 
     this.handleTypeSelect = this.handleTypeSelect.bind(this);
+    this.handleQuery = this.handleQuery.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
 
 
   fetch_posts = ()=>{
-    fetch('http://127.0.0.1:5000/token_list?_id='+window.sessionStorage.getItem("user_id"), {
+    fetch('http://192.168.43.60:5000/token_list?_id='+window.sessionStorage.getItem("user_id"), {
       method: 'get',
       credentials: 'include',
       headers: {
@@ -171,6 +174,29 @@ class BlogPosts extends React.Component {
     this.setState({displayPosts: temp_posts});
   }
 
+  handleQuery(e) {
+    alert(e.target.value);
+    this.setState({query: e.target.value});
+  }
+
+  isQualifiedPosts(query, title) {
+    let flag = true;
+    query.split(" ").forEach(str => {
+      if (title.indexOf(str) === -1)
+        flag = false;
+    })
+    return flag;
+  }
+
+  handleSearch(e) {
+    let temp_posts = this.posts.filter(post => {
+      return this.isQualifiedPosts(this.state.query, post.title);
+    })
+    this.setState({displayPosts: temp_posts});
+
+    // this.isQualifiedPosts("a d", "abc");
+  }
+
   componentDidMount(){
     this.fetch_posts()
   }
@@ -208,11 +234,12 @@ class BlogPosts extends React.Component {
                     <FormInput
                       className="navbar-search"
                       placeholder="Search for something..."
+                      onChange={this.handleQuery}
                     />
                   </InputGroup>
                   </Col>
                   <Col className="col-2">
-                    <Button outline theme='secondary'>搜索</Button>
+                    <Button outline theme='secondary' onClick={this.handleSearch}>搜索</Button>
                   </Col>
                 </Row>
               </CardBody>
@@ -255,7 +282,9 @@ class BlogPosts extends React.Component {
                   </h5>
                   {/* <p className="card-text d-inline-block mb-3">{post.body}</p> */}
                   <span className="text-muted">结束日期：{post.date}</span>
-                  <Badge theme="success" className="mt-2">召集中</Badge>
+                  <Row className="ml-0">
+                    <Badge theme="success" className="mt-2">召集中</Badge>
+                  </Row>
                 </CardBody>
               </Card>
             </Col>

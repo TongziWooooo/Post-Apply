@@ -18,7 +18,7 @@ import PostList from "../components/my-post/PostList";
 
 class MyPosts extends React.Component {
   state={
-    post:["xxx"]
+    post:[]
   }
   constructor(props) {
     super(props);
