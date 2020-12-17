@@ -22,6 +22,7 @@ class ApplyList extends React.Component {
         date: "1",
         token_id:"0",
         req_id:"0",
+          body:"",
         send_user_id:"0",
         state:"0",
         author: {
@@ -33,10 +34,11 @@ class ApplyList extends React.Component {
       }  ]
     }
     this.fetchPostInfo = this.fetchPostInfo.bind(this)
+    this.handleDisagree = this.handleDisagree.bind(this)
   }
 
   fetchPostInfo(){
-    alert(this.props.postID)
+    // alert(this.props.postID)
 
     fetch('http://127.0.0.1:5000/token_reqs?token_id='+this.props.postID, {
       method: 'GET',
@@ -54,11 +56,14 @@ class ApplyList extends React.Component {
     .then(res=>{
 
       var arr = []
+      let count = 0
       for(var i in res.data){
         var d =  {
-          id: i,
+          id: count,
           req_id:res.data[i].req_id,
           date: res.data[i].create_time,
+          body: res.data[i].disc,
+
           token_id:res.data[i].token_id,
           send_user_id:res.data[i].send_user_id,
           state:res.data[i].state,
@@ -66,20 +71,23 @@ class ApplyList extends React.Component {
             id: res.data[i].user_id,
             image: require("../../images/avatars/1.jpg"),
             name: res.data[i].user_name,
-            url: "#"
+            url: "#"  
           },
-        }
+        }     
         // alert(this.props.overflow)
         // alert(d.state)
         if(d.state==="0" && !this.props.overflow){
           arr.push(d)
+          count = count+1
         }else if(d.state==="2" && this.props.overflow){
+          count = count + 1
           arr.push(d)
-
+          
         }
+        // alert(count)
       }
       this.setState({post:arr},()=>{console.log(this.state.post)})
-
+      
     })
   }
 
@@ -87,7 +95,32 @@ class ApplyList extends React.Component {
     this.fetchPostInfo()
 
   }
+  handleDisagree(e){
+    console.log(e.target.value)
+    console.log(this.state.post)
+    var item = this.state.post[e.target.value]
 
+    fetch("http://127.0.0.1:5000/token_req?user_id="+item.author.id+"&token_id="+item.token_id,{
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "token_id":item.token_id,
+        "user_id":item.author.id,
+        "disc":item.body,
+        "state":"1"
+      })
+
+    }).then(
+      this.props.onAgree(1)
+    ).then(setTimeout(() => {  this.fetchPostInfo() }, 2000))
+    //this.fetchPostInfo()
+
+
+  }
   handleAgree(e){
     console.log(e.target.value)
     console.log(this.state.post)
@@ -108,19 +141,20 @@ class ApplyList extends React.Component {
         "recv_user_id":item.author.id
       })
 
-    }).then(this.props.onAgree())
+    }).then((res)=>this.props.onAgree()).then(setTimeout(() => {  this.fetchPostInfo() }, 2000)
+    )
     console.log(e.target.value)
     console.log(this.state.post[e.target.value])
-    this.fetchPostInfo()
-
+    // this.fetchPostInfo()
+    
     // console.log(e.target.v)
 
     // console.log(e.target.value[1])
-
+    
 
   }
   render() {
-
+    
     return (
       <Card small className="blog-comments">
         <CardHeader className="border-bottom">
@@ -140,7 +174,7 @@ class ApplyList extends React.Component {
                 {/* Content :: Title */}
                 <div className="blog-comments__meta text-mutes">
                   <Link to={{
-                    pathname: "/user-profile-view", state: {userID: discussion.author.id}
+                    pathname: "/user-profile-lite", state: {userID: discussion.author.id}
                   }} className={"text-secondary"}>
                     {discussion.author.name}
                   </Link>
@@ -166,7 +200,7 @@ class ApplyList extends React.Component {
                   </span>{" "}
                       同意
                     </Button>
-                    <Button theme="white">
+                    <Button theme="white" onClick={this.handleDisagree} value={discussion.id}>
                   <span className="text-danger">
                     <i className="material-icons">clear</i>
                   </span>{" "}
@@ -228,51 +262,6 @@ ApplyList.defaultProps = {
         url: "#"
       },
       body: "Well, the way they make shows is, they make one show ..."
-    },
-    {
-      id: 2,
-      date: "4 days ago",
-      author: {
-        id: 222,
-        image: require("../../images/avatars/2.jpg"),
-        name: "John Doe",
-        url: "#"
-      },
-      post: {
-        title: "Hello World!",
-        url: "#"
-      },
-      body: "After the avalanche, it took us a week to climb out. Now..."
-    },
-    {
-      id: 3,
-      date: "5 days ago",
-      author: {
-        id: 333,
-        image: require("../../images/avatars/3.jpg"),
-        name: "John Doe",
-        url: "#"
-      },
-      post: {
-        title: "Hello World!",
-        url: "#"
-      },
-      body: "My money's in that office, right? If she start giving me..."
-    },
-    {
-      id: 4,
-      date: "5 days ago",
-      author: {
-        id: 333,
-        image: require("../../images/avatars/3.jpg"),
-        name: "John Doe",
-        url: "#"
-      },
-      post: {
-        title: "Hello World!",
-        url: "#"
-      },
-      body: "My money's in that office, right? If she start giving me..."
     }
   ]
 };

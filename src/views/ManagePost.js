@@ -61,7 +61,7 @@ class ManagePost extends React.Component {
       credentials: 'include',
       headers: {
         'Accept': 'application/json',
-
+        
         // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
         'Content-Type': 'application/json',
       }
@@ -91,25 +91,29 @@ class ManagePost extends React.Component {
         this.setState({overflow:true})
       }
       this.setState({post:temp_post},()=>{console.log(this.state.post)})
-
+      
       // console.log(res["data"]["token_info"]["end_time"])
       // console.log(this.parserDate(res["data"]["token_info"]["end_time"]))
       // this.setState({value:res["data"]["token_info"]["desc"]})
       // this.setState({title:res["data"]["token_info"]["token_name"]})
       // this.setState({max_num:res["data"]["token_info"]["max_num"]})
       // this.setState({token_id:res["data"]["token_info"]["token_id"]})
-
+  
       // this.setState({end_time:this.parserDate(res["data"]["token_info"]["end_time"])})
       // this.setState
     })
   }
-
+  
   componentWillMount(){
     // alert("aawra")
     this.fetchPostInfo()
   }
-
-  forceRerender(){
+  
+  forceRerender(flag){
+    var num = 1
+    if(flag){
+      num=0
+    }
     var temp_post =  {
       postID: this.state.post.postID,
       backgroundImage:this.state.post.backgroundImage,
@@ -121,7 +125,8 @@ class ManagePost extends React.Component {
       body:this.state.post.body,
       end_date: this.state.post.end_date,
       people_total: this.state.post.people_total,
-      people_approved: this.state.post.people_approved+1,
+
+      people_approved: this.state.post.people_approved+num,
       status: this.state.post.status
     }
     this.setState({post:temp_post},()=>{console.log(this.state.post)})

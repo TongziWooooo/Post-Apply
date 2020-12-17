@@ -24,8 +24,8 @@ class SignUpForm extends React.Component {
       phoneNumber: "",
       password: "",
 
-      validUsername: false,
-      validIdNumber: false
+      validUsername: true,
+      validIdNumber: true
     }
 
     this.handleFirstName = this.handleFirstName.bind(this);
@@ -69,6 +69,33 @@ class SignUpForm extends React.Component {
 
   handleSubmit() {
     // 记得修改state里面那两个valid
+    // firstName: "",
+    //   lastName: "",
+    //   username: "",
+    //   idNumber: "",
+    //   city: "",
+    //   phoneNumber: "",
+    //   password: "",
+      fetch("http://127.0.0.1:5000/users",
+        {
+          method:"POST",
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "firstName":this.state.firstName,
+            "lastName":this.state.lastName,
+            "username":this.state.username,
+            "idNumber":this.state.idNumber,
+            "city":this.state.city,
+            "password":this.state.password,
+            "phoneNumber":this.state.phoneNumber,
+          })
+        }
+
+        )
     this.props.history.push({
       pathname: "/sign-in"
     })
