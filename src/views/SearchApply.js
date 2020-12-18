@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PageTitle from "../components/common/PageTitle";
+import popover from "./popover"
 import {
   Container,
   Row,
@@ -25,11 +26,52 @@ class SearchApply extends React.Component{
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
-      open: false
+      open: false,
+      reqs:[{
+        user_id:"1",
+        token_name:"1",
+        token_id:"1",
+        disc:"???",
+        state:"1",
+        user_name:"1",
+        show:false
+      }]
     };
   }
 
-  toggle() {
+  componentDidMount(){
+    fetch("http://127.0.0.1:5000/token_reqs",{
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
+        'Content-Type': 'application/json',
+      }
+    }).then((res)=>res.json()).then(
+      (res)=>{
+        var arr=[]
+        for(var i in res.data) {
+          var temp_dict = {
+            "req_id": res.data[i].req_id,
+            "send_user_id": res.data[i].send_user_id,
+            "token_name": res.data[i].token_name,
+            "user_name": res.data[i].user_name,
+            "user_id": res.data[i].user_id,
+            "disc": res.data[i].disc,
+            "create_time": res.data[i].create_time,
+            "update_time": res.data[i].update_time,
+            "state": res.data[i].state,
+            "show": false
+          }
+          arr.push(temp_dict)
+
+        }
+        this.setState({reqs:arr})
+      }
+    )
+  }
+  toggle(e) {
     this.setState({
       open: !this.state.open
     });
@@ -83,37 +125,26 @@ class SearchApply extends React.Component{
             <Card>
               <CardBody className="p-0">
                 <ListGroup>
-                  {users.map((user, idx) => (
+                  {this.state.reqs.map((req, idx) => (
                     <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
                       <Row>
                         <Col className="col-2">
-                          <div># {user.userID}</div> {/*请求编号*/}
+                          <div># {req.req_id}</div> {/*请求编号*/}
                         </Col>
                         <Col className="col-3">
-                          <div>{user.username}</div> {/*请求用户*/}
+                          <div>{req.user_name}</div> {/*请求用户*/}
                         </Col>  
                         <Col className="col-3">
-                          <div>{user.username}</div> {/*召集令标题*/}
+                          <div>{req.token_name}</div> {/*召集令标题*/}
                         </Col>
                         <Col className="col-4">
                           <div>
                             <Button theme="white" id="popover-1" onClick={this.toggle}>
                               请求描述
                             </Button>
-                            <Popover
-                              placement="bottom"
-                              open={this.state.open}
-                              toggle={this.toggle}
-                              target="#popover-1"
-                            >
-                              <PopoverBody>
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                                terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-                                labore wes anderson cred nesciunt sapiente ea proident.
-                              </PopoverBody>
-                            </Popover>
+                            <popover desc={req.disc}/>
                           </div>
-                        </Col>  
+                        </Col>
                       </Row>
                     </ListGroupItem>
                   ))

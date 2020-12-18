@@ -1,12 +1,26 @@
-import React from "react";
+import React, {Component} from "react";
+class CustomFileUpload extends Component {
+  submit(e){
+    alert("yes")
+    console.log("okkkkkkkkkkk")
+    e.preventDefault();
+    let formData = new FormData(e.target);
+    fetch('http://127.0.0.1:5000/videa?user_id=12', {
+      method: 'POST',
+      body: formData //自动将input:file的name属性与文件对象组合成键值对
+    }).then(response => console.log(response))
+  };
 
-const CustomFileUpload = () => (
-  <div className="custom-file mb-3">
-    <input type="file" className="custom-file-input" id="customFile2" />
-    <label className="custom-file-label" htmlFor="customFile2">
-      Choose file...
-    </label>
-  </div>
-);
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.submit}>
+          <input type="file" name='file'/>
+          <input type="submit" value="上传"/>
+        </form>
+      </div>
+    )
+  }
+}
 
 export default CustomFileUpload;

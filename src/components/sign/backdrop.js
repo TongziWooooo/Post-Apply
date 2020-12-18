@@ -40,7 +40,7 @@ export default function SimpleBackdrop() {
           fluid={false}
           width={480}
           height={272}
-          src="http://127.0.0.1:5000/videa"
+          src="http://127.0.0.1:5000/videa?user_id=12"
         />
         <Button  color="primary" onClick={handleClose}>
           close backdrop
