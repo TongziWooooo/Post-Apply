@@ -23,7 +23,30 @@ import {Constants} from "../flux";
 class SearchPost extends React.Component{
   constructor(props) {
     super(props);
+    this.state =
+      {
+        posts: [{
+          token_id:"1",
+          state:"1",
+          user_name:"1",
+          user_id:"1"
+        }]
+      }
   }
+  componentDidMount(){
+    fetch('http://127.0.0.1:5000/token_list',{
+      method:"GET",
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
+        'Content-Type': 'application/json',
+      }
+    }).then((res)=>res.json()).then((res)=>{
+        this.setState({posts:res.data['token_list']})
+    })
+  }
+
 
   render(){
     const posts = this.props.posts;
@@ -73,40 +96,43 @@ class SearchPost extends React.Component{
             <Card>
               <CardBody className="p-0">
                 <ListGroup>
-                  {posts.map((post, idx) => (
+
+
+                  {this.state.posts.map((post, idx) => (
                     <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
-                      <Row>
-                        <Col className="col-2">
-                          <Link to={{
-                            pathname: "/manager-post-view",
-                            state: {post: post}
-                          }} style={{color: "#000"}}>
-                            <div># {post.postID}</div> {/*召集令编号*/}
-                          </Link>
-                        </Col>
-                        <Col className="col-6">
-                          <Link to={{
-                            pathname: "/manager-post-view",
-                            state: {post: post}
-                          }} style={{color: "#000"}}>
-                            <div>{post.title}</div> {/*召集令标题*/}
-                          </Link>
-                        </Col>
-                        <Col className="col-2">
-                          <Link to={{
-                            pathname: "/manager-profile-root",
-                            state: {userType: Constants.MANAGER, userID: post.host.userID}
-                          }} style={{color: "#000"}}>
-                            <div>{post.host.name}</div> {/*召集令标题*/}
-                          </Link>
-                        </Col>
-                        <Col>
-                          <Badge theme="success">召集中</Badge>
-                        </Col>
-                      </Row>
+                    <Row>
+                    <Col className="col-2">
+                    <Link to={{
+                    pathname: "/manager-post-view",
+                    state: {post: post}
+                  }} style={{color: "#000"}}>
+                    <div># {post.token_id}</div> {/*召集令编号*/}
+                    </Link>
+                    </Col>
+                    <Col className="col-6">
+                    <Link to={{
+                    pathname: "/manager-post-view",
+                    state: {post: post}
+                  }} style={{color: "#000"}}>
+                    <div>{post.token_name}</div> {/*召集令标题*/}
+                    </Link>
+                    </Col>
+                    <Col className="col-2">
+                    <Link to={{
+                    pathname: "/manager-profile-root",
+                    state: {userType: Constants.MANAGER, userID: post.user_id}
+                  }} style={{color: "#000"}}>
+                    <div>{post.send_user}</div> {/*召集令标题*/}
+                    </Link>
+                    </Col>
+                    <Col>
+                    <Badge theme="success">{post.state}</Badge>
+                    </Col>
+                    </Row>
                     </ListGroupItem>
-                  ))
+                    ))
                   }
+
                 </ListGroup>
               </CardBody>
             </Card>

@@ -52,7 +52,7 @@ class PostDetail extends React.Component {
             pill
             className={`card-post__category bg-${this.props.post.categoryTheme}`}
           >
-            {this.props.post.category}
+            {this.props.post.token_type}
           </Badge>
           <div className="card-post__author d-flex">
             <a
@@ -64,21 +64,21 @@ class PostDetail extends React.Component {
           </div>
         </div>
         <CardBody>
-        <span>@{this.props.post.author}</span>
-        <span> # {this.props.post.postID}</span>
+        <span>@{this.props.post.send_user}</span>
+        <span> # {this.props.post.user_id}</span>
         <h5 className="card-title">
           <a href="#" className="text-fiord-blue">
-            {this.props.post.title}
+            {this.props.post.token_name}
           </a>
         </h5>
-        <p className="card-text d-inline-block mb-3">{this.fiterLabelHandle(this.props.post.body)}</p>
-        <p className="text-muted">结束日期： {this.props.post.end_date}</p>
-        <p className="my-1">已召集 {this.props.post.people_approved} / {this.props.post.people_total}</p>
+        <p className="card-text d-inline-block mb-3">{this.fiterLabelHandle(this.props.post.desc)}</p>
+        <p className="text-muted">结束日期： {this.props.post.end_time}</p>
+        <p className="my-1">已召集 {this.props.post.cur_num} / {this.props.post.max_num}</p>
         <Progress
           theme="success"
           style={{ height: "5px" }}
           className="mb-2"
-          value={(this.props.post.people_approved / this.props.post.people_total)*100}
+          value={(this.props.post.cur_num / this.props.post.max_num)*100}
         />
         <Badge theme="success" className="mt-2">召集中</Badge>
           {this.props.edit === true ?
@@ -86,7 +86,7 @@ class PostDetail extends React.Component {
               <Col className="col-md-2 offset-md-10">
                 <Link to={{
                   pathname: "/change-post",
-                  state: {postID: this.props.post.postID}
+                  state: {postID: this.props.post.token_id}
                 }}>
                   <Button>Edit</Button>
                 </Link>

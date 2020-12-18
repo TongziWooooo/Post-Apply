@@ -1,5 +1,8 @@
 import React from "react";
 import {withRouter} from "react-router-dom";
+import "../../../node_modules/video-react/dist/video-react.css"; // import css
+import { Player, ControlBar, BigPlayButton, VolumeMenuButton, PlaybackRateMenuButton, ClosedCaptionButton } from 'video-react';
+
 import {
   Row,
   Col,
@@ -13,6 +16,7 @@ import {
   ListGroupItem
 } from "shards-react";
 import {Link} from "react-router-dom";
+
 import Constants from "../../flux/constants";
 
 class SignInForm extends React.Component {
@@ -87,7 +91,7 @@ class SignInForm extends React.Component {
               console.log(res["data"])
               window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
               window.sessionStorage.setItem("user_id",res["data"]["user_id"])
-              window.sessionStorage.setItem("user_name","xxx")
+              window.sessionStorage.setItem("user_name",res['data']['name'])
               this.props.history.push({
                 pathname: "/blog-posts"
               })

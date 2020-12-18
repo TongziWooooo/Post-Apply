@@ -109,7 +109,7 @@ export default [
     component: SignIn
   },
   {
-    path: "/data-overview",
+      path: "/data-overview",
     layout: ManagerBar,
     component: DataOverview
   },

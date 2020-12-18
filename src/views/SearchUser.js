@@ -22,6 +22,31 @@ import {Constants} from "../flux";
 class SearchUser extends React.Component{
   constructor(props) {
     super(props);
+    this.state = {
+
+      users : [
+        {
+          user_name: "GitHub",
+          user_id: "12345",
+          user_type:"普通"
+        }
+        ]
+    }
+  }
+
+  componentDidMount() {
+    alert("::::")
+    fetch('http://127.0.0.1:5000/users',
+      {
+        method:"GET",
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          'Authorization':window.sessionStorage.getItem('Authorization'),
+          'Content-Type': 'application/json',
+        },
+      }
+      ).then((res)=>res.json()).then((res)=>{this.setState({users:res.data})})
   }
 
   render(){
@@ -72,7 +97,7 @@ class SearchUser extends React.Component{
             <Card>
               <CardBody className="p-0">
                 <ListGroup>
-                  {users.map((user, idx) => (
+                  {this.state.users.map((user, idx) => (
                     <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
                       <Link to={{
                         pathname: "/manager-profile-root",
@@ -80,10 +105,14 @@ class SearchUser extends React.Component{
                       }} style={{color: "#000"}}>
                         <Row>
                           <Col className="col-2">
-                            <div># {user.userID}</div>
+                            <div># {user.user_id}</div>
                           </Col>
-                          <Col className="col-10">
-                            <div>{user.username}</div>
+                          <Col className="col-8">
+                            <div>{user.user_name}</div>
+                          </Col>
+                          <Col className="2">
+
+                            <div>{user.user_type}</div>
                           </Col>
                         </Row>
                       </Link>
