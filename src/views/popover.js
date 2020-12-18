@@ -1,7 +1,7 @@
 import React from "react";
 import {Popover, PopoverBody} from "shards-react";
 
-class popover extends React.Component{
+class Tpopover extends React.Component{
   constructor(props){
     super(props)
     this.state={
@@ -37,5 +37,5 @@ class popover extends React.Component{
   }
 }
 
-export default popover;
+export default Tpopover;
 

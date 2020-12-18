@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PageTitle from "../components/common/PageTitle";
-import popover from "./popover"
 import {
   Container,
   Row,
@@ -50,28 +49,11 @@ class SearchApply extends React.Component{
       }
     }).then((res)=>res.json()).then(
       (res)=>{
-        var arr=[]
-        for(var i in res.data) {
-          var temp_dict = {
-            "req_id": res.data[i].req_id,
-            "send_user_id": res.data[i].send_user_id,
-            "token_name": res.data[i].token_name,
-            "user_name": res.data[i].user_name,
-            "user_id": res.data[i].user_id,
-            "disc": res.data[i].disc,
-            "create_time": res.data[i].create_time,
-            "update_time": res.data[i].update_time,
-            "state": res.data[i].state,
-            "show": false
-          }
-          arr.push(temp_dict)
-
-        }
-        this.setState({reqs:arr})
+      this.setState({reqs:res.data})
       }
     )
   }
-  toggle(e) {
+  toggle() {
     this.setState({
       open: !this.state.open
     });
@@ -139,10 +121,19 @@ class SearchApply extends React.Component{
                         </Col>
                         <Col className="col-4">
                           <div>
-                            <Button theme="white" id="popover-1" onClick={this.toggle}>
+                            <Button theme="white" id={"popover-"+req.req_id} onClick={this.toggle}>
                               请求描述
                             </Button>
-                            <popover desc={req.disc}/>
+                            <Popover
+                              placement="bottom"
+                              open={this.state.open}
+                              toggle={this.toggle}
+                              target={"#popover-"+req.req_id}
+                            >
+                              <PopoverBody>
+                                {req.disc?req.disc:"empty"}
+                              </PopoverBody>
+                            </Popover>
                           </div>
                         </Col>
                       </Row>
