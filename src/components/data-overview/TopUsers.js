@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {
   Card,
@@ -11,43 +11,49 @@ import {
   FormSelect
 } from "shards-react";
 
-const TopUsers = ({ title, userData }) => (
-  <Card small>
-    <CardHeader className="border-bottom">
-      <Row>
-        <Col>
-        <h6 className="m-0">{title}</h6>
-        </Col>
-        <Col>
-          <FormSelect
-            size="sm"
-            value="orders"
-            onChange={() => {}}
-          >
-            <option value="orders">成交单数</option>
-            <option value="money">中介费</option>
-          </FormSelect>
-        </Col>
-      </Row>
-      
-      
-      <div className="block-handle" />
-    </CardHeader>
+class TopUsers extends Component {
+  render() {
+    let {title, userData} = this.props;
+    return (
+      <Card small>
+        <CardHeader className="border-bottom">
+          <Row>
+            <Col>
+              <h6 className="m-0">{title}</h6>
+            </Col>
+            <Col>
+              <FormSelect
+                size="sm"
+                value="orders"
+                onChange={() => {
+                }}
+              >
+                <option value="orders">成交单数</option>
+                <option value="money">中介费</option>
+              </FormSelect>
+            </Col>
+          </Row>
 
-    <CardBody className="p-0">
-      <ListGroup small flush className="list-group-small">
-        {userData.map((item, idx) => (
-          <ListGroupItem key={idx} className="d-flex px-3">
-            <span className="text-semibold text-fiord-blue">{item.title}</span>
-            <span className="ml-auto text-right text-semibold text-reagent-gray">
-              {item.value}
+
+          <div className="block-handle"/>
+        </CardHeader>
+
+        <CardBody className="p-0">
+          <ListGroup small flush className="list-group-small">
+            {this.props.rank_list.map((item, idx) => (
+              <ListGroupItem key={idx} className="d-flex px-3">
+                <span className="text-semibold text-fiord-blue">{item[2]}</span>
+                <span className="ml-auto text-right text-semibold text-reagent-gray">
+              {item[1]}
             </span>
-          </ListGroupItem>
-        ))}
-      </ListGroup>
-    </CardBody>
-  </Card>
-);
+              </ListGroupItem>
+            ))}
+          </ListGroup>
+        </CardBody>
+      </Card>
+    );
+  }
+}
 
 TopUsers.propTypes = {
   /**

@@ -8,32 +8,47 @@ import {
 } from "shards-react";
 
 import "../../assets/range-date-picker.css";
+var formatDate = function (date) {
+  var y = date.getFullYear();
+  var m = date.getMonth() + 1;
+  m = m < 10 ? ('0' + m) : m;
+  var d = date.getDate();
+  d = d < 10 ? ('0' + d) : d;
+  var h = date.getHours();
+  var minute = date.getMinutes();
+  minute = minute < 10 ? ('0' + minute) : minute;
+  var second= date.getSeconds();
+  second = minute < 10 ? ('0' + second) : second;
+  return y + '-' + m + '-' + d;
+};
 
 class RangeDatePicker extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      startDate: undefined,
-      endDate: undefined
-    };
+    // this.state = {
+    //   startDate: undefined,
+    //   endDate: undefined
+    // };
 
     this.handleStartDateChange = this.handleStartDateChange.bind(this);
     this.handleEndDateChange = this.handleEndDateChange.bind(this);
   }
 
   handleStartDateChange(value) {
-    this.setState({
-      ...this.state,
-      ...{ startDate: new Date(value) }
-    });
+    this.props.handleStartDateChange(value,formatDate(value))
+    // this.setState({
+    //   ...this.state,
+    //   ...{ startDate: new Date(value) }
+    // });
   }
 
   handleEndDateChange(value) {
-    this.setState({
-      ...this.state,
-      ...{ endDate: new Date(value) }
-    });
+    this.props.handleEndDateChange(value,formatDate(value))
+    // this.setState({
+    //   ...this.state,
+    //   ...{ endDate: new Date(value) }
+    // });
   }
 
   render() {
@@ -44,7 +59,7 @@ class RangeDatePicker extends React.Component {
       <InputGroup className={classes}>
         <DatePicker
           size="sm"
-          selected={this.state.startDate}
+          selected={this.props.start_date}
           onChange={this.handleStartDateChange}
           placeholderText="Start Date"
           dropdownMode="select"
@@ -52,7 +67,7 @@ class RangeDatePicker extends React.Component {
         />
         <DatePicker
           size="sm"
-          selected={this.state.endDate}
+          selected={this.props.end_date}
           onChange={this.handleEndDateChange}
           placeholderText="End Date"
           dropdownMode="select"

@@ -31,13 +31,13 @@ class ApplyItem extends React.Component {
       <ListGroupItem key={1} flush style={{"border-top": "1px solid #D3D3D3"}}>
         <Row>
           <Col className="col-2">
-            <div># {this.props.user.userID}</div> {/*请求编号*/}
+            <div># {this.props.req.req_id}</div> {/*请求编号*/}
           </Col>
           <Col className="col-3">
-            <div>{this.props.user.username}</div> {/*请求用户*/}
+            <div>{this.props.req.user_name}</div> {/*请求用户*/}
           </Col>
           <Col className="col-3">
-            <div>{this.props.user.username}</div> {/*召集令标题*/}
+            <div>{this.props.req.token_name}</div> {/*召集令标题*/}
           </Col>
           <Col className="col-4">
             <div>
@@ -51,9 +51,7 @@ class ApplyItem extends React.Component {
                 target={"#popover-" + this.props.idx}
               >
                 <PopoverBody>
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                  terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-                  labore wes anderson cred nesciunt sapiente ea proident.
+                  {this.props.req.disc}
                 </PopoverBody>
               </Popover>
             </div>

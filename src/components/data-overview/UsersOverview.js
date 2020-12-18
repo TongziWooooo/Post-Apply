@@ -9,6 +9,77 @@ class UsersOverview extends React.Component {
 
     this.canvasRef = React.createRef();
   }
+  componentWillUpdate(nextProps, nextState, nextContext) {
+    const chartOptions = {
+      ...{
+        responsive: true,
+        legend: {
+          position: "top"
+        },
+        elements: {
+          line: {
+            // A higher value makes the line look skewed at this ratio.
+            tension: 0.3
+          },
+          point: {
+            radius: 0
+          }
+        },
+        scales: {
+          xAxes: [
+            {
+              gridLines: false,
+              ticks: {
+                callback(tick, index) {
+                  // Jump every 7 values on the X axis labels to avoid clutter.
+                  return index % 7 !== 0 ? "" : tick;
+                }
+              }
+            }
+          ],
+          yAxes: [
+            {
+              ticks: {
+                suggestedMax: 45,
+                callback(tick) {
+                  if (tick === 0) {
+                    return tick;
+                  }
+                  // Format the amounts using Ks for thousands.
+                  return tick > 999 ? `${(tick / 1000).toFixed(1)}K` : tick;
+                }
+              }
+            }
+          ]
+        },
+        hover: {
+          mode: "nearest",
+          intersect: false
+        },
+        tooltips: {
+          custom: false,
+          mode: "nearest",
+          intersect: false
+        }
+      },
+      ...this.props.chartOptions
+    };
+
+    const DataOverview = new Chart(this.canvasRef.current, {
+      type: "LineWithLine",
+      data: this.props.chartData,
+      options: chartOptions
+    });
+
+    // They can still be triggered on hover.
+    const buoMeta = DataOverview.getDatasetMeta(0);
+    buoMeta.data[0]._model.radius = 0;
+    buoMeta.data[
+    this.props.chartData.datasets[0].data.length - 1
+      ]._model.radius = 0;
+
+    // Render the chart.
+    DataOverview.render();  }
 
   componentDidMount() {
     const chartOptions = {
@@ -76,8 +147,8 @@ class UsersOverview extends React.Component {
     const buoMeta = DataOverview.getDatasetMeta(0);
     buoMeta.data[0]._model.radius = 0;
     buoMeta.data[
-      this.props.chartData.datasets[0].data.length - 1
-    ]._model.radius = 0;
+    this.props.chartData.datasets[0].data.length - 1
+      ]._model.radius = 0;
 
     // Render the chart.
     DataOverview.render();
@@ -125,38 +196,7 @@ UsersOverview.defaultProps = {
       {
         label: "成交单数",
         fill: "start",
-        data: [
-          500,
-          800,
-          320,
-          180,
-          240,
-          320,
-          230,
-          650,
-          590,
-          1200,
-          750,
-          940,
-          1420,
-          1200,
-          960,
-          1450,
-          1820,
-          2800,
-          2102,
-          1920,
-          3920,
-          3202,
-          3140,
-          2800,
-          3200,
-          3200,
-          3400,
-          2910,
-          3100,
-          4250
-        ],
+        data:Array(30).fill(0),
         backgroundColor: "rgba(0,123,255,0.1)",
         borderColor: "rgba(0,123,255,1)",
         pointBackgroundColor: "#ffffff",
@@ -168,38 +208,7 @@ UsersOverview.defaultProps = {
       {
         label: "中介费金额",
         fill: "start",
-        data: [
-          380,
-          430,
-          120,
-          230,
-          410,
-          740,
-          472,
-          219,
-          391,
-          229,
-          400,
-          203,
-          301,
-          380,
-          291,
-          620,
-          700,
-          300,
-          630,
-          402,
-          320,
-          380,
-          289,
-          410,
-          300,
-          530,
-          630,
-          720,
-          780,
-          1200
-        ],
+        data: Array(30).fill(0),
         backgroundColor: "rgba(255,65,105,0.1)",
         borderColor: "rgba(255,65,105,1)",
         pointBackgroundColor: "#ffffff",

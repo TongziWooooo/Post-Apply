@@ -24,6 +24,50 @@ import ApplyItem from "./ApplyItem";
 class SearchApply extends React.Component{
   constructor(props) {
     super(props);
+    this.state = {
+      reqs:[{
+        user_id:"1",
+        token_name:"1",
+        token_id:"1",
+        disc:"???",
+        state:"1",
+        user_name:"1",
+        show:false
+      }]
+    };
+
+}
+  componentDidMount(){
+    fetch("http://127.0.0.1:5000/token_reqs",{
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
+        'Content-Type': 'application/json',
+      }
+    }).then((res)=>res.json()).then(
+      (res)=>{
+        var arr=[]
+        for(var i in res.data) {
+          var temp_dict = {
+            "req_id": res.data[i].req_id,
+            "send_user_id": res.data[i].send_user_id,
+            "token_name": res.data[i].token_name,
+            "user_name": res.data[i].user_name,
+            "user_id": res.data[i].user_id,
+            "disc": res.data[i].disc,
+            "create_time": res.data[i].create_time,
+            "update_time": res.data[i].update_time,
+            "state": res.data[i].state,
+            "show": false
+          }
+          arr.push(temp_dict)
+
+        }
+        this.setState({reqs:arr})
+      }
+    )
   }
 
   render(){
@@ -75,8 +119,8 @@ class SearchApply extends React.Component{
               <CardBody className="p-0">
                 <ListGroup>
                   {
-                    users.map((user, idx) => (
-                      <ApplyItem user={user} idx={idx}/>
+                    this.state.reqs.map((req, idx) => (
+                      <ApplyItem req={req} idx={idx}/>
                     ))
                   }
                 </ListGroup>

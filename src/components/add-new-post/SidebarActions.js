@@ -82,7 +82,7 @@ class SidebarActions extends Component{
     <CardBody className="p-0">
       <ListGroup flush>
         <ListGroupItem className="p-3">
-          <label>召集时间????</label>
+          <label>召集时间</label>
 
 
           <InputGroup className={classes}>
