@@ -27,7 +27,7 @@ class SidebarCategories extends Component{
   }
 
   render(){
-    return(  
+    return(
         <Card small className="mb-3">
         <CardHeader className="border-bottom">
           <h6 className="m-0">{title}</h6>
@@ -42,7 +42,7 @@ class SidebarCategories extends Component{
               </FormCheckbox>
               <FormCheckbox className="mb-1"
                 checked={this.props.type.xstt}
-                onChange={e => this.handleChange(e, "xstt")}                
+                onChange={e => this.handleChange(e, "xstt")}
               >
                 学业探讨
               </FormCheckbox>
@@ -54,12 +54,12 @@ class SidebarCategories extends Component{
               <FormCheckbox className="mb-1"
                 checked={this.props.type.gyzy}
                 onChange={e => this.handleChange(e, "gyzy")}   >
-                公益志愿
+                公益志愿者
               </FormCheckbox>
               <FormCheckbox className="mb-1"
                 checked={this.props.type.yw}
                 onChange={e => this.handleChange(e, "yw")}   >
-                缘来如此
+                游玩
               </FormCheckbox>
             </ListGroupItem>
           </ListGroup>

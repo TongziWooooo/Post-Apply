@@ -18,8 +18,8 @@ class AddNewPost extends Component{
     this.state = {
       value: "",
       end_time: default_date,
-      formated_end_data:"",
-      default_people: 10,
+      formated_end_data: default_date,
+      max_num: 10,
       title: "",
       type:{
         jsjl:true,
@@ -85,12 +85,21 @@ class AddNewPost extends Component{
         "max_num":this.state.max_num,
         "end_time":this.state.formated_end_data
       })
+    }).then(res => {
+      if (res.status === 200) {
+        this.props.history.push({
+          pathname: "/status",
+          state: {postID: 123, type: Constants.SUCCEED}  // 出错就是Constants.FAIL
+        })
+      } else {
+        this.props.history.push({
+          pathname: "/status",
+          state: {postID: 123, type: Constants.FAIL}  // 出错就是Constants.FAIL
+        })
+      }
     })
 
-    this.props.history.push({
-      pathname: "/status",
-      state: {postID: 123, type: Constants.SUCCEED}  // 出错就是Constants.FAIL
-    })
+
 
   }
 
@@ -148,7 +157,7 @@ class AddNewPost extends Component{
           {/* Sidebar Widgets */}
           <Col lg="3" md="12">
             <SidebarCategories type={this.state.type} handleTypeChange={this.handleTypeChange} />
-            <SidebarActions date={this.state.end_time} num={this.state.default_people}
+            <SidebarActions date={this.state.end_time} num={this.state.max_num}
                             handleActionNumChange={this.handleActionNumChange}
                             handleActionDateChange={this.handleActionDateChange}
                             onSubmit={this.handleSubmit}/>

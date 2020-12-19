@@ -32,7 +32,7 @@ class SignInForm extends React.Component {
     this.handlePassword = this.handlePassword.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.login = this.login.bind(this);
-    this.onkeydown = this.onkeydown.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   handleUsername (e) {
@@ -51,7 +51,7 @@ class SignInForm extends React.Component {
 
   }
 
-  onkeydown(e) {
+  onKeyDown(e) {
     if (e.keyCode === 13) {
       this.login()
     }
@@ -97,7 +97,7 @@ class SignInForm extends React.Component {
               console.log(res["data"])
               window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
               window.sessionStorage.setItem("user_id",res["data"]["user_id"])
-              window.sessionStorage.setItem("user_name",res['data']['user_name'])
+              window.sessionStorage.setItem("user_name",res['data']['name'])
               this.props.history.push({
                 pathname: "/blog-posts"
               })
@@ -111,7 +111,7 @@ class SignInForm extends React.Component {
 
   render() {
     return (
-      <ListGroup flush  onKeyDown={this.onkeydown} tabIndex="0">
+      <ListGroup flush onKeyDown={this.onKeyDown} tabIndex="0">
         <ListGroupItem className="p-3">
           <FormGroup>
             <FormInput placeholder="用户名" onChange={this.handleUsername} required/>
