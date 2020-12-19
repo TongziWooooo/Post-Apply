@@ -14,16 +14,15 @@ import {
 class AddNewPost extends Component{
   constructor(props) {
     super(props);
-    // alert(props.location.query.post_id)
+    var default_date = new Date();
     this.state = {
-      value: '请撰写一篇关于你喜欢的 DOM 元素的文章.',
-      end_time:undefined,
+      value: "",
+      end_time: default_date,
       formated_end_data:"",
-
-      max_num:11,
+      default_people: 10,
       title: "",
       type:{
-        jsjl:false,
+        jsjl:true,
         xstt:false,
         shsj:false,
         gyzy:false,
@@ -36,14 +35,9 @@ class AddNewPost extends Component{
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.FieldEditor1 = React.createRef();
     this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.login = this.login.bind(this);
-    this.printSession = this.printSession.bind(this);
     this.handleActionDateChange = this.handleActionDateChange.bind(this)
     this.handleActionNumChange = this.handleActionNumChange.bind(this)
-
   }
-
-
 
   handleTitleChange(event){
     this.setState({title:event.target.value}
@@ -51,7 +45,10 @@ class AddNewPost extends Component{
   }
 
   handleSubmit(event) {
-    // alert('提交的文章: ' + this.state.value);
+    if (this.state.title === "" || this.state.value === ""){
+      alert('请输入标题和文章内容！');
+      return;
+    }
     event.preventDefault();
 
     console.log(this.state.title)
@@ -96,6 +93,7 @@ class AddNewPost extends Component{
     })
 
   }
+
   handleContents(content_value){
     this.setState({value: content_value})
     // console.log(this.state.value)
@@ -129,64 +127,6 @@ class AddNewPost extends Component{
     this.setState({type: newStateType})
   }
 
-  login(){
-
-    fetch('http://106.13.141.114:5009/session', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        "username": "xxx",
-        "password": "xx",
-      })
-    }).then(res => { if(res.status===200) return res.json()})
-      .then(res =>{         //ref
-
-          console.log(res["data"])
-          window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
-          window.sessionStorage.setItem("user_id",res["data"]["user_id"])
-          window.sessionStorage.setItem("user_name","xxx")
-        }
-      )
-  }
-// .then(
-//   (res)=>{
-//     if(res.status===200){
-//       console.log(res.text())
-
-//       // window.sessionStorage.setItem("Authorization", Response.body.))
-//   }
-// }
-//   // window.sessionStorage.setItem("name", "xxx"))
-// )//.then(res=>console.log(res))
-
-
-
-  //
-
-
-  printSession(){
-    console.log(window.sessionStorage.getItem('Authorization'))
-    fetch('http://106.13.141.114:5009/session', {
-      method: 'DELETE',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json',
-        'Authorization':window.sessionStorage.getItem('Authorization'),
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        "username": "xxx",
-        "password": "xx",
-      })
-    })
-
-  }
-
   render(){
     return(
       <Container fluid className="main-content-container px-4 pb-4">
@@ -208,14 +148,10 @@ class AddNewPost extends Component{
           {/* Sidebar Widgets */}
           <Col lg="3" md="12">
             <SidebarCategories type={this.state.type} handleTypeChange={this.handleTypeChange} />
-            <SidebarActions date={this.state.end_time} num={this.state.max_num}
+            <SidebarActions date={this.state.end_time} num={this.state.default_people}
                             handleActionNumChange={this.handleActionNumChange}
                             handleActionDateChange={this.handleActionDateChange}
                             onSubmit={this.handleSubmit}/>
-
-            <Button theme="accent" size="sm" className="ml-auto" onClick={this.login}>随便登录一下    </Button>
-            <Button theme="accent" size="sm" className="ml-auto" onClick={this.printSession}>看一下session    </Button>
-
           </Col>
         </Row>
       </Container>
