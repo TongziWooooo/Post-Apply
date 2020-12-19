@@ -12,6 +12,11 @@ import {
 } from "shards-react";
 
 class TopUsers extends Component {
+  constructor(props) {
+    super(props);
+
+  }
+
   render() {
     let {title, userData} = this.props;
     return (
@@ -24,11 +29,10 @@ class TopUsers extends Component {
             <Col>
               <FormSelect
                 size="sm"
-                value="orders"
-                onChange={() => {
-                }}
+                value={this.props.rank_type}
+                onChange={this.props.changeRankType}
               >
-                <option value="orders">成交单数</option>
+                <option value="order">成交单数</option>
                 <option value="money">中介费</option>
               </FormSelect>
             </Col>

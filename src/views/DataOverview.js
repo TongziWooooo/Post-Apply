@@ -18,7 +18,7 @@ class DataOverview extends Component {
       type: undefined,
       formated_start_date: undefined,
       formated_end_date: undefined,
-      token_type: "技术交流",
+      token_type: "所有类别",
       province: undefined,
 
 
@@ -93,16 +93,34 @@ class DataOverview extends Component {
         ]
       },
       chart:null,//<UsersOverview title="统计图"     />// <UsersOverview title="统计图" chartData={this.state.chartData}    />
-      rank_list:[]
+      rank_list:[],
+      rank_type: "order",
+
+      cityOptions: []
+    }
+
+    this.cityDict = {
+      "所有省": [],
+      "北京市": ["北京市"],
+      "广东省": ["广州市", "深圳市", "中山市"],
+      "福建省": ["莆田市", "厦门市", "福州市"]
     }
 
 
+    this.orderList = [];
+    this.moneyList = [];
 
     this.handleStartDateChange = this.handleStartDateChange.bind(this)
     this.handleEndDateChange = this.handleEndDateChange.bind(this)
-  this.handleTypeChange = this.handleTypeChange.bind(this)
+    this.handleTypeChange = this.handleTypeChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+    this.changeRankType = this.changeRankType.bind(this)
+    this.handleProChange = this.handleProChange.bind(this)
+  }
+
+  changeRankType(e) {
+    this.setState({rank_type: e.target.value});
   }
 
   handleStartDateChange(time,fmt){
@@ -127,18 +145,22 @@ class DataOverview extends Component {
   }
 
   handleTypeChange(e){
-    this.setState({token_type:e.target.value},()=>{alert(this.state.token_type)})
+    this.setState({token_type:e.target.value})
     // alert(e.target.value)
 
   }
 
   handleProChange(e){
-    this.setState({province:e.target.value})
-
+    this.setState({cityOptions: this.cityDict[e.target.value]});
   }
 
   handleCityChange(e){
-    this.setState({city:e.target.value})
+    // alert(e.target.value)
+    if (e.target.value === "选择城市") {
+      this.setState({city: undefined})
+    } else {
+      this.setState({city:e.target.value})
+    }
   }
 
   onSubmit(){
@@ -237,22 +259,38 @@ class DataOverview extends Component {
         'Content-Type': 'application/json',
       }
     }).then((res)=>res.json()).then((res)=>{
-      this.setState({rank_list:res.data})
+      // res.data.order
+      // res.data.money
+      // [id, 数据, 用户名]
+      // console.log(res.data)
+
+      if (this.state.rank_type === "order") {
+        this.setState({rank_list: res.data.order})
+      } else {
+        this.setState({rank_list: res.data.money})
+      }
+
+      // this.orderList = res.data.order.sort((a, b) => {
+      //   return a[1] > b[1];
+      // });
+      // this.moneyList = res.data.money.sort((a, b) => {
+      //   return a[1] > b[1];
+      // });
     })
 
   }
     componentWillMount() {
-      fetch("http://10.128.222.68:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
-        method: 'get',
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-          'Authorization':window.sessionStorage.getItem('Authorization'),
-          'Content-Type': 'application/json',
-        }
-      }).then((res)=>res.json()).then((res)=>{
-        this.setState({rank_list:res.data})
-      })
+      // fetch("http://10.128.222.68:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
+      //   method: 'get',
+      //   credentials: 'include',
+      //   headers: {
+      //     'Accept': 'application/json',
+      //     'Authorization':window.sessionStorage.getItem('Authorization'),
+      //     'Content-Type': 'application/json',
+      //   }
+      // }).then((res)=>res.json()).then((res)=>{
+      //   this.setState({rank_list: res.data.order})
+      // })
 
 
       }
@@ -273,39 +311,24 @@ class DataOverview extends Component {
                     <RangeDatePicker start_date={this.state.start_date} end_date={this.state.end_date} handleStartDateChange={this.handleStartDateChange} handleEndDateChange={this.handleEndDateChange}/>
                   </Col>
                   <Col>
-                    <FormSelect onChange={(e)=>this.handleProChange(e)}>
-                      <option selected>所有省</option>
-                      <option value="1">北京市</option>
-                      <option value="2">福建省</option>
-                      <option value="3">广东省</option>
+                    <FormSelect onChange={this.handleProChange}>
+                      <option value="所有省">所有省</option>
+                      <option value="北京市">北京市</option>
+                      <option value="福建省">福建省</option>
+                      <option value="广东省">广东省</option>
                     </FormSelect>
                   </Col>
 
-                  {this.state.province==="所有省"?
-                    <Col>
-                      <FormSelect onChange={(e) => this.handleCityChange(e)}>
-                        <option selected>所有市</option>
-                        <option value="北京市">北京市</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </FormSelect>
-                    </Col>:
-                    this.state.province==="福建省"?
-                      <Col>
-                        <FormSelect onChange={(e) => this.handleCityChange(e)}>
-                          <option selected value="福州市">福州市</option>
-                          <option value="厦门市">厦门市</option>
-                        </FormSelect>
-                      </Col>:
-                      <Col>
-                        <FormSelect onChange={(e) => this.handleCityChange(e)}>
-                          <option value="所有市" selected>所有市</option>
-                          <option value="中山市" >中山市</option>
-                          <option value="珠海市">珠海市</option>
-                        </FormSelect>
-                      </Col>
-
-                  }
+                  <Col>
+                    <FormSelect onChange={this.handleCityChange}>
+                      <option>选择城市</option>
+                      {
+                        this.state.cityOptions.map(city => {
+                          return <option value={city}>{city}</option>
+                        })
+                      }
+                    </FormSelect>
+                  </Col>
                   <Col>
                     <FormSelect onChange={(e)=>this.handleTypeChange(e)}>
                       <option selected>所有类别</option>
@@ -360,7 +383,11 @@ class DataOverview extends Component {
             </Row>
           </Col>
           <Col>
-            <TopUsers rank_list={this.state.rank_list}/>
+            <TopUsers
+              rank_list={this.state.rank_list}
+              rank_type={this.state.rank_type}
+              changeRankType={this.changeRankType}
+            />
           </Col>
         </Row>
 

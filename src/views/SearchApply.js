@@ -25,16 +25,25 @@ class SearchApply extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      reqs:[{
-        user_id:"1",
-        token_name:"1",
-        token_id:"1",
-        disc:"???",
-        state:"1",
-        user_name:"1",
-        show:false
-      }]
+      displayReqs: [
+        // {
+        //   user_id:"1",
+        //   token_name:"1",
+        //   token_id:"1",
+        //   disc:"???",
+        //   state:"1",
+        //   user_name:"1",
+        //   show:false
+        // }
+      ],
+      query: ""
     };
+
+    this.reqs = [];
+
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleQuery = this.handleQuery.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
 
 }
   componentDidMount(){
@@ -65,9 +74,38 @@ class SearchApply extends React.Component{
           arr.push(temp_dict)
 
         }
-        this.setState({reqs:arr})
+        this.reqs = arr;
+        this.setState({displayReqs: arr})
       }
     )
+  }
+
+  onKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.handleSearch()
+    }
+  }
+
+  handleQuery(e) {
+    this.setState({query: e.target.value});
+  }
+
+  isQualifiedPosts(query, title) {
+    let flag = true;
+    query.split(" ").forEach(str => {
+      if (title.indexOf(str) === -1)
+        flag = false;
+    })
+    return flag;
+  }
+
+  handleSearch(e) {
+    let temp_reqs = this.reqs.filter(req => {
+      return this.isQualifiedPosts(this.state.query, req.token_name);
+    })
+    this.setState({displayReqs: temp_reqs});
+
+    // this.isQualifiedPosts("a d", "abc");
   }
 
   render(){
@@ -77,22 +115,12 @@ class SearchApply extends React.Component{
         <Row noGutters className="page-header py-4">
           <PageTitle title="召集令请求数据" subtitle="Apply" className="text-sm-left mb-3" />
         </Row>
-        <Row className="mb-4">
+        <Row className="mb-4" onKeyDown={this.onKeyDown} tabIndex="0">
           <Col>
             <Card>
               <CardBody>
                 <Row>
-                  <Col className="col-2">
-                    <FormSelect>
-                      <option selected>所有类别</option>
-                      <option value="1">技术交流</option>
-                      <option value="2">学业探讨</option>
-                      <option value="3">社会实践</option>
-                      <option value="4">公益志愿者</option>
-                      <option value="5">游玩</option>
-                    </FormSelect>
-                  </Col>
-                  <Col className="col-8">
+                  <Col className="col-10">
                   <InputGroup seamless className="ml-3">
                     <InputGroupAddon type="prepend">
                       <InputGroupText>
@@ -101,12 +129,13 @@ class SearchApply extends React.Component{
                     </InputGroupAddon>
                     <FormInput
                       className="navbar-search"
-                      placeholder="Search for something..."
+                      placeholder="Search for post name..."
+                      onChange={this.handleQuery}
                     />
                   </InputGroup>
                   </Col>
                   <Col className="col-2">
-                    <Button outline theme='secondary'>搜索</Button>
+                    <Button outline theme='secondary' onClick={this.handleSearch}>搜索</Button>
                   </Col>
                 </Row>
               </CardBody>
@@ -119,7 +148,7 @@ class SearchApply extends React.Component{
               <CardBody className="p-0">
                 <ListGroup>
                   {
-                    this.state.reqs.map((req, idx) => (
+                    this.state.displayReqs.map((req, idx) => (
                       <ApplyItem req={req} idx={idx}/>
                     ))
                   }
