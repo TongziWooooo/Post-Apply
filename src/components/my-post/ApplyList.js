@@ -44,7 +44,8 @@ class ApplyList extends React.Component {
       method: 'GET',
       credentials: 'include',
       headers: {
-        'Accept': 'application/json',
+               'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       }
     })
@@ -105,7 +106,8 @@ class ApplyList extends React.Component {
       method: 'PUT',
       credentials: 'include',
       headers: {
-        'Accept': 'application/json',
+               'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -133,7 +135,8 @@ class ApplyList extends React.Component {
       method: 'POST',
       credentials: 'include',
       headers: {
-        'Accept': 'application/json',
+               'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

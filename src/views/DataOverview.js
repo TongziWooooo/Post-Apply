@@ -168,7 +168,7 @@ class DataOverview extends Component {
       method: 'get',
       credentials: 'include',
       headers: {
-        'Accept': 'application/json',
+               'Accept': 'application/json',
         'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       }
@@ -254,7 +254,7 @@ class DataOverview extends Component {
       method: 'get',
       credentials: 'include',
       headers: {
-        'Accept': 'application/json',
+               'Accept': 'application/json',
         'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       }
@@ -284,8 +284,8 @@ class DataOverview extends Component {
       //   method: 'get',
       //   credentials: 'include',
       //   headers: {
-      //     'Accept': 'application/json',
-      //     'Authorization':window.sessionStorage.getItem('Authorization'),
+      //            'Accept': 'application/json',
+       // 'Authorization':window.sessionStorage.getItem('Authorization'),//     'Authorization':window.sessionStorage.getItem('Authorization'),
       //     'Content-Type': 'application/json',
       //   }
       // }).then((res)=>res.json()).then((res)=>{

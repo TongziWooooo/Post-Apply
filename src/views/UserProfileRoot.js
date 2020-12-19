@@ -27,7 +27,7 @@ class UserProfileRoot extends React.Component {
       method: 'get',
       credentials: 'include',
       headers: {
-        'Accept': 'application/json',
+               'Accept': 'application/json',
         'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },
@@ -76,7 +76,7 @@ class UserProfileRoot extends React.Component {
       method: 'PUT',
       credentials: 'include',
       headers: {
-        'Accept': 'application/json',
+               'Accept': 'application/json',
         'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },

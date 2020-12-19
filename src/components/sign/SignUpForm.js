@@ -106,8 +106,9 @@ class SignUpForm extends React.Component {
           method:"POST",
           credentials: 'include',
           headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
+                   'Accept': 'application/json',
+        // 'Authorization':window.sessionStorage.getItem('Authorization'),
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             "firstName":this.state.firstName,

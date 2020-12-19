@@ -43,8 +43,8 @@ class SearchUser extends React.Component{
         method:"GET",
         credentials: 'include',
         headers: {
-          'Accept': 'application/json',
-          'Authorization':window.sessionStorage.getItem('Authorization'),
+                 'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
           'Content-Type': 'application/json',
         },
       }

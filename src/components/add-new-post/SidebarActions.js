@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import  { Component } from 'react';
 import RangeDatePicker from "../common/RangeDatePicker";
 import   "../../assets/range-date-picker.css";
-import CustomFileUpload from "../components-overview/CustomFileUpload";
+import CustomFileUpload_2 from "../components-overview/CustomFileUpload_2";
 import {
   InputGroup,
   DatePicker,
@@ -58,13 +58,21 @@ class SidebarActions extends Component{
 
   }
 
-
+componentDidMount() {
+  this.props.onRef(this)
+}
 
   handleNumChange(e){
     this.props.handleActionNumChange(e.target.value)
 
   }
+  onRef = (ref) => {
+    this.child = ref
+  }
+  childFn = (token_id) => {
+    this.child.myName(token_id)
 
+  }
   render(){
     const classes = classNames( "d-flex", "my-auto", "date-range");
     return(
@@ -106,7 +114,7 @@ class SidebarActions extends Component{
         </ListGroupItem>
         <ListGroupItem className="px-3 pb-1">
         <label>介绍图片</label>
-          <CustomFileUpload />
+          <CustomFileUpload_2 onRef={this.onRef} />
         </ListGroupItem>
         <ListGroupItem className="d-flex px-3 border-0">
           <Button theme="accent" size="sm" className="" onClick={this.props.onSubmit}>

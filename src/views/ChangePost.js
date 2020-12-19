@@ -74,8 +74,8 @@ fetchPostInfo(){
     method: 'GET',
     credentials: 'include',
     headers: {
-      'Accept': 'application/json',
-      // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
+             'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),// "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
       'Content-Type': 'application/json',
     }
   })
@@ -163,8 +163,8 @@ componentDidMount(){
     fetch('http://10.128.222.68:5000/token', {
       method: 'PUT',
       headers: {
-        'Accept': 'application/json',
-        "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
+               'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },
   body: JSON.stringify({
@@ -226,8 +226,8 @@ componentDidMount(){
       method: 'POST',
       credentials: 'include',
       headers: {
-        'Accept': 'application/json',
-        // "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
+               'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),// "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
         'Content-Type': 'application/json',
       },
   body: JSON.stringify({
@@ -266,7 +266,7 @@ componentDidMount(){
       method: 'DELETE',
       credentials: 'include',
       headers: {
-        'Accept': 'application/json',
+               'Accept': 'application/json',
         'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },

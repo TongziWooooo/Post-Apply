@@ -45,6 +45,8 @@ class AddNewPost extends Component{
   }
 
   handleSubmit(event) {
+    // this.child.childFn()
+
     if (this.state.title === "" || this.state.value === ""){
       alert('请输入标题和文章内容！');
       return;
@@ -73,8 +75,8 @@ class AddNewPost extends Component{
     fetch('http://10.128.222.68:5000/token', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
-        "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
+               'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -87,6 +89,9 @@ class AddNewPost extends Component{
       })
     }).then(res => {
       if (res.status === 200) {
+        res.json().then((res=>{
+          this.child.childFn(res.data)
+        }))
         this.props.history.push({
           pathname: "/status",
           state: {postID: 123, type: Constants.SUCCEED}  // 出错就是Constants.FAIL
@@ -135,6 +140,9 @@ class AddNewPost extends Component{
     newStateType[typee] = true
     this.setState({type: newStateType})
   }
+  onRef = (ref) => {
+    this.child = ref
+  }
 
   render(){
     return(
@@ -159,7 +167,7 @@ class AddNewPost extends Component{
             <SidebarCategories type={this.state.type} handleTypeChange={this.handleTypeChange} />
             <SidebarActions date={this.state.end_time} num={this.state.max_num}
                             handleActionNumChange={this.handleActionNumChange}
-                            handleActionDateChange={this.handleActionDateChange}
+                            handleActionDateChange={this.handleActionDateChange} onRef={this.onRef}
                             onSubmit={this.handleSubmit}/>
           </Col>
         </Row>

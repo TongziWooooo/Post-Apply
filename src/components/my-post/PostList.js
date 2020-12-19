@@ -25,7 +25,9 @@ import {Link} from "react-router-dom";
       method: 'DELETE',
       credentials: 'include',
       headers: {
-        'Accept': 'application/json',
+               'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
+
         // 'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },

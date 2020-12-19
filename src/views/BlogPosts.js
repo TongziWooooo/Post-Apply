@@ -115,7 +115,7 @@ class BlogPosts extends React.Component {
       method: 'get',
       credentials: 'include',
       headers: {
-        'Accept': 'application/json',
+               'Accept': 'application/json',
         'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },
@@ -136,7 +136,7 @@ class BlogPosts extends React.Component {
           for(var i in res.data.token_list){
             console.log(res.data.token_list[i])
             var dic = {
-              backgroundImage: require("../images/content-management/10.jpeg"),
+              backgroundImage:  require("../images/content-management/10.jpeg"),
               author: res.data.token_list[i].send_user,
               authorUrl: "#",
               postID: res.data.token_list[i].token_id,
@@ -275,7 +275,7 @@ class BlogPosts extends React.Component {
               <Card small className="card-post card-post--1">
                 <div
                   className="card-post__image"
-                  style={{ backgroundImage: `url(${post.backgroundImage})` }}
+                  style={{ backgroundImage: `url(http://127.0.0.1:5000/videa?token_id=`+post.postID+`)` }}
                 >
                   <Badge
                     pill
