@@ -32,7 +32,7 @@ export default function SimpleBackdrop() {
         Show backdrop
       </Button>
       <Backdrop className={classes.backdrop} open={open} >
-        {/*<img src="http://127.0.0.1:5000/videa"></img>*/}
+        {/*<img src="http://106.13.141.114:5009/videa"></img>*/}
 
         <Player
           playsInline
@@ -40,7 +40,7 @@ export default function SimpleBackdrop() {
           fluid={false}
           width={480}
           height={272}
-          src="http://127.0.0.1:5000/videa?user_id=12"
+          src="http://106.13.141.114:5009/videa?user_id=12"
         />
         <Button  color="primary" onClick={handleClose}>
           close backdrop

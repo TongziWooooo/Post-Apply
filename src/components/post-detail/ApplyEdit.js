@@ -60,7 +60,7 @@ class ApplyEdit extends React.Component {
   handleSubmit() {
     console.log("ppppppppp")
     // console.log(this.state.desc
-    fetch("http://127.0.0.1:5000/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
+    fetch("http://106.13.141.114:5009/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
       method:'PUT',
       headers: {
         'Accept': 'application/json',
@@ -83,7 +83,7 @@ class ApplyEdit extends React.Component {
     this.setState({edit: !this.state.edit})
   }
   handleDelete(){
-    fetch("http://127.0.0.1:5000/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
+    fetch("http://106.13.141.114:5009/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
       method:'DELETE',
       headers: {
         'Accept': 'application/json',

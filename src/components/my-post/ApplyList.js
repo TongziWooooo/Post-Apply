@@ -40,7 +40,7 @@ class ApplyList extends React.Component {
   fetchPostInfo(){
     // alert(this.props.postID)
 
-    fetch('http://127.0.0.1:5000/token_reqs?token_id='+this.props.postID, {
+    fetch('http://106.13.141.114:5009/token_reqs?token_id='+this.props.postID, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -101,7 +101,7 @@ class ApplyList extends React.Component {
     console.log(this.state.post)
     var item = this.state.post[e.target.value]
 
-    fetch("http://127.0.0.1:5000/token_req?user_id="+item.author.id+"&token_id="+item.token_id,{
+    fetch("http://106.13.141.114:5009/token_req?user_id="+item.author.id+"&token_id="+item.token_id,{
       method: 'PUT',
       credentials: 'include',
       headers: {
@@ -129,7 +129,7 @@ class ApplyList extends React.Component {
     console.log(this.state.post[e.target.value])
 
     var item = this.state.post[e.target.value]
-    fetch('http://127.0.0.1:5000/suc_detail', {
+    fetch('http://106.13.141.114:5009/suc_detail', {
       method: 'POST',
       credentials: 'include',
       headers: {
