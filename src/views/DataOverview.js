@@ -21,7 +21,14 @@ class DataOverview extends Component {
       formated_end_date: undefined,
       token_type: "技术交流",
       province: undefined,
-
+      apply_form:                       <Col>
+        <FormSelect onChange={(e) => this.handleCityChange(e)}>
+          <option value="所有市" selected>所有市</option>
+          <option value="中山市" >中山市</option>
+          <option value="珠海市">珠海市</option>
+        </FormSelect>
+      </Col>
+      ,
 
       smallStats: [
         {
@@ -133,9 +140,52 @@ class DataOverview extends Component {
 
   }
 
-  handleProChange(e){
-    this.setState({province:e.target.value})
+  handleProChange(e) {
 
+    if (e.target.value === "北京市") {
+      this.setState({
+        apply_form:
+
+          <Col>
+            <FormSelect onChange={(e) => this.handleCityChange(e)}>
+              <option selected>所有市</option>
+              <option value="北京市">北京市</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </FormSelect>
+          </Col>
+      })
+    }
+
+
+    if (e.target.value === "广东省") {
+      this.setState({
+        apply_form:
+
+
+          <Col>
+            <FormSelect onChange={(e) => this.handleCityChange(e)}>
+              <option value="所有市" selected>所有市</option>
+              <option value="中山市">中山市</option>
+              <option value="珠海市">珠海市</option>
+            </FormSelect>
+          </Col>
+
+      })
+    }
+
+    if (e.target.value === "福建省") {
+      this.setState({
+          apply_form:
+            <Col>
+              <FormSelect onChange={(e) => this.handleCityChange(e)}>
+                <option selected value="福州市">福州市</option>
+                <option value="厦门市">厦门市</option>
+              </FormSelect>
+            </Col>
+        }
+      )
+    }
   }
 
   handleCityChange(e){
@@ -143,6 +193,20 @@ class DataOverview extends Component {
   }
 
   onSubmit(){
+    fetch("http://127.0.0.1:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
+        'Content-Type': 'application/json',
+      }
+    }).then((res)=>res.json()).then((res)=>{
+      this.setState({rank_list:res.data})
+
+    })
+
+
     fetch("http://127.0.0.1:5000/chart?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
       method: 'get',
       credentials: 'include',
@@ -228,7 +292,19 @@ class DataOverview extends Component {
           }
         ]
       }
-      this.setState({chartData:chartData},()=> {   setTimeout(() => {  this.setState({chart:<UsersOverview title="统计图" chartData={this.state.chartData}    />}) }, 200)
+      this.setState({chartData:chartData},()=> {   setTimeout(() => {
+        var self = document.getElementById('to-be-removed');
+// 拿到父节点:
+        console.log(self)
+        if(self) {
+          console.log("123214142123")
+          var parent = self.parentElement;
+// 删除:
+          var removed = parent.removeChild(self);
+
+        }
+        this.setState({chart:<UsersOverview title="统计图"  id="to-be-removed" chartData={this.state.chartData}    />}) }, 200)
+
 
       //
 
@@ -314,32 +390,7 @@ class DataOverview extends Component {
                       <option value="3">广东省</option>
                     </FormSelect>
                   </Col>
-
-                  {this.state.province==="所有省"?
-                    <Col>
-                      <FormSelect onChange={(e) => this.handleCityChange(e)}>
-                        <option selected>所有市</option>
-                        <option value="北京市">北京市</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </FormSelect>
-                    </Col>:
-                    this.state.province==="福建省"?
-                      <Col>
-                        <FormSelect onChange={(e) => this.handleCityChange(e)}>
-                          <option selected value="福州市">福州市</option>
-                          <option value="厦门市">厦门市</option>
-                        </FormSelect>
-                      </Col>:
-                      <Col>
-                        <FormSelect onChange={(e) => this.handleCityChange(e)}>
-                          <option value="所有市" selected>所有市</option>
-                          <option value="中山市" >中山市</option>
-                          <option value="珠海市">珠海市</option>
-                        </FormSelect>
-                      </Col>
-
-                  }
+                  {this.state.apply_form}
                   <Col>
                     <FormSelect onChange={(e)=>this.handleTypeChange(e)}>
                       <option selected>所有类别</option>
