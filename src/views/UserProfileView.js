@@ -16,7 +16,7 @@ class UserProfileView extends React.Component {
   }
 
   fetch_user_info () {
-    fetch('http://127.0.0.1:5000/user/' + this.props.location.state.userID, {
+    fetch('http://106.13.141.114:5009/user/' + this.props.location.state.userID, {
       method: 'get',
       credentials: 'include',
       headers: {

@@ -19,7 +19,6 @@ import {
 
 import PageTitle from "../components/common/PageTitle";
 import SignInForm from "../components/sign/SignInForm";
-import SimpleBackdrop from "../components/sign/backdrop";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -38,7 +37,6 @@ class SignIn extends React.Component {
                 <h6 className="m-0">登录</h6>
               </CardHeader>
               <SignInForm />
-              <SimpleBackdrop />
             </Card>
           </Col>
 
