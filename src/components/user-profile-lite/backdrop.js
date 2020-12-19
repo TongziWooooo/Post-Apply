@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // import Button from '@material-ui/core/Button';
@@ -14,7 +14,6 @@ import {
   CardBody,
   Button
 } from "shards-react";
-
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -22,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleBackdrop() {
+export default function SimpleBackdrop(props) {
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
@@ -33,39 +33,42 @@ export default function SimpleBackdrop() {
   };
 
   return (
-    <div>
-      <Button outline onClick={handleToggle}>
-        介绍视频
-      </Button>
-      <Backdrop className={classes.backdrop} open={open} >
-        {/*<img src="http://10.128.222.68:5000/videa"></img>*/}
-        <Container fluid className="main-content-container px-4 pb-4 row justify-content-center">
-          <Card>
-            <CardBody>
-              <Row className="p-4">
-                <Col>
-                  <Player
-                    playsInline
-                    poster="/assets/poster.png"
-                    fluid={false}
-                    width={640}
-                    height={360}
-                    src="http://10.128.222.68:5000/videa?user_id=12"
-                  />
-                </Col>
-              </Row>
-              <Row className="py-2 justify-content-center">
-                <Col className="d-flex justify-content-center">
+      <div>
+        <Button outline onClick={handleToggle}>
+          介绍视频
+        </Button>
+        <Backdrop className={classes.backdrop} open={open} >
+          {/*<img src="http://127.0.0.1:5000/videa"></img>*/}
+          <Container fluid className="main-content-container px-4 pb-4 row justify-content-center">
+            <Card>
+              <CardBody>
+                <Row className="p-4">
+                  <Col>
+
+          <Player
+            playsInline
+            poster="/assets/poster.png"
+            fluid={false}
+            width={480}
+            height={272}
+            src={"http://127.0.0.1:5000/videa?user_id="+props.user_id}
+          />
+                  </Col>
+                </Row>
+                <Row className="py-2 justify-content-center">
+                  <Col className="d-flex justify-content-center">
+
                   <Button outline theme="danger" onClick={handleClose}>
-                    关闭
+            关闭
                   </Button>
-                </Col>
-              </Row>
-            </CardBody>
-          </Card>
-        </Container>
-        
-      </Backdrop>
-    </div>
-  );
+                  </Col>
+                </Row>
+              </CardBody>
+            </Card>
+          </Container>
+
+        </Backdrop>
+      </div>
+
+  )
 }

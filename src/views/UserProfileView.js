@@ -55,7 +55,7 @@ class UserProfileView extends React.Component {
         </Row>
         <Row>
           <Col lg="6" className="offset-md-3">
-            <UserDetails userInfo={this.state.userInfo}/>
+            <UserDetails userInfo={this.state.userInfo} root={0}/>
           </Col>
         </Row>
       </Container>

@@ -10,6 +10,7 @@ import {
   Badge
 } from "shards-react";
 import SimpleBackdrop from "./backdrop";
+import CustomFileUpload from "../components-overview/CustomFileUpload";
 
 const UserDetails = (props) => (
   <Card small className="mb-4 pt-3">
@@ -52,7 +53,10 @@ const UserDetails = (props) => (
         </span>
       </ListGroupItem>
       <ListGroupItem className="p-4 d-flex justify-content-center">
-        <SimpleBackdrop />
+        {props.root?
+          <CustomFileUpload user_id={props.userInfo.user_id} token_id={0} />
+          :<SimpleBackdrop user_id={props.userInfo.user_id}/>
+        }
       </ListGroupItem>
     </ListGroup>
   </Card>

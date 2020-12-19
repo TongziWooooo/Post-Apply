@@ -11,13 +11,13 @@ class UserProfileLite extends React.Component {
     super(props);
 
     this.state = {
-      userInfo: {}
+      userInfo: {name:" "}
     }
 
   }
 
   fetch_user_info () {
-    fetch('http://10.128.222.68:5000/user/' + window.sessionStorage.getItem("user_id"), {
+    fetch('http://10.128.222.68:5000/user/' + this.props.location.state.userID, {
       method: 'get',
       credentials: 'include',
       headers: {
@@ -59,7 +59,7 @@ class UserProfileLite extends React.Component {
           {/*  <UserDetails />*/}
           {/*</Col>*/}
           <Col lg="4">
-            <UserDetails userInfo={this.state.userInfo}/>
+            <UserDetails userInfo={this.state.userInfo} root={0}/>
           </Col>
           <Col lg="8">
             <UserAccountDetails

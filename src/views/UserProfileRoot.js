@@ -105,7 +105,7 @@ class UserProfileRoot extends React.Component {
         </Row>
         <Row>
           <Col lg="4">
-            <UserDetails userInfo={this.state.userInfo}/>
+            <UserDetails userInfo={this.state.userInfo} root={1}/>
           </Col>
           <Col lg="8">
             <UserAccountDetails
