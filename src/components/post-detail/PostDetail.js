@@ -72,7 +72,7 @@ class PostDetail extends React.Component {
             </a>
           </h5>
           <p className="card-text d-inline-block mb-3">{this.fiterLabelHandle(this.props.post.body)}</p>
-          <p className="text-muted">结束日期： {this.props.post.end_time}</p>
+          <p className="text-muted">结束日期： {this.props.post.end_date}</p>
           <p className="my-1">已召集 {this.props.post.people_approved} / {this.props.post.people_total}</p>
           <Progress
             theme="success"
@@ -80,7 +80,7 @@ class PostDetail extends React.Component {
             className="mb-2"
             value={(this.props.post.people_approved / this.props.post.people_total)*100}
           />
-          <Badge theme="success" className="mt-2">召集中</Badge>
+          <Badge theme="success" className="mt-2">{this.props.post.status}</Badge>
           {this.props.edit === true ?
             <Row>
               <Col className="col-md-2 offset-md-10">
