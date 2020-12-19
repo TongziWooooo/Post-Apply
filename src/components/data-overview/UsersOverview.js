@@ -8,8 +8,23 @@ class UsersOverview extends React.Component {
     super(props);
 
     this.canvasRef = React.createRef();
+    this.state = { chart : null }
+    console.log(this.props.chartData);
   }
-  componentWillUpdate(nextProps, nextState, nextContext) {
+
+  componentWillReceiveProps(nextProps) {
+    // update chart according to prop change
+      this.state.chart.data = nextProps.chartData;
+
+      // this.state.chart.data.push(nextProps.chartData)
+      this.state.chart.update();
+      console.log(this.props.chartData);
+      console.log(nextProps.chartData);
+      console.log(this.state.chart.data.datasets)
+  }
+
+  componentDidMount() {
+    console.log(this.props.chartData)
     const chartOptions = {
       ...{
         responsive: true,
@@ -65,21 +80,24 @@ class UsersOverview extends React.Component {
       ...this.props.chartOptions
     };
 
-    const DataOverview = new Chart(this.canvasRef.current, {
+    let DataUserOverview = new Chart(this.canvasRef.current, {
       type: "LineWithLine",
       data: this.props.chartData,
       options: chartOptions
     });
 
+    this.setState({ chart: DataUserOverview });
+
     // They can still be triggered on hover.
-    const buoMeta = DataOverview.getDatasetMeta(0);
+    const buoMeta = DataUserOverview.getDatasetMeta(0);
     buoMeta.data[0]._model.radius = 0;
     buoMeta.data[
     this.props.chartData.datasets[0].data.length - 1
       ]._model.radius = 0;
 
     // Render the chart.
-    DataOverview.render();  }
+    DataUserOverview.render();
+  }
 
   render() {
     const { title } = this.props;
