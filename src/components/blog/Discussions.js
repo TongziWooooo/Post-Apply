@@ -71,13 +71,6 @@ const Discussions = ({ title, discussions }) => (
     </CardBody>
 
     <CardFooter className="border-top">
-      <Row>
-        <Col className="text-center view-report">
-          <Button theme="white" type="submit">
-            View All Comments
-          </Button>
-        </Col>
-      </Row>
     </CardFooter>
   </Card>
 );

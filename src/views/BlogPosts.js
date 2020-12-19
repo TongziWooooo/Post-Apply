@@ -168,15 +168,18 @@ class BlogPosts extends React.Component {
 
   handleTypeSelect = (e) => {
     // alert(e.target.value);
+    let temp_posts;
     if (e.target.value === "所有类别") {
-      this.setState({displayPosts: this.posts});
+      temp_posts = this.posts.filter(post => {
+        return this.isQualifiedPosts(this.state.query, post.title);
+      })
     } else {
-      let temp_posts = this.posts.filter(post => {
-        return post.category === e.target.value;
+      temp_posts = this.posts.filter(post => {
+        return post.category === e.target.value && this.isQualifiedPosts(this.state.query, post.title);
       })
       // console.log(temp_posts)
-      this.setState({displayPosts: temp_posts});
     }
+    this.setState({displayPosts: temp_posts});
   }
 
   handleQuery(e) {
