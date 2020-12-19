@@ -6,7 +6,6 @@ import Chart from "../../utils/chart";
 class UsersOverview extends React.Component {
   constructor(props) {
     super(props);
-
     this.canvasRef = React.createRef();
     this.state = { chart : null }
     console.log(this.props.chartData);
@@ -15,7 +14,7 @@ class UsersOverview extends React.Component {
   componentWillReceiveProps(nextProps) {
     // update chart according to prop change
       this.state.chart.data = nextProps.chartData;
-
+      
       // this.state.chart.data.push(nextProps.chartData)
       this.state.chart.update();
       console.log(this.props.chartData);
