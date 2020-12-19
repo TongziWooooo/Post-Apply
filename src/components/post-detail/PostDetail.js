@@ -64,11 +64,10 @@ class PostDetail extends React.Component {
           </div>
         </div>
         <CardBody>
-          <span>@{this.props.post.send_user}</span>
-          <span> # {this.props.post.user_id}</span>
+          <span>@{this.props.post.author}</span>
           <h5 className="card-title">
             <a href="#" className="text-fiord-blue">
-              {this.props.post.token_name}
+              {this.props.post.title}
             </a>
           </h5>
           <p className="card-text d-inline-block mb-3">{this.fiterLabelHandle(this.props.post.body)}</p>
