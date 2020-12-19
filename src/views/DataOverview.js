@@ -7,7 +7,6 @@ import SmallStats from "./../components/common/SmallStats";
 import UsersOverview from "./../components/data-overview/UsersOverview";
 import TopUsers from "./../components/data-overview/TopUsers";
 import RangeDatePicker from "../components/common/RangeDatePicker";
-
 class DataOverview extends Component {
 
   constructor(props){
@@ -233,6 +232,17 @@ class DataOverview extends Component {
 
       })
     })
+    fetch("http://10.128.222.68:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
+        'Content-Type': 'application/json',
+      }
+    }).then((res)=>res.json()).then((res)=>{
+      this.setState({rank_list:res.data})
+    })
 
   }
     componentWillMount() {
@@ -246,7 +256,6 @@ class DataOverview extends Component {
         }
       }).then((res)=>res.json()).then((res)=>{
         this.setState({rank_list:res.data})
-
       })
 
 
@@ -275,7 +284,6 @@ class DataOverview extends Component {
                       <option value="3">广东省</option>
                     </FormSelect>
                   </Col>
-                  <CityForm city_form={this.state.city_form}/>
 
                   {this.state.province==="所有省"?
                     <Col>

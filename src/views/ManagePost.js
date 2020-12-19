@@ -78,7 +78,7 @@ class ManagePost extends React.Component {
         backgroundImage: require("../images/content-management/1.jpeg"),
         category: "技术交流",
         categoryTheme: "dark",
-        author: "猪笨笨",
+        author: res["data"]["token_info"]["user_name"],
         authorAvatar: require("../images/avatars/1.jpg"),
         title:res["data"]["token_info"]["token_name"],
         body:res["data"]["token_info"]["desc"],

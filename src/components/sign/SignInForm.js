@@ -97,7 +97,8 @@ class SignInForm extends React.Component {
               console.log(res["data"])
               window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
               window.sessionStorage.setItem("user_id",res["data"]["user_id"])
-              window.sessionStorage.setItem("user_name",res['data']['name'])
+              window.sessionStorage.setItem("user_name",res['data']['user_name'])
+
               this.props.history.push({
                 pathname: "/blog-posts"
               })

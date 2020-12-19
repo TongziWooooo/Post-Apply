@@ -24,6 +24,7 @@ import {Link} from "react-router-dom";
 
 
 var formatDate = function (date) {
+  console.log(date)
   var y = date.getFullYear();
   var m = date.getMonth() + 1;
   m = m < 10 ? ('0' + m) : m;
@@ -33,7 +34,7 @@ var formatDate = function (date) {
   var minute = date.getMinutes();
   minute = minute < 10 ? ('0' + minute) : minute;
   var second= date.getSeconds();
-  second = minute < 10 ? ('0' + second) : second;
+  second = second < 10 ? ('0' + second) : second;
   return y + '-' + m + '-' + d+' '+h+':'+minute+':'+ second;
 };
 

@@ -29,9 +29,9 @@ import {Link} from "react-router-dom";
         // 'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },
-      })
-      this.props.forceRender();
+      }).then(()=> {setTimeout(200,this.props.forceRender())
 
+    })
   }
 
   render() {
@@ -82,8 +82,8 @@ import {Link} from "react-router-dom";
                     <Link to={{pathname: "/manage-post", state: {postID: post.postID}}} style={{color: "#000"}}>
                       <Badge pill>{post.messages}</Badge>
                     </Link>
-                    :                    post.cur_num === 0 && post.messages=== 0?
-                    <a href="" style={{'color': 'red'}}>
+                    : post.cur_num === 0 && post.messages=== 0?
+                    <a  style={{'color': 'red'}}>
                       <span className="material-icons"
                             onClick={()=>{this.value = post.postID
                                 this.deletePost()
