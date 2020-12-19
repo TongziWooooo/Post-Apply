@@ -38,7 +38,13 @@ export default class UserActions extends React.Component {
             alt="User Avatar"
           />{" "}
           {/*TODO: user name undefined*/}
-          <span className="d-none d-md-inline-block">{window.sessionStorage.getItem("user_name")}</span>
+          <span className="d-none d-md-inline-block">
+            {window.sessionStorage.getItem("user_name")}
+            {/*{*/}
+            {/*  window.sessionStorage.getItem("user_name") === null ?*/}
+            {/*  "Admin" : window.sessionStorage.getItem("user_name")*/}
+            {/*}*/}
+          </span>
         </DropdownToggle>
         <Collapse tag={DropdownMenu} right small open={this.state.visible}>
           <DropdownItem tag={Link} to={{

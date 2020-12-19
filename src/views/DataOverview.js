@@ -7,7 +7,6 @@ import SmallStats from "./../components/common/SmallStats";
 import UsersOverview from "./../components/data-overview/UsersOverview";
 import TopUsers from "./../components/data-overview/TopUsers";
 import RangeDatePicker from "../components/common/RangeDatePicker";
-import CityForm from "../components/data-overview/CityForm.js";
 
 class DataOverview extends Component {
   constructor(props){

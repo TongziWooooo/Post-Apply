@@ -24,14 +24,17 @@ class SearchUser extends React.Component{
     super(props);
     this.state = {
 
-      users : [
-        {
-          user_name: "GitHub",
-          user_id: "12345",
-          user_type:"普通"
-        }
-        ]
+      query: "",
+
+
+      displayUsers: []
     }
+
+    this.users = [];
+
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleQuery = this.handleQuery.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   componentDidMount() {
@@ -45,11 +48,41 @@ class SearchUser extends React.Component{
           'Content-Type': 'application/json',
         },
       }
-      ).then((res)=>res.json()).then((res)=>{this.setState({users:res.data})})
+      ).then((res)=>res.json()).then((res)=>{
+        this.setState({displayUsers: res.data})
+        this.users = res.data;
+      })
+  }
+
+  onKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.handleSearch()
+    }
+  }
+
+  handleQuery(e) {
+    this.setState({query: e.target.value});
+  }
+
+  isQualifiedPosts(query, title) {
+    let flag = true;
+    query.split(" ").forEach(str => {
+      if (title.indexOf(str) === -1)
+        flag = false;
+    })
+    return flag;
+  }
+
+  handleSearch(e) {
+    let temp_users = this.users.filter(user => {
+      return this.isQualifiedPosts(this.state.query, user.user_name);
+    })
+    this.setState({displayUsers: temp_users});
+
+    // this.isQualifiedPosts("a d", "abc");
   }
 
   render(){
-    const users = this.props.users;
     return (
       <Container fluid className="main-content-container px-4">
         <Row noGutters className="page-header py-4">
@@ -59,18 +92,8 @@ class SearchUser extends React.Component{
           <Col>
             <Card>
               <CardBody>
-                <Row>
-                  <Col className="col-2">
-                    <FormSelect>
-                      <option selected>所有类别</option>
-                      <option value="1">技术交流</option>
-                      <option value="2">学业探讨</option>
-                      <option value="3">社会实践</option>
-                      <option value="4">公益志愿者</option>
-                      <option value="5">游玩</option>
-                    </FormSelect>
-                  </Col>
-                  <Col className="col-8">
+                <Row onKeyDown={this.onKeyDown} tabIndex="0">
+                  <Col className="col-10">
                   <InputGroup seamless className="ml-3">
                     <InputGroupAddon type="prepend">
                       <InputGroupText>
@@ -79,12 +102,13 @@ class SearchUser extends React.Component{
                     </InputGroupAddon>
                     <FormInput
                       className="navbar-search"
-                      placeholder="Search for something..."
+                      placeholder="Search for username..."
+                      onChange={this.handleQuery}
                     />
                   </InputGroup>
                   </Col>
                   <Col className="col-2">
-                    <Button outline theme='secondary'>搜索</Button>
+                    <Button outline theme='secondary' onClick={this.handleSearch}>搜索</Button>
                   </Col>
                 </Row>
               </CardBody>
@@ -96,7 +120,7 @@ class SearchUser extends React.Component{
             <Card>
               <CardBody className="p-0">
                 <ListGroup>
-                  {this.state.users.map((user, idx) => (
+                  {this.state.displayUsers.map((user, idx) => (
                     <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
                       <Link to={{
                         pathname: "/manager-profile-root",

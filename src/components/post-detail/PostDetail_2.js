@@ -25,7 +25,7 @@ class PostDetail extends React.Component {
   }
 
   componentWillMount() {
-    alert(this.props.post.desc)
+    // alert(this.props.post.desc)
         console.log(this.props.post)
     console.log("!!")
     this.setState({edit: this.props.edit})

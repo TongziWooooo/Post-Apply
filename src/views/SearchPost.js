@@ -23,16 +23,20 @@ import {Constants} from "../flux";
 class SearchPost extends React.Component{
   constructor(props) {
     super(props);
-    this.state =
-      {
-        posts: [{
-          token_id:"1",
-          state:"1",
-          user_name:"1",
-          user_id:"1"
-        }]
-      }
+    this.state = {
+      displayPosts: [],
+      query: "",
+      type: "",
+    }
+
+    this.posts = [];
+
+    this.handleTypeSelect = this.handleTypeSelect.bind(this);
+    this.handleQuery = this.handleQuery.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
+
   componentDidMount(){
     fetch('http://10.128.222.68:5000/token_list',{
       method:"GET",
@@ -43,8 +47,61 @@ class SearchPost extends React.Component{
         'Content-Type': 'application/json',
       }
     }).then((res)=>res.json()).then((res)=>{
-        this.setState({posts:res.data['token_list']})
+      console.log(res.data['token_list'])
+      this.posts = res.data['token_list'];
+      this.setState({displayPosts:res.data['token_list']})
     })
+  }
+
+  handleTypeSelect = (e) => {
+    let temp_posts;
+    if (e.target.value === "所有类别") {
+      temp_posts = this.posts.filter(post => {
+        return this.isQualifiedPosts(this.state.query, post.token_name);
+      })
+    } else {
+      temp_posts = this.posts.filter(post => {
+        return post.token_type === e.target.value && this.isQualifiedPosts(this.state.query, post.token_name);
+      })
+      // console.log(temp_posts)
+    }
+    this.setState({type: e.target.value, displayPosts: temp_posts});
+  }
+
+  handleQuery(e) {
+    this.setState({query: e.target.value});
+  }
+
+  isQualifiedPosts(query, title) {
+    let flag = true;
+    query.split(" ").forEach(str => {
+      if (title.indexOf(str) === -1)
+        flag = false;
+    })
+    return flag;
+  }
+
+  handleSearch(e) {
+    let temp_posts;
+    if (this.state.type === "所有类别") {
+      temp_posts = this.posts.filter(post => {
+        return this.isQualifiedPosts(this.state.query, post.token_name);
+      })
+    } else {
+      temp_posts = this.posts.filter(post => {
+        return post.token_type === this.state.type && this.isQualifiedPosts(this.state.query, post.token_name);
+      })
+      // console.log(temp_posts)
+    }
+    this.setState({displayPosts: temp_posts});
+
+    // this.isQualifiedPosts("a d", "abc");
+  }
+
+  onKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.handleSearch()
+    }
   }
 
 
@@ -55,19 +112,19 @@ class SearchPost extends React.Component{
         <Row noGutters className="page-header py-4">
           <PageTitle title="召集令数据" subtitle="Posts" className="text-sm-left mb-3" />
         </Row>
-        <Row className="mb-4">
+        <Row className="mb-4" onKeyDown={this.onKeyDown} tabIndex="0">
           <Col>
             <Card>
               <CardBody>
                 <Row>
                   <Col className="col-2">
-                    <FormSelect>
+                    <FormSelect onChange={this.handleTypeSelect}>
                       <option selected>所有类别</option>
-                      <option value="1">技术交流</option>
-                      <option value="2">学业探讨</option>
-                      <option value="3">社会实践</option>
-                      <option value="4">公益志愿者</option>
-                      <option value="5">游玩</option>
+                      <option value="技术交流">技术交流</option>
+                      <option value="学业探讨">学业探讨</option>
+                      <option value="社会实践">社会实践</option>
+                      <option value="公益志愿者">公益志愿者</option>
+                      <option value="游玩">游玩</option>
                     </FormSelect>
                   </Col>
                   <Col className="col-8">
@@ -79,12 +136,13 @@ class SearchPost extends React.Component{
                     </InputGroupAddon>
                     <FormInput
                       className="navbar-search"
-                      placeholder="Search for something..."
+                      placeholder="Search for post name"
+                      onChange={this.handleQuery}
                     />
                   </InputGroup>
                   </Col>
                   <Col className="col-2">
-                    <Button outline theme='secondary'>搜索</Button>
+                    <Button outline theme='secondary' onClick={this.handleSearch}>搜索</Button>
                   </Col>
                 </Row>
               </CardBody>
@@ -96,9 +154,7 @@ class SearchPost extends React.Component{
             <Card>
               <CardBody className="p-0">
                 <ListGroup>
-
-
-                  {this.state.posts.map((post, idx) => (
+                  {this.state.displayPosts.map((post, idx) => (
                     <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
                     <Row>
                     <Col className="col-2">

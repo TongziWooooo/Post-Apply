@@ -28,6 +28,7 @@ class BlogPosts extends React.Component {
     this.state = {
       displayPosts: [],
       query: "",
+      type: "所有类别",
       // First list of posts.
       // PostsListOne:
       PostsListOne: [
@@ -180,7 +181,7 @@ class BlogPosts extends React.Component {
       })
       // console.log(temp_posts)
     }
-    this.setState({displayPosts: temp_posts});
+    this.setState({type: e.target.value, displayPosts: temp_posts});
   }
 
   handleQuery(e) {
@@ -197,9 +198,17 @@ class BlogPosts extends React.Component {
   }
 
   handleSearch(e) {
-    let temp_posts = this.posts.filter(post => {
-      return this.isQualifiedPosts(this.state.query, post.title);
-    })
+    let temp_posts;
+    if (this.state.type === "所有类别") {
+      temp_posts = this.posts.filter(post => {
+        return this.isQualifiedPosts(this.state.query, post.title);
+      })
+    } else {
+      temp_posts = this.posts.filter(post => {
+        return post.category === this.state.type && this.isQualifiedPosts(this.state.query, post.title);
+      })
+      // console.log(temp_posts)
+    }
     this.setState({displayPosts: temp_posts});
 
     // this.isQualifiedPosts("a d", "abc");

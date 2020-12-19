@@ -30,8 +30,10 @@ class Editor extends Component{
         <Form className="add-new-post">
           <FormInput size="lg" className="mb-3" placeholder="请输入召集令标题" onChange={this.handleTitleChange} value={this.props.title}/>
           <ReactQuill className="add-new-post__editor mb-1"
-          placeholder="请输入召集令内容"
-          onChange={this.handleChange}  />
+                      placeholder="请输入召集令内容"
+                      onChange={this.handleChange}
+                      value={this.props.value}
+          />
         </Form>
       </CardBody>
     </Card>
