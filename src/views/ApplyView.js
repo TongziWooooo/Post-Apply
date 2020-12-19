@@ -89,7 +89,7 @@ class ApplyView extends React.Component {
     }
 };
   fetchPostInfo(){
-    fetch('http://127.0.0.1:5000/token?_id='+this.state.postID, {
+    fetch('http://10.128.222.68:5000/token?_id='+this.state.postID, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -137,7 +137,7 @@ class ApplyView extends React.Component {
 
   async fetch_req_info(){
     console.log("will fetch")
-    fetch('http://127.0.0.1:5000/token_req?token_id='+this.state.postID+'&user_id='+window.sessionStorage.getItem("user_id"), {
+    fetch('http://10.128.222.68:5000/token_req?token_id='+this.state.postID+'&user_id='+window.sessionStorage.getItem("user_id"), {
       method: 'GET',
       credentials: 'include',
       headers: {

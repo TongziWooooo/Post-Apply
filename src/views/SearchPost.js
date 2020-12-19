@@ -34,7 +34,7 @@ class SearchPost extends React.Component{
       }
   }
   componentDidMount(){
-    fetch('http://127.0.0.1:5000/token_list',{
+    fetch('http://10.128.222.68:5000/token_list',{
       method:"GET",
       credentials: 'include',
       headers: {

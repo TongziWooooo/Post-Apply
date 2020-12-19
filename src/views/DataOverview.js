@@ -179,7 +179,7 @@ class DataOverview extends Component {
   }
 
   onSubmit(){
-    fetch("http://127.0.0.1:5000/chart?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
+    fetch("http://10.128.222.68:5000/chart?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
       method: 'get',
       credentials: 'include',
       headers: {
@@ -272,7 +272,7 @@ class DataOverview extends Component {
 
   }
     componentWillMount() {
-      fetch("http://127.0.0.1:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
+      fetch("http://10.128.222.68:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
         method: 'get',
         credentials: 'include',
         headers: {

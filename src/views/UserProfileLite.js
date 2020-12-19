@@ -17,7 +17,7 @@ class UserProfileLite extends React.Component {
   }
 
   fetch_user_info () {
-    fetch('http://127.0.0.1:5000/user/' + window.sessionStorage.getItem("user_id"), {
+    fetch('http://10.128.222.68:5000/user/' + window.sessionStorage.getItem("user_id"), {
       method: 'get',
       credentials: 'include',
       headers: {

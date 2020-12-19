@@ -38,7 +38,7 @@ class SearchApply extends React.Component{
 
 }
   componentDidMount(){
-    fetch("http://127.0.0.1:5000/token_reqs",{
+    fetch("http://10.128.222.68:5000/token_reqs",{
       method: 'get',
       credentials: 'include',
       headers: {

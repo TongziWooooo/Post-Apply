@@ -86,7 +86,7 @@ class PostDetail extends React.Component {
               <Col className="col-md-2 offset-md-10">
                 <Link to={{
                   pathname: "/change-post",
-                  state: {postID: this.props.post.token_id}
+                  state: {postID: this.props.post.postID}
                 }}>
                   <Button>Edit</Button>
                 </Link>
