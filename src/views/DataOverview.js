@@ -7,7 +7,6 @@ import SmallStats from "./../components/common/SmallStats";
 import UsersOverview from "./../components/data-overview/UsersOverview";
 import TopUsers from "./../components/data-overview/TopUsers";
 import RangeDatePicker from "../components/common/RangeDatePicker";
-import CityForm from "../components/data-overview/CityForm"
 
 class DataOverview extends Component {
 
@@ -22,13 +21,7 @@ class DataOverview extends Component {
       formated_end_date: undefined,
       token_type: "技术交流",
       province: undefined,
-      city_form:                      <Col>
-        <FormSelect onChange={(e) => this.handleCityChange(e)}>
-          <option value="所有市" selected>所有市</option>
-          <option value="中山市" >中山市</option>
-          <option value="珠海市">珠海市</option>
-        </FormSelect>
-      </Col>,
+
 
       smallStats: [
         {
@@ -143,36 +136,7 @@ class DataOverview extends Component {
   handleProChange(e){
     this.setState({province:e.target.value})
 
-    if(e.target.value==="北京市"){
-      this.setState({city_form:                    <Col>
-          <FormSelect onChange={(e) => this.handleCityChange(e)}>
-            <option selected>所有市</option>
-            <option value="北京市">北京市</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </FormSelect>
-        </Col>})
-    }
-    if(e.target.value==="福建省"){
-      this.setState({city_form:                      <Col>
-          <FormSelect onChange={(e) => this.handleCityChange(e)}>
-            <option selected value="福州市">福州市</option>
-            <option value="厦门市">厦门市</option>
-          </FormSelect>
-        </Col>})
-    }
-    if(e.target.value==="广东省"){
-      this.setState({city_form:<Col>
-          <FormSelect onChange={(e) => this.handleCityChange(e)}>
-            <option value="所有市" selected>所有市</option>
-            <option value="中山市" >中山市</option>
-            <option value="珠海市">珠海市</option>
-          </FormSelect>
-        </Col>})
-    }
   }
-
-
 
   handleCityChange(e){
     this.setState({city:e.target.value})
@@ -313,6 +277,31 @@ class DataOverview extends Component {
                   </Col>
                   <CityForm city_form={this.state.city_form}/>
 
+                  {this.state.province==="所有省"?
+                    <Col>
+                      <FormSelect onChange={(e) => this.handleCityChange(e)}>
+                        <option selected>所有市</option>
+                        <option value="北京市">北京市</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </FormSelect>
+                    </Col>:
+                    this.state.province==="福建省"?
+                      <Col>
+                        <FormSelect onChange={(e) => this.handleCityChange(e)}>
+                          <option selected value="福州市">福州市</option>
+                          <option value="厦门市">厦门市</option>
+                        </FormSelect>
+                      </Col>:
+                      <Col>
+                        <FormSelect onChange={(e) => this.handleCityChange(e)}>
+                          <option value="所有市" selected>所有市</option>
+                          <option value="中山市" >中山市</option>
+                          <option value="珠海市">珠海市</option>
+                        </FormSelect>
+                      </Col>
+
+                  }
                   <Col>
                     <FormSelect onChange={(e)=>this.handleTypeChange(e)}>
                       <option selected>所有类别</option>

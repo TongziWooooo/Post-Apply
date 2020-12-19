@@ -13,6 +13,8 @@ import {
 } from "shards-react";
 import {withRouter} from "react-router-dom";
 import Constants from "../../flux/constants";
+import { Row, Col } from "shards-react";
+
 var formatDate = function(date){
   var y = date.getFullYear();
   var m = date.getMonth() + 1;
@@ -177,17 +179,24 @@ class ApplyEdit extends React.Component {
             
               </ButtonGroup>
             }
-              {
-                this.props.req_info.create_time?
-                  <p>create_time={this.props.req_info.create_time}</p>:
-                  null
-              }
-              {
-                this.props.req_info.update_time?
-                <p>update_time={this.props.req_info.update_time}</p>:null
-              }
+
             </FormGroup>
           </Form>
+          <Row className="p-2">
+
+          {
+            this.props.req_info.create_time ?
+              <Col className="text-muted">创建于 {this.props.req_info.create_time}</Col>
+              :
+              null
+          }
+          {
+            this.props.req_info.update_time ?
+              <Col className="text-muted text-right">更新于 {this.props.req_info.update_time}</Col>
+              :
+              null
+          }
+          </Row>
         </CardBody>
       </Card>
     )

@@ -32,7 +32,7 @@ class SignInForm extends React.Component {
     this.handlePassword = this.handlePassword.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.login = this.login.bind(this);
-
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   handleUsername (e) {
@@ -49,6 +49,12 @@ class SignInForm extends React.Component {
     })
     // console.log(this.props.history)
 
+  }
+
+  onKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.login()
+    }
   }
 
 
@@ -105,7 +111,7 @@ class SignInForm extends React.Component {
 
   render() {
     return (
-      <ListGroup flush>
+      <ListGroup flush onKeyDown={this.onKeyDown} tabIndex="0">
         <ListGroupItem className="p-3">
           <FormGroup>
             <FormInput placeholder="用户名" onChange={this.handleUsername} required/>
@@ -119,7 +125,7 @@ class SignInForm extends React.Component {
             />
           </FormGroup>
         </ListGroupItem>
-        <ListGroupItem className="d-flex px-3 border-0">
+        <ListGroupItem className="d-flex px-3 border-0" >
           <Button theme="accent" size="md" onClick={this.login}>登录</Button>
           <Link to={{pathname: "/sign-up"}} className="ml-auto">
             <Button outline theme="secondary" size="md">注册</Button>

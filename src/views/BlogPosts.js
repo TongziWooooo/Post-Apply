@@ -13,7 +13,7 @@ import {
   InputGroupAddon,
   InputGroupText,
   FormInput,
-  FormSelect
+  FormSelect, ListGroup
 } from "shards-react";
 
 import Constants from "../flux/constants";
@@ -104,6 +104,7 @@ class BlogPosts extends React.Component {
     this.handleTypeSelect = this.handleTypeSelect.bind(this);
     this.handleQuery = this.handleQuery.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
 
@@ -168,15 +169,21 @@ class BlogPosts extends React.Component {
 
   handleTypeSelect = (e) => {
     // alert(e.target.value);
-    let temp_posts = this.posts.filter(post => {
-      return post.category === e.target.value;
-    })
-    // console.log(temp_posts)
+    let temp_posts;
+    if (e.target.value === "所有类别") {
+      temp_posts = this.posts.filter(post => {
+        return this.isQualifiedPosts(this.state.query, post.title);
+      })
+    } else {
+      temp_posts = this.posts.filter(post => {
+        return post.category === e.target.value && this.isQualifiedPosts(this.state.query, post.title);
+      })
+      // console.log(temp_posts)
+    }
     this.setState({displayPosts: temp_posts});
   }
 
   handleQuery(e) {
-    alert(e.target.value);
     this.setState({query: e.target.value});
   }
 
@@ -198,6 +205,12 @@ class BlogPosts extends React.Component {
     // this.isQualifiedPosts("a d", "abc");
   }
 
+  onKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.handleSearch()
+    }
+  }
+
   componentDidMount(){
     this.fetch_posts()
   }
@@ -214,7 +227,7 @@ class BlogPosts extends React.Component {
           <Col>
             <Card>
               <CardBody className="p2-1">
-                <Row>
+                <Row onKeyDown={this.onKeyDown} tabIndex="0">
                   <Col className="col-2">
                     <FormSelect onChange={this.handleTypeSelect}>
                       <option selected>所有类别</option>
@@ -239,7 +252,7 @@ class BlogPosts extends React.Component {
                     />
                   </InputGroup>
                   </Col>
-                  <Col className="col-2">
+                  <Col className="col-2" >
                     <Button outline theme='secondary' onClick={this.handleSearch}>搜索</Button>
                   </Col>
                 </Row>

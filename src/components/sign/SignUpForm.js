@@ -9,7 +9,7 @@ import {
   FormSelect,
   Button
 } from "shards-react";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 class SignUpForm extends React.Component {
   constructor(props) {
@@ -20,12 +20,21 @@ class SignUpForm extends React.Component {
       lastName: "",
       username: "",
       idNumber: "",
-      city: "",
+      city: "选择城市",
       phoneNumber: "",
       password: "",
 
+      cityOptions: [],
+
       validUsername: true,
       validIdNumber: true
+    }
+
+    this.cityDict = {
+      "选择省份": [],
+      "北京市": ["北京市"],
+      "广东省": ["广州市", "深圳市", "中山市"],
+      "福建省": ["莆田市", "厦门市", "福州市"]
     }
 
     this.handleFirstName = this.handleFirstName.bind(this);
@@ -35,8 +44,19 @@ class SignUpForm extends React.Component {
     this.handleCity = this.handleCity.bind(this);
     this.handlePhoneNumber = this.handlePhoneNumber.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
+    this.handleProvince = this.handleProvince.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  checkRequired() {
+    return this.state.firstName &&
+      this.state.lastName &&
+      this.state.username &&
+      this.state.idNumber &&
+      this.state.city !== "选择城市" &&
+      this.state.phoneNumber &&
+      this.state.password
   }
 
   handleFirstName(e) {
@@ -67,6 +87,10 @@ class SignUpForm extends React.Component {
     this.setState({password: e.target.value});
   }
 
+  handleProvince(e) {
+    this.setState({cityOptions: this.cityDict[e.target.value]});
+  }
+
   handleSubmit() {
     // 记得修改state里面那两个valid
     // firstName: "",
@@ -76,6 +100,7 @@ class SignUpForm extends React.Component {
     //   city: "",
     //   phoneNumber: "",
     //   password: "",
+    if (this.checkRequired()) {
       fetch("http://10.128.222.68:5000/users",
         {
           method:"POST",
@@ -95,10 +120,18 @@ class SignUpForm extends React.Component {
           })
         }
 
-        )
-    this.props.history.push({
-      pathname: "/sign-in"
-    })
+      ).then(res => {
+        if (res.status === 200) {
+          this.props.history.push({
+            pathname: "/sign-in"
+          })
+        } else {
+          alert("用户名或身份证号已注册！");
+        }
+      })
+    } else {
+      alert("信息未填写完整，请重新填写！");
+    }
   }
 
   checkPhoneNumber() {
@@ -176,15 +209,21 @@ class SignUpForm extends React.Component {
           </FormGroup>
           <Row form>
             <Col md="6" className="form-group">
-              <FormSelect>
+              <FormSelect onChange={this.handleProvince}>
                 <option>选择省份</option>
-                <option>...</option>
+                <option>北京市</option>
+                <option>广东省</option>
+                <option>福建省</option>
               </FormSelect>
             </Col>
             <Col md="6" className="form-group">
-              <FormSelect>
+              <FormSelect onChange={this.handleCity}>
                 <option>选择城市</option>
-                <option>...</option>
+                {
+                  this.state.cityOptions.map(city => {
+                    return <option value={city}>{city}</option>
+                  })
+                }
               </FormSelect>
             </Col>
           </Row>
@@ -211,7 +250,7 @@ class SignUpForm extends React.Component {
           </FormGroup>
           <FormGroup className="d-flex px-3 border-0">
             <Button theme="accent" size="md" onClick={this.handleSubmit}>注册</Button>
-            <Button outline theme="secondary" size="md" className="ml-auto">登录</Button>
+            <Button outline theme="secondary" size="md" className="ml-auto" tag={Link} to={"/sign-in"}>返回</Button>
           </FormGroup>
         </Form>
       </Col>
