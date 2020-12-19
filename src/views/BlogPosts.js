@@ -144,7 +144,8 @@ class BlogPosts extends React.Component {
               title: res.data.token_list[i].token_name,
               // body:  res.data.token_list[i].desc,
               date: res.data.token_list[i].end_time,
-              has_req: res.data.token_list[i].has_req
+              has_req: res.data.token_list[i].has_req,
+              state:res.data.token_list[i].state
             }
             console.log(dic.postID)
             arr.push(dic)
@@ -233,7 +234,7 @@ class BlogPosts extends React.Component {
                       <option value="技术交流">技术交流</option>
                       <option value="学业探讨">学业探讨</option>
                       <option value="社会实践">社会实践</option>
-                      <option value="公益志愿">公益志愿</option>
+                      <option value="公益志愿者">公益志愿者</option>
                       <option value="游玩">游玩</option>
                     </FormSelect>
                   </Col>
@@ -296,7 +297,7 @@ class BlogPosts extends React.Component {
                   {/* <p className="card-text d-inline-block mb-3">{post.body}</p> */}
                   <span className="text-muted">结束日期：{post.date}</span>
                   <Row className="ml-0">
-                    <Badge theme="success" className="mt-2">召集中</Badge>
+                    <Badge theme="success" className="mt-2">{post.state}</Badge>
                   </Row>
                 </CardBody>
               </Card>

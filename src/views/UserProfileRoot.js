@@ -42,7 +42,6 @@ class UserProfileRoot extends React.Component {
         }
       )
       .then((res)=>{
-        console.log(res.data)
         let temp = res.data;
         temp.password = "";
         this.setState({userInfo: temp});

@@ -57,7 +57,7 @@ class ApplyEdit extends React.Component {
     this.setState({edit: !this.state.edit})
   }
 
-
+  
 
   handleSubmit() {
     console.log("ppppppppp")
@@ -170,13 +170,13 @@ class ApplyEdit extends React.Component {
                     </span>
                   </Button>
                 }
-
+                
                 <Button theme="white" onClick={this.handleDelete}>
                   <span className="text-danger">
                     <i className="material-icons" >clear</i>{" 删除"}
                   </span>
                 </Button>
-
+            
               </ButtonGroup>
             }
 

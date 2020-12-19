@@ -35,7 +35,6 @@ class SearchUser extends React.Component{
   }
 
   componentDidMount() {
-    alert("::::")
     fetch('http://10.128.222.68:5000/users',
       {
         method:"GET",

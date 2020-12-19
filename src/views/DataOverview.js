@@ -230,50 +230,11 @@ class DataOverview extends Component {
       }
       this.setState({chartData:chartData},()=> {   setTimeout(() => {  this.setState({chart:<UsersOverview title="统计图" chartData={this.state.chartData}    />}) }, 200)
 
-      //
 
       })
     })
 
   }
-//   [
-//     {
-//       label: "成交单数",
-//       value: "2,390",
-//       percentage: "4.7%",
-//       increase: true,
-//       chartLabels: [null, null, null, null, null, null, null],
-//
-//       attrs: { md: "6", sm: "6" },
-//       datasets: [
-//         {
-//           label: "Today",
-//           fill: "start",
-//           borderWidth: 1.5,
-//           backgroundColor: "rgba(0, 184, 216, 0.1)",
-//           borderColor: "rgb(0, 184, 216)",
-//           data: [1, 2, 1, 3, 5, 4, 7]
-//         }
-//       ]
-//     },
-// {
-//   label: "成交金额",
-//   value: "182",
-//   percentage: "12.4",
-//   increase: true,
-//   chartLabels: [null, null, null, null, null, null, null],
-//   attrs: { md: "6", sm: "6" },
-//   datasets: [
-//     {
-//       label: "Today",
-//       fill: "start",
-//       borderWidth: 1.5,
-//       backgroundColor: "rgba(23,198,113,0.1)",
-//       borderColor: "rgb(23,198,113)",
-//       data: [1, 2, 3, 3, 3, 4, 4]
-//     }
-//     ]
-// }
     componentWillMount() {
       fetch("http://10.128.222.68:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
         method: 'get',
@@ -314,6 +275,7 @@ class DataOverview extends Component {
                       <option value="3">广东省</option>
                     </FormSelect>
                   </Col>
+                  <CityForm city_form={this.state.city_form}/>
 
                   {this.state.province==="所有省"?
                     <Col>

@@ -118,7 +118,7 @@ class ApplyView extends React.Component {
         end_date: (res["data"]["token_info"]["end_time"]),
         people_total: res["data"]["token_info"]["max_num"],
         people_approved: res["data"]["token_info"]["cur_num"],
-        status: 1
+        status: res["data"]["token_info"]["state"]
       }
       this.setState({post:temp_post},()=>{console.log(this.state.post)})
 
@@ -175,7 +175,7 @@ class ApplyView extends React.Component {
   }
 
 
-  async componentDidMount(){
+  async componentWillMount(){
     this.fetchPostInfo()
     if (this.props.location.state.type === Constants.APPLY_POST) {
       this.setState({apply: <ApplyPost req_info={this.state.req_info} onToggle={this.onToggle} onChange={this.handleApplyDescChange} postID={this.state.post.postID}/>})
