@@ -29,7 +29,7 @@ class ApplyPost extends React.Component {
 
 
   handleSubmit(e) {
-    fetch("http://106.13.141.114:5009/token_req",{
+    fetch("http://127.0.0.1:5000/token_req",{
       method:'POST',
       headers: {
         'Accept': 'application/json',

@@ -7,6 +7,7 @@ import SmallStats from "./../components/common/SmallStats";
 import UsersOverview from "./../components/data-overview/UsersOverview";
 import TopUsers from "./../components/data-overview/TopUsers";
 import RangeDatePicker from "../components/common/RangeDatePicker";
+import CityForm from "../components/data-overview/CityForm"
 
 class DataOverview extends Component {
 
@@ -21,7 +22,13 @@ class DataOverview extends Component {
       formated_end_date: undefined,
       token_type: "技术交流",
       province: undefined,
-
+      city_form:                      <Col>
+        <FormSelect onChange={(e) => this.handleCityChange(e)}>
+          <option value="所有市" selected>所有市</option>
+          <option value="中山市" >中山市</option>
+          <option value="珠海市">珠海市</option>
+        </FormSelect>
+      </Col>,
 
       smallStats: [
         {
@@ -136,14 +143,43 @@ class DataOverview extends Component {
   handleProChange(e){
     this.setState({province:e.target.value})
 
+    if(e.target.value==="北京市"){
+      this.setState({city_form:                    <Col>
+          <FormSelect onChange={(e) => this.handleCityChange(e)}>
+            <option selected>所有市</option>
+            <option value="北京市">北京市</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </FormSelect>
+        </Col>})
+    }
+    if(e.target.value==="福建省"){
+      this.setState({city_form:                      <Col>
+          <FormSelect onChange={(e) => this.handleCityChange(e)}>
+            <option selected value="福州市">福州市</option>
+            <option value="厦门市">厦门市</option>
+          </FormSelect>
+        </Col>})
+    }
+    if(e.target.value==="广东省"){
+      this.setState({city_form:<Col>
+          <FormSelect onChange={(e) => this.handleCityChange(e)}>
+            <option value="所有市" selected>所有市</option>
+            <option value="中山市" >中山市</option>
+            <option value="珠海市">珠海市</option>
+          </FormSelect>
+        </Col>})
+    }
   }
+
+
 
   handleCityChange(e){
     this.setState({city:e.target.value})
   }
 
   onSubmit(){
-    fetch("http://106.13.141.114:5009/chart?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
+    fetch("http://127.0.0.1:5000/chart?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
       method: 'get',
       credentials: 'include',
       headers: {
@@ -230,52 +266,13 @@ class DataOverview extends Component {
       }
       this.setState({chartData:chartData},()=> {   setTimeout(() => {  this.setState({chart:<UsersOverview title="统计图" chartData={this.state.chartData}    />}) }, 200)
 
-      //
 
       })
     })
 
   }
-//   [
-//     {
-//       label: "成交单数",
-//       value: "2,390",
-//       percentage: "4.7%",
-//       increase: true,
-//       chartLabels: [null, null, null, null, null, null, null],
-//
-//       attrs: { md: "6", sm: "6" },
-//       datasets: [
-//         {
-//           label: "Today",
-//           fill: "start",
-//           borderWidth: 1.5,
-//           backgroundColor: "rgba(0, 184, 216, 0.1)",
-//           borderColor: "rgb(0, 184, 216)",
-//           data: [1, 2, 1, 3, 5, 4, 7]
-//         }
-//       ]
-//     },
-// {
-//   label: "成交金额",
-//   value: "182",
-//   percentage: "12.4",
-//   increase: true,
-//   chartLabels: [null, null, null, null, null, null, null],
-//   attrs: { md: "6", sm: "6" },
-//   datasets: [
-//     {
-//       label: "Today",
-//       fill: "start",
-//       borderWidth: 1.5,
-//       backgroundColor: "rgba(23,198,113,0.1)",
-//       borderColor: "rgb(23,198,113)",
-//       data: [1, 2, 3, 3, 3, 4, 4]
-//     }
-//     ]
-// }
     componentWillMount() {
-      fetch("http://106.13.141.114:5009/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
+      fetch("http://127.0.0.1:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
         method: 'get',
         credentials: 'include',
         headers: {
@@ -314,32 +311,8 @@ class DataOverview extends Component {
                       <option value="3">广东省</option>
                     </FormSelect>
                   </Col>
+                  <CityForm city_form={this.state.city_form}/>
 
-                  {this.state.province==="所有省"?
-                    <Col>
-                      <FormSelect onChange={(e) => this.handleCityChange(e)}>
-                        <option selected>所有市</option>
-                        <option value="北京市">北京市</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </FormSelect>
-                    </Col>:
-                    this.state.province==="福建省"?
-                      <Col>
-                        <FormSelect onChange={(e) => this.handleCityChange(e)}>
-                          <option selected value="福州市">福州市</option>
-                          <option value="厦门市">厦门市</option>
-                        </FormSelect>
-                      </Col>:
-                      <Col>
-                        <FormSelect onChange={(e) => this.handleCityChange(e)}>
-                          <option value="所有市" selected>所有市</option>
-                          <option value="中山市" >中山市</option>
-                          <option value="珠海市">珠海市</option>
-                        </FormSelect>
-                      </Col>
-
-                  }
                   <Col>
                     <FormSelect onChange={(e)=>this.handleTypeChange(e)}>
                       <option selected>所有类别</option>

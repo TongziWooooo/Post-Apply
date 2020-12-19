@@ -56,7 +56,7 @@ class ManagePost extends React.Component {
     }
 };
   fetchPostInfo(){
-    fetch('http://106.13.141.114:5009/token?_id='+this.state.postID, {
+    fetch('http://127.0.0.1:5000/token?_id='+this.state.postID, {
       method: 'GET',
       credentials: 'include',
       headers: {

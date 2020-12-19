@@ -76,7 +76,7 @@ class SignUpForm extends React.Component {
     //   city: "",
     //   phoneNumber: "",
     //   password: "",
-      fetch("http://106.13.141.114:5009/users",
+      fetch("http://127.0.0.1:5000/users",
         {
           method:"POST",
           credentials: 'include',
