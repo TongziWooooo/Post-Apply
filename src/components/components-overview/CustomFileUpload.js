@@ -1,4 +1,9 @@
 import React, {Component} from "react";
+import {
+  Button,
+  FormInput,
+  Form,
+} from "shards-react";
 class CustomFileUpload extends Component {
   submit(e){
     alert("yes")
@@ -13,12 +18,10 @@ class CustomFileUpload extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.submit}>
-          <input type="file" name='file'/>
-          <input type="submit" value="上传"/>
-        </form>
-      </div>
+        <Form onSubmit={this.submit}>
+          <FormInput type="file" name='file'/>
+          <FormInput type="submit" value="上传"/>
+        </Form>
     )
   }
 }

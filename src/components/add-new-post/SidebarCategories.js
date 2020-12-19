@@ -8,7 +8,6 @@ import {
   ListGroupItem,
   Button,
   InputGroup,
-  InputGroupAddon,
   FormCheckbox,
   FormInput
 } from "shards-react";
@@ -17,28 +16,15 @@ class SidebarCategories extends Component{
 
   constructor(props) {
     super(props);
-
     this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      orange: false,
-      lemon: false,
-      kiwi: false
-    };
   }
   componentDidMount(){
     console.log(this.props.type)
     console.log("???????????????")
-
-
   }
   handleChange(e, type) {
-
     this.props.handleTypeChange(type)
   }
-
-
-
-    // "技术交流","学业探讨","社会实践","公益志愿","缘来如此"
 
   render(){
     return(  
@@ -49,44 +35,33 @@ class SidebarCategories extends Component{
         <CardBody className="p-0">
           <ListGroup flush>
             <ListGroupItem className="px-3 pb-2">
-              <FormCheckbox className="mb-1" value="uncategorized" 
-              checked={this.props.type.jsjl}
-              onChange={e => this.handleChange(e, "jsjl")}   >
+              <FormCheckbox className="mb-1"
+                checked={this.props.type.jsjl}
+                onChange={e => this.handleChange(e, "jsjl")}   >
                 技术交流
               </FormCheckbox>
-              <FormCheckbox className="mb-1" value="design" 
-                          checked={this.props.type.xstt}
-                          onChange={e => this.handleChange(e, "xstt")}                
+              <FormCheckbox className="mb-1"
+                checked={this.props.type.xstt}
+                onChange={e => this.handleChange(e, "xstt")}                
               >
                 学业探讨
               </FormCheckbox>
-              <FormCheckbox className="mb-1" value="development"
-              checked={this.props.type.shsj}
-              onChange={e => this.handleChange(e, "shsj")}   >
+              <FormCheckbox className="mb-1"
+                checked={this.props.type.shsj}
+                onChange={e => this.handleChange(e, "shsj")}   >
                 社会实践
               </FormCheckbox>
-              <FormCheckbox className="mb-1" value="writing"
-              checked={this.props.type.gyzy}
-              onChange={e => this.handleChange(e, "gyzy")}   >
+              <FormCheckbox className="mb-1"
+                checked={this.props.type.gyzy}
+                onChange={e => this.handleChange(e, "gyzy")}   >
                 公益志愿
               </FormCheckbox>
-              <FormCheckbox className="mb-1" value="books"
-              checked={this.props.type.yw}
-              onChange={e => this.handleChange(e, "yw")}   >
+              <FormCheckbox className="mb-1"
+                checked={this.props.type.yw}
+                onChange={e => this.handleChange(e, "yw")}   >
                 缘来如此
               </FormCheckbox>
             </ListGroupItem>
-
-            {/* <ListGroupItem className="d-flex px-3">
-              <InputGroup className="ml-auto">
-                <FormInput placeholder="New category" />
-                <InputGroupAddon type="append">
-                  <Button theme="white" className="px-2">
-                    <i className="material-icons">add</i>
-                  </Button>
-                </InputGroupAddon>
-              </InputGroup>
-    </ListGroupItem> */}
           </ListGroup>
         </CardBody>
       </Card>

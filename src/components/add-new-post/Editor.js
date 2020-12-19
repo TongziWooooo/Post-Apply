@@ -9,14 +9,11 @@ class Editor extends Component{
   constructor(props){
     super(props);
 
-    // this.state={text:this.props.value}
     this.handleChange = this.handleChange.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
   }
 
   handleChange(value) {
-    // 为什么这里传进来的是真实值但Title的change传进来的是event?
-    // this.setState({ text: value });
     this.props.handleContent(value)
     console.log(value)
   };
@@ -31,11 +28,10 @@ class Editor extends Component{
       <Card small className="mb-3">
       <CardBody>
         <Form className="add-new-post">
-          <FormInput size="lg" className="mb-3" placeholder="召集令标题" onChange={this.handleTitleChange} value={this.props.title}/>
+          <FormInput size="lg" className="mb-3" placeholder="请输入召集令标题" onChange={this.handleTitleChange} value={this.props.title}/>
           <ReactQuill className="add-new-post__editor mb-1"
-                      placeholder="请输入召集令的详细描述"
-                      value={this.props.value}
-                      onChange={this.handleChange}  />
+          placeholder="请输入召集令内容"
+          onChange={this.handleChange}  />
         </Form>
       </CardBody>
     </Card>
