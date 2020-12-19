@@ -12,6 +12,7 @@ import {
   Col,
   Card,
   CardHeader,
+  CardBody
 } from "shards-react";
 
 
@@ -28,15 +29,16 @@ class SignIn extends React.Component {
 
   render() {
     return (
-      <Container fluid className="main-content-container px-4 pb-4 row justify-content-center">
+      <Container fluid className="main-content-container row justify-content-center">
         {/* Page Header */}
         <Row className="justify-content-center align-items-center">
           <Col>
-            <Card className="px-4" style={{ 'padding': '10px', 'height': '300px', 'width': '400px' }}>
-              <CardHeader className="border-bottom">
-                <h6 className="m-0">登录</h6>
-              </CardHeader>
-              <SignInForm />
+            <Card className="px-3" style={{'height': '480px', 'width': '350px'}}>
+              <CardBody>
+                <p style={{'color': '#007BFF', 'font-size': '55px'}} className="text-center mb-1"><i className="material-icons">fingerprint</i></p>
+                <h5 className="text-center mb-5">登录</h5>
+                <SignInForm />
+              </CardBody>
             </Card>
           </Col>
 

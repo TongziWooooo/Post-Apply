@@ -24,6 +24,7 @@ import {Link} from "react-router-dom";
 
 
 var formatDate = function (date) {
+  console.log(date)
   var y = date.getFullYear();
   var m = date.getMonth() + 1;
   m = m < 10 ? ('0' + m) : m;

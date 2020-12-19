@@ -46,7 +46,7 @@ class UserAccountDetails extends React.Component {
                       <label htmlFor="feUserID">用户ID</label>
                       <FormInput
                         id="feUserID"
-                        value={this.props.userInfo.id_no}
+                        value={this.props.userInfo.user_id}
                         disabled="disabled"
                         onChange={() => {}}
                       />
@@ -69,7 +69,7 @@ class UserAccountDetails extends React.Component {
                       <FormInput
                         id="feFirstName"
                         placeholder="First Name"
-                        value={this.props.userInfo.first_name}
+                        value={this.props.userInfo.name.split(" ")[0]}
                         disabled="disabled"
                         onChange={() => {}}
                       />
@@ -80,7 +80,7 @@ class UserAccountDetails extends React.Component {
                       <FormInput
                         id="feLastName"
                         placeholder="Last Name"
-                        value={this.props.userInfo.last_name}
+                        value={this.props.userInfo.name.split(" ")[1]}
                         disabled="disabled"
                         onChange={() => {}}
                       />

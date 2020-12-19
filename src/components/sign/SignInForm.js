@@ -97,7 +97,8 @@ class SignInForm extends React.Component {
               console.log(res["data"])
               window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
               window.sessionStorage.setItem("user_id",res["data"]["user_id"])
-              window.sessionStorage.setItem("user_name",res['data']['name'])
+              window.sessionStorage.setItem("user_name",res['data']['user_name'])
+
               this.props.history.push({
                 pathname: "/blog-posts"
               })
@@ -112,11 +113,13 @@ class SignInForm extends React.Component {
   render() {
     return (
       <ListGroup flush onKeyDown={this.onKeyDown} tabIndex="0">
-        <ListGroupItem className="p-3">
+        <ListGroupItem className="p-1">
           <FormGroup>
+          <label>用户名</label>
             <FormInput placeholder="用户名" onChange={this.handleUsername} required/>
           </FormGroup>
           <FormGroup>
+            <label>密码</label>
             <FormInput
               type="password"
               placeholder="密码"
@@ -126,9 +129,9 @@ class SignInForm extends React.Component {
           </FormGroup>
         </ListGroupItem>
         <ListGroupItem className="d-flex px-3 border-0" >
-          <Button theme="accent" size="md" onClick={this.login}>登录</Button>
-          <Link to={{pathname: "/sign-up"}} className="ml-auto">
-            <Button outline theme="secondary" size="md">注册</Button>
+          <Button pill size="md" className="m-auto" onClick={this.login}>登录</Button>
+          <Link to={{pathname: "/sign-up"}} className="m-auto">
+            <Button pill theme="secondary" size="md">注册</Button>
           </Link>
         </ListGroupItem>
       </ListGroup>

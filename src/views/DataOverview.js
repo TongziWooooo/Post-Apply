@@ -7,8 +7,8 @@ import SmallStats from "./../components/common/SmallStats";
 import UsersOverview from "./../components/data-overview/UsersOverview";
 import TopUsers from "./../components/data-overview/TopUsers";
 import RangeDatePicker from "../components/common/RangeDatePicker";
-
 class DataOverview extends Component {
+
   constructor(props){
     super(props)
     this.state = {
@@ -20,6 +20,7 @@ class DataOverview extends Component {
       formated_end_date: undefined,
       token_type: "技术交流",
       province: undefined,
+
 
       smallStats: [
         {
@@ -227,61 +228,34 @@ class DataOverview extends Component {
       )
       console.log(chartData)
     })
+    fetch("http://10.128.222.68:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
+      method: 'get',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization':window.sessionStorage.getItem('Authorization'),
+        'Content-Type': 'application/json',
+      }
+    }).then((res)=>res.json()).then((res)=>{
+      this.setState({rank_list:res.data})
+    })
+
   }
-//   [
-//     {
-//       label: "成交单数",
-//       value: "2,390",
-//       percentage: "4.7%",
-//       increase: true,
-//       chartLabels: [null, null, null, null, null, null, null],
-//
-//       attrs: { md: "6", sm: "6" },
-//       datasets: [
-//         {
-//           label: "Today",
-//           fill: "start",
-//           borderWidth: 1.5,
-//           backgroundColor: "rgba(0, 184, 216, 0.1)",
-//           borderColor: "rgb(0, 184, 216)",
-//           data: [1, 2, 1, 3, 5, 4, 7]
-//         }
-//       ]
-//     },
-// {
-//   label: "成交金额",
-//   value: "182",
-//   percentage: "12.4",
-//   increase: true,
-//   chartLabels: [null, null, null, null, null, null, null],
-//   attrs: { md: "6", sm: "6" },
-//   datasets: [
-//     {
-//       label: "Today",
-//       fill: "start",
-//       borderWidth: 1.5,
-//       backgroundColor: "rgba(23,198,113,0.1)",
-//       borderColor: "rgb(23,198,113)",
-//       data: [1, 2, 3, 3, 3, 4, 4]
-//     }
-//     ]
-// }
-    // componentWillMount() {
-    //   fetch("http://10.128.222.68:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
-    //     method: 'get',
-    //     credentials: 'include',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Authorization':window.sessionStorage.getItem('Authorization'),
-    //       'Content-Type': 'application/json',
-    //     }
-    //   }).then((res)=>res.json()).then((res)=>{
-    //     this.setState({rank_list:res.data})
-
-    //   })
+    componentWillMount() {
+      fetch("http://10.128.222.68:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
+        method: 'get',
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          'Authorization':window.sessionStorage.getItem('Authorization'),
+          'Content-Type': 'application/json',
+        }
+      }).then((res)=>res.json()).then((res)=>{
+        this.setState({rank_list:res.data})
+      })
 
 
-    //   }
+      }
 
   render() {
     return (

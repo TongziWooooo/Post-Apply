@@ -248,9 +248,9 @@ class SignUpForm extends React.Component {
             />
             <FormFeedback>至少 6 位，2 个数字，1 个大写，1 个小写</FormFeedback>
           </FormGroup>
-          <FormGroup className="d-flex px-3 border-0">
-            <Button theme="accent" size="md" onClick={this.handleSubmit}>注册</Button>
-            <Button outline theme="secondary" size="md" className="ml-auto" tag={Link} to={"/sign-in"}>返回</Button>
+          <FormGroup className="d-flex px-3 pt-4 border-0">
+            <Button pill size="md" onClick={this.handleSubmit}>注册</Button>
+            <Button pill theme="secondary" size="md" className="ml-auto" tag={Link} to={"/sign-in"}>返回</Button>
           </FormGroup>
         </Form>
       </Col>
