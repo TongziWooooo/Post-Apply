@@ -7,9 +7,9 @@ import SmallStats from "./../components/common/SmallStats";
 import UsersOverview from "./../components/data-overview/UsersOverview";
 import TopUsers from "./../components/data-overview/TopUsers";
 import RangeDatePicker from "../components/common/RangeDatePicker";
+import CityForm from "../components/data-overview/CityForm.js";
 
 class DataOverview extends Component {
-
   constructor(props){
     super(props)
     this.state = {
@@ -21,7 +21,6 @@ class DataOverview extends Component {
       formated_end_date: undefined,
       token_type: "技术交流",
       province: undefined,
-
 
       smallStats: [
         {
@@ -101,7 +100,7 @@ class DataOverview extends Component {
 
     this.handleStartDateChange = this.handleStartDateChange.bind(this)
     this.handleEndDateChange = this.handleEndDateChange.bind(this)
-  this.handleTypeChange = this.handleTypeChange.bind(this)
+    this.handleTypeChange = this.handleTypeChange.bind(this)
     this.handleCityChange = this.handleCityChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
@@ -152,105 +151,138 @@ class DataOverview extends Component {
         'Content-Type': 'application/json',
       }
     }).then((res)=>res.json()).then((res)=>{
-              console.log(res.data.num_arr)
-              let arr = [{
-                label: "成交单数",
-                value: res.data.total_num,
-                chartLabels: Array(res.data.label.length).fill(null),
-              attrs: { md: "6", sm: "6" },
-              datasets: [
-                {
-                  label: "Today",
-                  fill: "start",
-                  borderWidth: 1.5,
-                  backgroundColor: "rgba(0, 184, 216, 0.1)",
-                  borderColor: "rgb(0, 184, 216)",
-                  data: res.data.num_arr
-                }
-              ]
-              },
+        console.log(res.data.num_arr)
+        let arr = [{
+          label: "成交单数",
+          value: res.data.total_num,
+          chartLabels: Array(res.data.label.length).fill(null),
+          attrs: { md: "6", sm: "6" },
+          datasets: [
+            {
+              label: "Today",
+              fill: "start",
+              borderWidth: 1.5,
+              backgroundColor: "rgba(0, 184, 216, 0.1)",
+              borderColor: "rgb(0, 184, 216)",
+              data: res.data.num_arr
+            }
+          ]
+        },
+        {
+          label: "成交金额",
+          value: res.data.total_income,
+          percentage: "12.4",
+          increase: true,
+          chartLabels: Array(res.data.label.length).fill(null),
+          attrs: { md: "6", sm: "6" },
+          datasets: [
+            {
+              label: "Today",
+              fill: "start",
+              borderWidth: 1.5,
+              backgroundColor: "rgba(23,198,113,0.1)",
+              borderColor: "rgb(23,198,113)",
+              data: res.data.income_arr
+            }
+            ]
+          }]
+        console.log(arr[0].chartLabels)
+        this.setState({smallStats:arr})
 
-
-                {
-                label: "成交金额",
-                value: res.data.total_income,
-                percentage: "12.4",
-                increase: true,
-                  chartLabels: Array(res.data.label.length).fill(null),
-                attrs: { md: "6", sm: "6" },
-                datasets: [
-                  {
-                    label: "Today",
-                    fill: "start",
-                    borderWidth: 1.5,
-                    backgroundColor: "rgba(23,198,113,0.1)",
-                    borderColor: "rgb(23,198,113)",
-                    data: res.data.income_arr
-                  }
-                  ]
-               }]
-            console.log(arr[0].chartLabels)
-             this.setState({smallStats:arr})
-
-
-
-
-      let   chartData =
-      {
-        labels: res.data.label,
+        let chartData =
+        {
+          labels: res.data.label,
           datasets:
-        [
-          {
-            label: "成交单数",
-            fill: "start",
-            data: res.data.num_arr,
-            backgroundColor: "rgba(0,123,255,0.1)",
-            borderColor: "rgba(0,123,255,1)",
-            pointBackgroundColor: "#ffffff",
-            pointHoverBackgroundColor: "rgb(0,123,255)",
-            borderWidth: 1.5,
-            pointRadius: 0,
-            pointHoverRadius: 3
-          },
-          {
-            label: "中介费金额",
-            fill: "start",
-            data: res.data.income_arr,
-            backgroundColor: "rgba(255,65,105,0.1)",
-            borderColor: "rgba(255,65,105,1)",
-            pointBackgroundColor: "#ffffff",
-            pointHoverBackgroundColor: "rgba(255,65,105,1)",
-            borderDash: [3, 3],
-            borderWidth: 1,
-            pointRadius: 0,
-            pointHoverRadius: 2,
-            pointBorderColor: "rgba(255,65,105,1)"
-          }
-        ]
-      }
-      this.setState({chartData:chartData},()=> {   setTimeout(() => {  this.setState({chart:<UsersOverview title="统计图" chartData={this.state.chartData}    />}) }, 200)
-
-
-      })
-    })
-
-  }
-    componentWillMount() {
-      fetch("http://10.128.222.68:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
-        method: 'get',
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-          'Authorization':window.sessionStorage.getItem('Authorization'),
-          'Content-Type': 'application/json',
+          [
+            {
+              label: "成交单数",
+              fill: "start",
+              data: res.data.num_arr,
+              backgroundColor: "rgba(0,123,255,0.1)",
+              borderColor: "rgba(0,123,255,1)",
+              pointBackgroundColor: "#ffffff",
+              pointHoverBackgroundColor: "rgb(0,123,255)",
+              borderWidth: 1.5,
+              pointRadius: 0,
+              pointHoverRadius: 3
+            },
+            {
+              label: "中介费金额",
+              fill: "start",
+              data: res.data.income_arr,
+              backgroundColor: "rgba(255,65,105,0.1)",
+              borderColor: "rgba(255,65,105,1)",
+              pointBackgroundColor: "#ffffff",
+              pointHoverBackgroundColor: "rgba(255,65,105,1)",
+              borderDash: [3, 3],
+              borderWidth: 1,
+              pointRadius: 0,
+              pointHoverRadius: 2,
+              pointBorderColor: "rgba(255,65,105,1)"
+            }
+          ]
         }
-      }).then((res)=>res.json()).then((res)=>{
-        this.setState({rank_list:res.data})
+        this.setState({chartData:chartData},
+      //   ()=> {   setTimeout(() => {  this.setState({chart:<UsersOverview title="统计图" chartData={this.state.chartData}    />}) }, 200)
+      // }
+      )
+      console.log(chartData)
+    })
+  }
+//   [
+//     {
+//       label: "成交单数",
+//       value: "2,390",
+//       percentage: "4.7%",
+//       increase: true,
+//       chartLabels: [null, null, null, null, null, null, null],
+//
+//       attrs: { md: "6", sm: "6" },
+//       datasets: [
+//         {
+//           label: "Today",
+//           fill: "start",
+//           borderWidth: 1.5,
+//           backgroundColor: "rgba(0, 184, 216, 0.1)",
+//           borderColor: "rgb(0, 184, 216)",
+//           data: [1, 2, 1, 3, 5, 4, 7]
+//         }
+//       ]
+//     },
+// {
+//   label: "成交金额",
+//   value: "182",
+//   percentage: "12.4",
+//   increase: true,
+//   chartLabels: [null, null, null, null, null, null, null],
+//   attrs: { md: "6", sm: "6" },
+//   datasets: [
+//     {
+//       label: "Today",
+//       fill: "start",
+//       borderWidth: 1.5,
+//       backgroundColor: "rgba(23,198,113,0.1)",
+//       borderColor: "rgb(23,198,113)",
+//       data: [1, 2, 3, 3, 3, 4, 4]
+//     }
+//     ]
+// }
+    // componentWillMount() {
+    //   fetch("http://10.128.222.68:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
+    //     method: 'get',
+    //     credentials: 'include',
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Authorization':window.sessionStorage.getItem('Authorization'),
+    //       'Content-Type': 'application/json',
+    //     }
+    //   }).then((res)=>res.json()).then((res)=>{
+    //     this.setState({rank_list:res.data})
 
-      })
+    //   })
 
 
-      }
+    //   }
 
   render() {
     return (
@@ -275,7 +307,6 @@ class DataOverview extends Component {
                       <option value="3">广东省</option>
                     </FormSelect>
                   </Col>
-                  <CityForm city_form={this.state.city_form}/>
 
                   {this.state.province==="所有省"?
                     <Col>
@@ -351,7 +382,7 @@ class DataOverview extends Component {
             <Row>
               {/* Users Overview */}
               <Col lg="12" md="12" sm="12" className="mb-4">
-                {this.state.chart}
+                <UsersOverview title="统计图" chartData={this.state.chartData}></UsersOverview>
               </Col>
             </Row>
           </Col>
