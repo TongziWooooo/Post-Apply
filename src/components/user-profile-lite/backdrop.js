@@ -38,7 +38,7 @@ export default function SimpleBackdrop() {
         介绍视频
       </Button>
       <Backdrop className={classes.backdrop} open={open} >
-        {/*<img src="http://106.13.141.114:5009/videa"></img>*/}
+        {/*<img src="http://10.128.222.68:5000/videa"></img>*/}
         <Container fluid className="main-content-container px-4 pb-4 row justify-content-center">
           <Card>
             <CardBody>
@@ -50,7 +50,7 @@ export default function SimpleBackdrop() {
                     fluid={false}
                     width={640}
                     height={360}
-                    src="http://106.13.141.114:5009/videa?user_id=12"
+                    src="http://10.128.222.68:5000/videa?user_id=12"
                   />
                 </Col>
               </Row>
@@ -64,7 +64,7 @@ export default function SimpleBackdrop() {
             </CardBody>
           </Card>
         </Container>
-        
+
       </Backdrop>
     </div>
   );

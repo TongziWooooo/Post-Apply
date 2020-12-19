@@ -40,7 +40,7 @@ class ApplyList extends React.Component {
   fetchPostInfo(){
     // alert(this.props.postID)
 
-    fetch('http://106.13.141.114:5009/token_reqs?token_id='+this.props.postID, {
+    fetch('http://10.128.222.68:5000/token_reqs?token_id='+this.props.postID, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -71,9 +71,9 @@ class ApplyList extends React.Component {
             id: res.data[i].user_id,
             image: require("../../images/avatars/1.jpg"),
             name: res.data[i].user_name,
-            url: "#"  
+            url: "#"
           },
-        }     
+        }
         // alert(this.props.overflow)
         // alert(d.state)
         if(d.state==="0" && !this.props.overflow){
@@ -82,13 +82,13 @@ class ApplyList extends React.Component {
         }else if(d.state==="2" && this.props.overflow){
           count = count + 1
           arr.push(d)
-          
+
         }
         // alert(count)
       }
       console.log(arr)
       this.setState({post:arr},()=>{console.log(this.state.post)})
-      
+
     })
   }
 
@@ -101,7 +101,7 @@ class ApplyList extends React.Component {
     console.log(this.state.post)
     var item = this.state.post[e.target.value]
 
-    fetch("http://106.13.141.114:5009/token_req?user_id="+item.author.id+"&token_id="+item.token_id,{
+    fetch("http://10.128.222.68:5000/token_req?user_id="+item.author.id+"&token_id="+item.token_id,{
       method: 'PUT',
       credentials: 'include',
       headers: {
@@ -129,7 +129,7 @@ class ApplyList extends React.Component {
     console.log(this.state.post[e.target.value])
 
     var item = this.state.post[e.target.value]
-    fetch('http://106.13.141.114:5009/suc_detail', {
+    fetch('http://10.128.222.68:5000/suc_detail', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -148,15 +148,15 @@ class ApplyList extends React.Component {
     console.log(e.target.value)
     console.log(this.state.post[e.target.value])
     // this.fetchPostInfo()
-    
+
     // console.log(e.target.v)
 
     // console.log(e.target.value[1])
-    
+
 
   }
   render() {
-    
+
     return (
       <Card small className="blog-comments">
         <CardHeader className="border-bottom">

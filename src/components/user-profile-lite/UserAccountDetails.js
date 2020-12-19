@@ -128,6 +128,7 @@ class UserAccountDetails extends React.Component {
                   </Row>
                   <Row form>
                     {/* 手机号码 */}
+                    {/*TODO: 手机号、用户名、name没传过来*/}
                     <Col md="6" className="form-group">
                       <label htmlFor="fePhone">手机号码</label>
                       <FormInput

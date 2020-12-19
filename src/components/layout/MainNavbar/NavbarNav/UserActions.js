@@ -37,6 +37,7 @@ export default class UserActions extends React.Component {
             src={require("./../../../../images/avatars/0.jpg")}
             alt="User Avatar"
           />{" "}
+          {/*TODO: user name undefined*/}
           <span className="d-none d-md-inline-block">{window.sessionStorage.getItem("user_name")}</span>
         </DropdownToggle>
         <Collapse tag={DropdownMenu} right small open={this.state.visible}>

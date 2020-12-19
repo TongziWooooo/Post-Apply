@@ -22,7 +22,7 @@ class UserProfileRoot extends React.Component {
   }
 
   fetch_user_info () {
-    fetch('http://106.13.141.114:5009/user/' + this.props.location.state.userID
+    fetch('http://10.128.222.68:5000/user/' + this.props.location.state.userID
       , {
       method: 'get',
       credentials: 'include',
@@ -42,6 +42,7 @@ class UserProfileRoot extends React.Component {
         }
       )
       .then((res)=>{
+        console.log(res.data)
         let temp = res.data;
         temp.password = "";
         this.setState({userInfo: temp});
@@ -72,7 +73,7 @@ class UserProfileRoot extends React.Component {
   handleSubmit() {
     console.log(this.state.userInfo)
 
-    fetch('http://106.13.141.114:5009/user/' + this.props.location.state.userID, {
+    fetch('http://10.128.222.68:5000/user/' + this.props.location.state.userID, {
       method: 'PUT',
       credentials: 'include',
       headers: {

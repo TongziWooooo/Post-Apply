@@ -70,7 +70,7 @@ parserDate(date) {
 };
 
 fetchPostInfo(){
-  fetch('http://106.13.141.114:5009/token?_id='+this.props.location.state.postID, {
+  fetch('http://10.128.222.68:5000/token?_id='+this.props.location.state.postID, {
     method: 'GET',
     credentials: 'include',
     headers: {
@@ -160,7 +160,7 @@ componentDidMount(){
     console.log(temp)
 
 
-    fetch('http://106.13.141.114:5009/token', {
+    fetch('http://10.128.222.68:5000/token', {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -222,7 +222,7 @@ componentDidMount(){
 
   login(){
 
-    fetch('http://106.13.141.114:5009/session', {
+    fetch('http://10.128.222.68:5000/session', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -262,7 +262,7 @@ componentDidMount(){
 
   printSession(){
     console.log(window.sessionStorage.getItem('Authorization'))
-    fetch('http://106.13.141.114:5009/session', {
+    fetch('http://10.128.222.68:5000/session', {
       method: 'DELETE',
       credentials: 'include',
       headers: {

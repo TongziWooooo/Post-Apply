@@ -109,7 +109,7 @@ class BlogPosts extends React.Component {
 
 
   fetch_posts = ()=>{
-    fetch('http://106.13.141.114:5009/token_list?_id='+window.sessionStorage.getItem("user_id"), {
+    fetch('http://10.128.222.68:5000/token_list?_id='+window.sessionStorage.getItem("user_id"), {
       method: 'get',
       credentials: 'include',
       headers: {
@@ -167,11 +167,15 @@ class BlogPosts extends React.Component {
 
   handleTypeSelect = (e) => {
     // alert(e.target.value);
-    let temp_posts = this.posts.filter(post => {
-      return post.category === e.target.value;
-    })
-    // console.log(temp_posts)
-    this.setState({displayPosts: temp_posts});
+    if (e.target.value === "所有类别") {
+      this.setState({displayPosts: this.posts});
+    } else {
+      let temp_posts = this.posts.filter(post => {
+        return post.category === e.target.value;
+      })
+      // console.log(temp_posts)
+      this.setState({displayPosts: temp_posts});
+    }
   }
 
   handleQuery(e) {
@@ -220,7 +224,7 @@ class BlogPosts extends React.Component {
                       <option value="技术交流">技术交流</option>
                       <option value="学业探讨">学业探讨</option>
                       <option value="社会实践">社会实践</option>
-                      <option value="公益志愿者">公益志愿者</option>
+                      <option value="公益志愿">公益志愿</option>
                       <option value="游玩">游玩</option>
                     </FormSelect>
                   </Col>

@@ -55,12 +55,12 @@ class ApplyEdit extends React.Component {
     this.setState({edit: !this.state.edit})
   }
 
-  
+
 
   handleSubmit() {
     console.log("ppppppppp")
     // console.log(this.state.desc
-    fetch("http://106.13.141.114:5009/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
+    fetch("http://10.128.222.68:5000/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
       method:'PUT',
       headers: {
         'Accept': 'application/json',
@@ -83,7 +83,7 @@ class ApplyEdit extends React.Component {
     this.setState({edit: !this.state.edit})
   }
   handleDelete(){
-    fetch("http://106.13.141.114:5009/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
+    fetch("http://10.128.222.68:5000/token_req?token_id="+this.props.postID+'&user_id='+window.sessionStorage.getItem("user_id"),{
       method:'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -168,13 +168,13 @@ class ApplyEdit extends React.Component {
                     </span>
                   </Button>
                 }
-                
+
                 <Button theme="white" onClick={this.handleDelete}>
                   <span className="text-danger">
                     <i className="material-icons" >clear</i>{" 删除"}
                   </span>
                 </Button>
-            
+
               </ButtonGroup>
             }
               {

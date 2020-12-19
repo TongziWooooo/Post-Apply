@@ -23,24 +23,25 @@ class Editor extends Component{
   handleTitleChange(e){
     this.props.handleTitle(e)
     console.log(e.target.value)
-  
+
   }
-  
+
   render(){
     return(
       <Card small className="mb-3">
       <CardBody>
         <Form className="add-new-post">
-          <FormInput size="lg" className="mb-3" placeholder="Your Post Title" onChange={this.handleTitleChange} value={this.props.title}/>
-          <ReactQuill className="add-new-post__editor mb-1" 
-          value={this.props.value}
-          onChange={this.handleChange}  />
+          <FormInput size="lg" className="mb-3" placeholder="召集令标题" onChange={this.handleTitleChange} value={this.props.title}/>
+          <ReactQuill className="add-new-post__editor mb-1"
+                      placeholder="请输入召集令的详细描述"
+                      value={this.props.value}
+                      onChange={this.handleChange}  />
         </Form>
       </CardBody>
     </Card>
     )
   }
-  
+
 }
 
 export default Editor;

@@ -71,14 +71,14 @@ class PostDetail extends React.Component {
             {this.props.post.token_name}
           </a>
         </h5>
-        <p className="card-text d-inline-block mb-3">{this.fiterLabelHandle(this.props.post.desc)}</p>
+          <p className="card-text d-inline-block mb-3">{this.fiterLabelHandle(this.props.post.body)}</p>
         <p className="text-muted">结束日期： {this.props.post.end_time}</p>
-        <p className="my-1">已召集 {this.props.post.cur_num} / {this.props.post.max_num}</p>
+        <p className="my-1">已召集 {this.props.post.people_approved} / {this.props.post.people_total}</p>
         <Progress
           theme="success"
           style={{ height: "5px" }}
           className="mb-2"
-          value={(this.props.post.cur_num / this.props.post.max_num)*100}
+          value={(this.props.post.people_approved / this.props.post.people_total)*100}
         />
         <Badge theme="success" className="mt-2">召集中</Badge>
           {this.props.edit === true ?

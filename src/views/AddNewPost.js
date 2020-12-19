@@ -16,7 +16,7 @@ class AddNewPost extends Component{
     super(props);
     // alert(props.location.query.post_id)
     this.state = {
-      value: '请撰写一篇关于你喜欢的 DOM 元素的文章.',
+      value: '',
       end_time:undefined,
       formated_end_data:"",
 
@@ -73,7 +73,7 @@ class AddNewPost extends Component{
     console.log(temp)
 
 
-    fetch('http://106.13.141.114:5009/token', {
+    fetch('http://10.128.222.68:5000/token', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -131,7 +131,7 @@ class AddNewPost extends Component{
 
   login(){
 
-    fetch('http://106.13.141.114:5009/session', {
+    fetch('http://10.128.222.68:5000/session', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -171,7 +171,7 @@ class AddNewPost extends Component{
 
   printSession(){
     console.log(window.sessionStorage.getItem('Authorization'))
-    fetch('http://106.13.141.114:5009/session', {
+    fetch('http://10.128.222.68:5000/session', {
       method: 'DELETE',
       credentials: 'include',
       headers: {
@@ -192,7 +192,7 @@ class AddNewPost extends Component{
       <Container fluid className="main-content-container px-4 pb-4">
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
-          <PageTitle sm="4" title="发布召集令"  subtitle="New Post" 
+          <PageTitle sm="4" title="发布召集令"  subtitle="New Post"
                      className="text-sm-left"  />
         </Row>
 

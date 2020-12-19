@@ -28,7 +28,7 @@ class MyPosts extends React.Component {
   }
 
   fetch_posts = ()=>{
-    fetch('http://106.13.141.114:5009/token'+"?user_id="+window.sessionStorage.getItem("user_id"), {
+    fetch('http://10.128.222.68:5000/token'+"?user_id="+window.sessionStorage.getItem("user_id"), {
       method: 'get',
       credentials: 'include',
       headers: {

@@ -21,7 +21,7 @@ import {Link} from "react-router-dom";
 
   deletePost(){
     // alert(this.value)
-    fetch('http://106.13.141.114:5009/token'+"?token_id="+this.value, {
+    fetch('http://10.128.222.68:5000/token'+"?token_id="+this.value, {
       method: 'DELETE',
       credentials: 'include',
       headers: {
@@ -83,7 +83,7 @@ import {Link} from "react-router-dom";
                       <Badge pill>{post.messages}</Badge>
                     </Link>
                     :                    post.cur_num === 0 && post.messages=== 0?
-                    <a style={{'color': 'red'}}>
+                    <a href="" style={{'color': 'red'}}>
                       <span className="material-icons"
                             onClick={()=>{this.value = post.postID
                                 this.deletePost()
