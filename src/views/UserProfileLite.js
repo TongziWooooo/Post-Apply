@@ -21,7 +21,6 @@ class UserProfileLite extends React.Component {
       method: 'get',
       credentials: 'include',
       headers: {
-                'Authorization':window.sessionStorage.getItem('Authorization'),
         'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       },

@@ -52,12 +52,35 @@ const UserDetails = (props) => (
           {props.userInfo.info}
         </span>
       </ListGroupItem>
-      <ListGroupItem className="p-4 d-flex justify-content-center">
-        {props.root?
-          <CustomFileUpload user_id={props.userInfo.user_id} token_id={0} />
-          :<SimpleBackdrop user_id={props.userInfo.user_id}/>
-        }
-      </ListGroupItem>
+      {
+        props.root ?
+          <ListGroupItem className="text-muted d-block mb-2">
+            <strong className="text-muted d-block mb-2">
+              上传视频
+              {/*{userDetails.metaTitle}*/}
+            </strong>
+            <span>
+              <CustomFileUpload user_id={props.userInfo.user_id} token_id={0} />
+            </span>
+          </ListGroupItem>
+          :
+          <ListGroupItem className="text-muted d-block mb-2">
+            <strong className="text-muted d-block mb-2">
+              视频播放
+              {/*{userDetails.metaTitle}*/}
+            </strong>
+            <span>
+              <SimpleBackdrop user_id={props.userInfo.user_id}/>
+            </span>
+          </ListGroupItem>
+
+      }
+      {/*<ListGroupItem className="p-4 d-flex justify-content-center">*/}
+      {/*  {props.root?*/}
+      {/*    <CustomFileUpload user_id={props.userInfo.user_id} token_id={0} />*/}
+      {/*    :<SimpleBackdrop user_id={props.userInfo.user_id}/>*/}
+      {/*  }*/}
+      {/*</ListGroupItem>*/}
     </ListGroup>
   </Card>
 );
