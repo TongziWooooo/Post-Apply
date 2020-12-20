@@ -59,16 +59,17 @@ class SignInForm extends React.Component {
 
 
   login(){
-    if (this.state.username === "admin") {
-      if (this.state.password === "admin") {
-        this.props.history.push({
-          pathname: "/data-overview"
-        })
-      } else {
-        alert("密码错误")
-      }
-
-    } else {
+    // if (this.state.username === "admin") {
+    //   if (this.state.password === "admin") {
+    //     this.props.history.push({
+    //       pathname: "/data-overview"
+    //     })
+    //   } else {
+    //     alert("密码错误")
+    //   }
+    //
+    // } else {
+    // }
       var flag = 0
       fetch('http://10.128.222.68:5000/session', {
         method: 'POST',
@@ -99,13 +100,19 @@ class SignInForm extends React.Component {
               window.sessionStorage.setItem("user_id",res["data"]["user_id"])
               window.sessionStorage.setItem("user_name",res['data']['user_name'])
 
-              this.props.history.push({
-                pathname: "/blog-posts"
-              })
+              if (this.state.username === "admin") {
+                this.props.history.push({
+                  pathname: "/data-overview"
+                })
+              } else {
+                this.props.history.push({
+                  pathname: "/blog-posts"
+                })
+              }
+
             }
           }
         )
-    }
 
   }
 
