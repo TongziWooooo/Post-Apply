@@ -96,6 +96,7 @@ class SignInForm extends React.Component {
         .then(res =>{         //ref
             if(flag === 1 ){
               console.log(res["data"])
+              window.sessionStorage.clear()
               window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
               window.sessionStorage.setItem("user_id",res["data"]["user_id"])
               window.sessionStorage.setItem("user_name",res['data']['user_name'])

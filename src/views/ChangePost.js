@@ -284,8 +284,8 @@ componentDidMount(){
             handleActionDateChange={this.handleActionDateChange} onRef={this.onRef}
             onSubmit={this.handleSubmit}/>
 
-            <Button theme="accent" size="sm" className="ml-auto" onClick={this.login}>随便登录一下    </Button>
-            <Button theme="accent" size="sm" className="ml-auto" onClick={this.printSession}>看一下session    </Button>
+            {/*<Button theme="accent" size="sm" className="ml-auto" onClick={this.login}>随便登录一下    </Button>*/}
+            {/*<Button theme="accent" size="sm" className="ml-auto" onClick={this.printSession}>看一下session    </Button>*/}
 
           </Col>
         </Row>

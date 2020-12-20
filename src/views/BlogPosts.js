@@ -141,6 +141,7 @@ class BlogPosts extends React.Component {
               category: res.data.token_list[i].token_type,
               categoryUrl: "#",
               title: res.data.token_list[i].token_name,
+              authorAvatar: require("../images/avatars/2.jpg"),
               // body:  res.data.token_list[i].desc,
               date: res.data.token_list[i].end_time,
               has_req: res.data.token_list[i].has_req,
