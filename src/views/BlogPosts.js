@@ -124,7 +124,11 @@ class BlogPosts extends React.Component {
         res=>{
           if(res.status===200){
             return res.json()
-          }else{
+          } else if (res.status === 509) {
+            this.props.history.push("/sign-in")
+            return res.json()
+          }
+          else {
             alert("fail to get posts")
           }
         }
@@ -275,7 +279,7 @@ class BlogPosts extends React.Component {
               <Card small className="card-post card-post--1">
                 <div
                   className="card-post__image"
-                  style={{ backgroundImage: `url(http://127.0.0.1:5000/videa?token_id=`+post.postID+`)` }}
+                  style={{ backgroundImage: `url(http://10.128.222.68:5000/videa?token_id=`+post.postID+`)` }}
                 >
                   <Badge
                     pill

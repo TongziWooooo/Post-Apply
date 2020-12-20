@@ -46,6 +46,11 @@ class SearchPost extends React.Component{
         'Authorization':window.sessionStorage.getItem('Authorization'),
         'Content-Type': 'application/json',
       }
+    }).then(res => {
+      if (res.status === 509) {
+        this.props.history.push("/sign-in")
+      }
+      return res;
     }).then((res)=>res.json()).then((res)=>{
       console.log(res.data['token_list'])
       this.posts = res.data['token_list'];

@@ -280,17 +280,23 @@ class DataOverview extends Component {
 
   }
     componentWillMount() {
-      // fetch("http://10.128.222.68:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
-      //   method: 'get',
-      //   credentials: 'include',
-      //   headers: {
-      //            'Accept': 'application/json',
-       // 'Authorization':window.sessionStorage.getItem('Authorization'),//     'Authorization':window.sessionStorage.getItem('Authorization'),
-      //     'Content-Type': 'application/json',
-      //   }
-      // }).then((res)=>res.json()).then((res)=>{
-      //   this.setState({rank_list: res.data.order})
-      // })
+      fetch("http://10.128.222.68:5000/rank?start_date="+this.state.formated_start_date+"&end_date="+this.state.formated_end_date+"&city="+this.state.city+"&type="+this.state.token_type,{
+        method: 'get',
+        credentials: 'include',
+        headers: {
+                 'Accept': 'application/json',
+       'Authorization':window.sessionStorage.getItem('Authorization'),//     'Authorization':window.sessionStorage.getItem('Authorization'),
+          'Content-Type': 'application/json',
+        }
+      }).then(res => {
+        if (res.status === 509) {
+          this.props.history.push("/sign-in")
+        }
+        return res;
+      })
+        .then((res)=>res.json()).then((res)=>{
+        // this.setState({rank_list: res.data.order})
+      })
 
 
       }

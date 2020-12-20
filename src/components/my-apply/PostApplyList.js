@@ -8,7 +8,7 @@ import {
   Col,
   Badge, Button,
 } from "shards-react";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import Constants from "../../flux/constants";
 
  class PostApplyList extends React.Component {
@@ -33,6 +33,9 @@ import Constants from "../../flux/constants";
       .then(
         res=>{
           if(res.status===200){
+            return res.json()
+          }else if (res.status === 509) {
+            this.props.history.push("/sign-in")
             return res.json()
           }else{
             alert("fail to get posts")
@@ -131,4 +134,4 @@ import Constants from "../../flux/constants";
   }
 }
 
-export default PostApplyList;
+export default withRouter(PostApplyList);

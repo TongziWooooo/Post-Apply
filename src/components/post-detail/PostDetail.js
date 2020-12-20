@@ -46,7 +46,7 @@ class PostDetail extends React.Component {
       <Card small className="card-post card-post--1">
         <div
           className="card-post__image"
-          style={{ backgroundImage:`url(http://127.0.0.1:5000/videa?token_id=`+this.props.post.postID+`)` }}
+          style={{ backgroundImage:`url(http://10.128.222.68:5000/videa?token_id=`+this.props.post.postID+`)` }}
         >
           <Badge
             pill

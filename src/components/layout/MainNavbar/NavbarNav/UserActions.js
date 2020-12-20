@@ -20,12 +20,17 @@ export default class UserActions extends React.Component {
     };
 
     this.toggleUserActions = this.toggleUserActions.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   toggleUserActions() {
     this.setState({
       visible: !this.state.visible
     });
+  }
+
+  handleLogout() {
+    window.sessionStorage.clear()
   }
 
   render() {
@@ -69,7 +74,7 @@ export default class UserActions extends React.Component {
             <i className="material-icons">&#xE896;</i> Transactions
           </DropdownItem> */}
           <DropdownItem divider />
-          <DropdownItem tag={Link} to="/sign-in" className="text-danger">
+          <DropdownItem tag={Link} to="/sign-in" className="text-danger" onClick={this.handleLogout}>
             <i className="material-icons text-danger">&#xE879;</i> Logout
           </DropdownItem>
         </Collapse>

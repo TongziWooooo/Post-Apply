@@ -38,7 +38,7 @@ export default function SimpleBackdrop(props) {
           介绍视频
         </Button>
         <Backdrop className={classes.backdrop} open={open} >
-          {/*<img src="http://127.0.0.1:5000/videa"></img>*/}
+          {/*<img src="http://10.128.222.68:5000/videa"></img>*/}
           <Container fluid className="main-content-container px-4 pb-4 row justify-content-center">
             <Card>
               <CardBody>
@@ -51,7 +51,7 @@ export default function SimpleBackdrop(props) {
             fluid={false}
             width={480}
             height={272}
-            src={"http://127.0.0.1:5000/videa?user_id="+props.user_id}
+            src={"http://10.128.222.68:5000/videa?user_id="+props.user_id}
           />
                   </Col>
                 </Row>
