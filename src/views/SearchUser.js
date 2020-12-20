@@ -48,7 +48,12 @@ class SearchUser extends React.Component{
           'Content-Type': 'application/json',
         },
       }
-      ).then((res)=>res.json()).then((res)=>{
+      ).then(res => {
+      if (res.status === 509) {
+        this.props.history.push("/sign-in")
+      }
+      return res;
+    }).then((res)=>res.json()).then((res)=>{
         this.setState({displayUsers: res.data})
         this.users = res.data;
       })

@@ -39,7 +39,10 @@ class MyPosts extends React.Component {
       })
       .then(
         res=>{
-          if(res.status==200){
+          if(res.status === 200){
+            return res.json()
+          }else if (res.status === 509) {
+            this.props.history.push("/sign-in")
             return res.json()
           }else{
             alert("fail to get posts")
