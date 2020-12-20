@@ -129,7 +129,7 @@ class SearchUser extends React.Component{
                     <ListGroupItem key={idx} flush style={{"border-top": "1px solid #D3D3D3"}}>
                       <Link to={{
                         pathname: "/manager-profile-root",
-                        state: {userType: Constants.MANAGER, userID: user.user_id}
+                        state: {userType: Constants.MANAGER, userID: user.user_id, root:0}
                       }} style={{color: "#000"}}>
                         <Row>
                           <Col className="col-2">

@@ -58,7 +58,7 @@ export default class UserActions extends React.Component {
               :
               <DropdownItem tag={Link} to={{
                 pathname: "/user-profile-root",
-                state: {userType: Constants.USER, userID: window.sessionStorage.getItem("user_id")}
+                state: {userType: Constants.USER, userID: window.sessionStorage.getItem("user_id"),root:1}
               }}>
                 <i className="material-icons">&#xE7FD;</i> User Profile
               </DropdownItem>
