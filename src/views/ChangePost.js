@@ -52,7 +52,6 @@ class ChangePost extends Component{
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.FieldEditor1 = React.createRef();
     this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.login = this.login.bind(this);
     this.printSession = this.printSession.bind(this);
     this.fetchPostInfo = this.fetchPostInfo.bind(this);
     this.handleActionDateChange = this.handleActionDateChange.bind(this)
@@ -178,11 +177,12 @@ componentDidMount(){
   })
 
 
-})
+}).then()
     this.props.history.push({
       pathname: "/status",
       state: {postID: 123, type: Constants.SUCCEED}
     })
+    this.child.childFn(this.state.token_id)
 
 
 
@@ -220,30 +220,7 @@ componentDidMount(){
     this.setState({type: newStateType})
   }
 
-  login(){
 
-    fetch('http://10.128.222.68:5000/session', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-               'Accept': 'application/json',
-        'Authorization':window.sessionStorage.getItem('Authorization'),// "Cookie": "session=4067dbf4-bd0e-43e5-b599-19ba67adebeb",
-        'Content-Type': 'application/json',
-      },
-  body: JSON.stringify({
-    "username": "xxx",
-    "password": "xx",
-  })
-}).then(res => { if(res.status===200) return res.json()})
-.then(res =>{         //ref
-
-  console.log(res["data"])
-  window.sessionStorage.setItem("Authorization","JWT " + res["data"]["token"])
-  window.sessionStorage.setItem("user_id",res["data"]["user_id"])
-  window.sessionStorage.setItem("user_name","xxx")
-  }
-)
-  }
 // .then(
 //   (res)=>{
 //     if(res.status===200){
@@ -277,6 +254,9 @@ componentDidMount(){
 })
 
   }
+  onRef = (ref) => {
+    this.child = ref
+  }
 
   render(){
     return(
@@ -301,7 +281,7 @@ componentDidMount(){
             <SidebarCategories type={this.state.type} handleTypeChange={this.handleTypeChange} />
             <SidebarActions date={this.state.end_time} num={this.state.max_num}
             handleActionNumChange={this.handleActionNumChange}
-            handleActionDateChange={this.handleActionDateChange}
+            handleActionDateChange={this.handleActionDateChange} onRef={this.onRef}
             onSubmit={this.handleSubmit}/>
 
             <Button theme="accent" size="sm" className="ml-auto" onClick={this.login}>随便登录一下    </Button>

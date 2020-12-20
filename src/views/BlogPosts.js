@@ -94,12 +94,6 @@ class BlogPosts extends React.Component {
         },
       ],
 
-
-      // Third list of posts.
-
-
-      // Fourth list of posts.
-
     };
 
     this.handleTypeSelect = this.handleTypeSelect.bind(this);
@@ -282,7 +276,11 @@ class BlogPosts extends React.Component {
                   style={{ backgroundImage: `url(http://10.128.222.68:5000/videa?token_id=`+post.postID+`)` }}
                 >
                   <Badge
-                    pill
+                    pill theme={ post.category === "技术交流" ? "primary" : 
+                                 post.category === "学业探讨" ? "warning" : 
+                                 post.category === "社会实践" ? "info" : 
+                                 post.category === "公益志愿者" ? "dark" : "secondary"
+                  }
                     className={`card-post__category bg-${post.categoryTheme}`}
                   >
                     {post.category}
@@ -310,7 +308,10 @@ class BlogPosts extends React.Component {
                   {/* <p className="card-text d-inline-block mb-3">{post.body}</p> */}
                   <span className="text-muted">结束日期：{post.date}</span>
                   <Row className="ml-0">
-                    <Badge theme="success" className="mt-2">{post.state}</Badge>
+                    <Badge theme={ post.state === "待响应" ? "success" : 
+                                   post.state === "已取消" ? "info" : 
+                                   post.state === "已完成" ? "dark" : "secondary"} 
+                            className="mt-2">{post.state}</Badge>
                   </Row>
                 </CardBody>
               </Card>

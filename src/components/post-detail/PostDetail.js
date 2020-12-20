@@ -79,7 +79,9 @@ class PostDetail extends React.Component {
             className="mb-2"
             value={(this.props.post.people_approved / this.props.post.people_total)*100}
           />
-          <Badge theme="success" className="mt-2">{this.props.post.status}</Badge>
+          <Badge theme={ this.props.post.status === "待响应" ? "success" : 
+                         this.props.post.statuse === "已取消" ? "info" : 
+                         this.props.post.status === "已完成" ? "dark" : "secondary"}  className="mt-2">{this.props.post.status}</Badge>
           {this.props.edit === true ?
             <Row>
               <Col className="col-md-2 offset-md-10">
