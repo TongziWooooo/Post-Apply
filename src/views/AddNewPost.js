@@ -14,11 +14,10 @@ import {
 class AddNewPost extends Component{
   constructor(props) {
     super(props);
-    var default_date = new Date();
     this.state = {
       value: "",
-      end_time: default_date,
-      formated_end_data: default_date,
+      end_time: null,
+      formated_end_data: null,
       max_num: 10,
       title: "",
       type:{
@@ -49,6 +48,10 @@ class AddNewPost extends Component{
 
     if (this.state.title === "" || this.state.value === ""){
       alert('请输入标题和文章内容！');
+      return;
+    }
+    if (this.state.formated_end_data === null){
+      alert('请输入召集截止日期！');
       return;
     }
     event.preventDefault();
