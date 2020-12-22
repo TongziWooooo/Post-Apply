@@ -26,7 +26,7 @@ class SearchPost extends React.Component{
     this.state = {
       displayPosts: [],
       query: "",
-      type: "",
+      type: "所有类别",
     }
 
     this.posts = [];
@@ -187,7 +187,9 @@ class SearchPost extends React.Component{
                     </Link>
                     </Col>
                     <Col>
-                    <Badge theme="success">{post.state}</Badge>
+                    <Badge theme={ post.state === "待响应" ? "success" :
+                      post.state === "已取消" ? "info" :
+                        post.state === "已完成" ? "dark" : "secondary"}>{post.state}</Badge>
                     </Col>
                     </Row>
                     </ListGroupItem>

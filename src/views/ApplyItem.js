@@ -45,7 +45,7 @@ class ApplyItem extends React.Component {
                 请求描述
               </Button>
               <Popover
-                placement="bottom"
+                placement="right"
                 open={this.state.open}
                 toggle={this.toggle}
                 target={"#popover-" + this.props.idx}
