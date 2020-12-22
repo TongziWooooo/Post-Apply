@@ -21,7 +21,7 @@ class SignUp extends React.Component {
 
   render(){
     return (
-      <Container fluid className="main-content-container px-4 pb-4 row justify-content-center">
+      <Container fluid className="main-content-container px-4 py-4 row justify-content-center">
         <Row className="justify-content-center align-items-center">
           <Card className="px-3">
           {/* <Card className="px-3" style={{'height': '450px', 'width': '350px'}}> */}
@@ -32,13 +32,6 @@ class SignUp extends React.Component {
                   <SignUpForm />
                 </Row>
               </CardBody>
-            {/* </Card> */}
-            {/* <CardHeader className="border-bottom">
-              <h6 className="m-0">注册账号</h6>
-            </CardHeader>
-            <Row className="justify-content-center align-items-center" style={{'padding': '10px'}}>
-              <SignUpForm />
-            </Row> */}
           </Card>
         </Row>
       </Container>
