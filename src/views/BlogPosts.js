@@ -277,9 +277,9 @@ class BlogPosts extends React.Component {
                   style={{ backgroundImage: `url(http://10.128.222.68:5000/videa?token_id=`+post.postID+`)` }}
                 >
                   <Badge
-                    pill theme={ post.category === "技术交流" ? "primary" : 
-                                 post.category === "学业探讨" ? "warning" : 
-                                 post.category === "社会实践" ? "info" : 
+                    pill theme={ post.category === "技术交流" ? "primary" :
+                                 post.category === "学业探讨" ? "warning" :
+                                 post.category === "社会实践" ? "info" :
                                  post.category === "公益志愿者" ? "dark" : "secondary"
                   }
                     className={`card-post__category bg-${post.categoryTheme}`}
@@ -298,20 +298,23 @@ class BlogPosts extends React.Component {
                 <CardBody>
                 <span>@{post.author}</span>
                   <h5 className="card-title">
-                    <Link to={{
-                      pathname: "/apply-view",
-                      state: {postID: post.postID, type: post.has_req}//Constants.APPLY_POST}
-                    }} className="text-fiord-blue">
-                      {post.title}
-                    </Link>
-
+                    { post.state === "待响应" ?
+                      <Link to={{
+                        pathname: "/apply-view",
+                        state: {postID: post.postID, type: post.has_req}//Constants.APPLY_POST}
+                      }} className="text-fiord-blue">
+                        {post.title}
+                      </Link>
+                      :
+                      post.title
+                    }
                   </h5>
                   {/* <p className="card-text d-inline-block mb-3">{post.body}</p> */}
                   <span className="text-muted">结束日期：{post.date}</span>
                   <Row className="ml-0">
-                    <Badge theme={ post.state === "待响应" ? "success" : 
-                                   post.state === "已取消" ? "info" : 
-                                   post.state === "已完成" ? "dark" : "secondary"} 
+                    <Badge theme={ post.state === "待响应" ? "success" :
+                                   post.state === "已取消" ? "info" :
+                                   post.state === "已完成" ? "dark" : "secondary"}
                             className="mt-2">{post.state}</Badge>
                   </Row>
                 </CardBody>
